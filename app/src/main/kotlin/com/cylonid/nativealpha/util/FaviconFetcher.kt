@@ -21,6 +21,15 @@ object FaviconFetcher {
     private val inFlight = ConcurrentHashMap.newKeySet<Int>()
     private val failedCooldownMap = ConcurrentHashMap<Int, Long>()
     private const val FAILURE_COOLDOWN_MS = 60_000L
+    private const val ICON_SIZE = 128
+
+    private data class IconCandidate(val url: String, val priority: Int)
+
+    private enum class TitleSource {
+        MANIFEST,
+        OPEN_GRAPH,
+        DOCUMENT
+    }
 
     @JvmStatic
     fun isFailedInCooldown(webAppId: Int): Boolean {
@@ -57,6 +66,8 @@ object FaviconFetcher {
         executor.execute {
             var fetchedBitmap: Bitmap? = null
             var fetchedTitle: String? = null
+            var fetchedTitleSource: TitleSource? = null
+            var documentTitle: String? = null
 
             try {
                 val baseUrlStr = requestedBaseUrl
@@ -77,15 +88,16 @@ object FaviconFetcher {
                         .ignoreHttpErrors(true)
                         .get()
 
-                    val docTitle = doc.title().trim()
-                    if (docTitle.isNotEmpty()) {
-                        fetchedTitle = docTitle
-                    }
+                    documentTitle = doc.title().trim().takeIf { it.isNotEmpty() }
+                    val openGraphSiteName = doc.select(
+                        "meta[property=og:site_name], meta[name=og:site_name]"
+                    ).firstOrNull()?.attr("content")?.trim()?.takeIf { it.isNotEmpty() }
 
-                    val iconCandidates = mutableListOf<String>()
+                    val iconCandidates = mutableListOf<IconCandidate>()
+                    var manifestTitle: String? = null
 
                     // Check PWA manifest
-                    val manifestElement = doc.select("link[rel=manifest]").firstOrNull()
+                    val manifestElement = doc.select("link[rel~=manifest]").firstOrNull()
                     if (manifestElement != null) {
                         val manifestUrl = manifestElement.absUrl("href")
                         if (manifestUrl.isNotEmpty()) {
@@ -96,17 +108,25 @@ object FaviconFetcher {
                                     .execute()
                                     .body()
                                 val json = JSONObject(manifestBody)
-                                if (json.has("name") && (fetchedTitle.isNullOrEmpty() || fetchedTitle == requestedBaseUrl)) {
-                                    fetchedTitle = json.getString("name").trim()
-                                }
+                                manifestTitle = json.optString("short_name").trim()
+                                    .takeIf { it.isNotEmpty() }
+                                    ?: json.optString("name").trim().takeIf { it.isNotEmpty() }
                                 if (json.has("icons")) {
                                     val iconsArr = json.getJSONArray("icons")
                                     for (i in 0 until iconsArr.length()) {
                                         val iconObj = iconsArr.getJSONObject(i)
                                         val src = iconObj.optString("src")
-                                        if (src.isNotEmpty() && !src.lowercase().endsWith(".svg")) {
+                                        val type = iconObj.optString("type").lowercase()
+                                        if (src.isNotEmpty() &&
+                                            !src.lowercase().endsWith(".svg") &&
+                                            !type.contains("svg")) {
                                             val fullUrl = URL(URL(manifestUrl), src).toString()
-                                            iconCandidates.add(fullUrl)
+                                            iconCandidates.add(
+                                                IconCandidate(
+                                                    fullUrl,
+                                                    manifestIconPriority(iconObj.optString("sizes"))
+                                                )
+                                            )
                                         }
                                     }
                                 }
@@ -119,14 +139,8 @@ object FaviconFetcher {
                     for (link in appleIcons) {
                         val href = link.absUrl("href")
                         if (href.isNotEmpty() && !href.lowercase().endsWith(".svg")) {
-                            iconCandidates.add(href)
+                            iconCandidates.add(IconCandidate(href, 10))
                         }
-                    }
-
-                    // OpenGraph / Twitter preview images
-                    val ogImage = doc.select("meta[property=og:image]").firstOrNull()?.absUrl("content")
-                    if (!ogImage.isNullOrEmpty() && !ogImage.lowercase().endsWith(".svg")) {
-                        iconCandidates.add(ogImage)
                     }
 
                     // Favicons
@@ -134,17 +148,28 @@ object FaviconFetcher {
                     for (link in relIcons) {
                         val href = link.absUrl("href")
                         if (href.isNotEmpty() && !href.lowercase().endsWith(".svg")) {
-                            iconCandidates.add(href)
+                            iconCandidates.add(IconCandidate(href, 20))
                         }
                     }
 
-                    // Try extracted candidates
-                    for (candidateUrl in iconCandidates.distinct()) {
-                        val bmp = downloadBitmap(candidateUrl)
-                        if (bmp != null && bmp.width >= 32) {
-                            fetchedBitmap = bmp
+                    // Try extracted candidates in quality order. Social preview images are excluded.
+                    iconCandidates.sortWith(
+                        compareBy<IconCandidate> { it.priority }.thenBy { it.url }
+                    )
+                    for (candidate in iconCandidates.distinctBy { it.url }) {
+                        val bmp = downloadBitmap(candidate.url)
+                        if (bmp != null && bmp.width >= 32 && bmp.height >= 32) {
+                            fetchedBitmap = normalizeIcon(bmp)
                             break
                         }
+                    }
+
+                    fetchedTitle = manifestTitle ?: openGraphSiteName ?: documentTitle
+                    fetchedTitleSource = when {
+                        manifestTitle != null -> TitleSource.MANIFEST
+                        openGraphSiteName != null -> TitleSource.OPEN_GRAPH
+                        documentTitle != null -> TitleSource.DOCUMENT
+                        else -> null
                     }
                 } catch (_: Exception) {
                     // HTML scrape failed; fall through to direct service fallbacks
@@ -157,7 +182,7 @@ object FaviconFetcher {
                             Uri.encode(baseUrlStr) + "&size=128"
                     val googleBmp = downloadBitmap(googleUrl)
                     if (googleBmp != null && googleBmp.width >= 16) {
-                        fetchedBitmap = googleBmp
+                        fetchedBitmap = normalizeIcon(googleBmp)
                     }
                 }
 
@@ -166,7 +191,7 @@ object FaviconFetcher {
                     val ddgUrl = "https://icons.duckduckgo.com/ip3/$host.ico"
                     val ddgBmp = downloadBitmap(ddgUrl)
                     if (ddgBmp != null && ddgBmp.width >= 16) {
-                        fetchedBitmap = ddgBmp
+                        fetchedBitmap = normalizeIcon(ddgBmp)
                     }
                 }
 
@@ -174,7 +199,7 @@ object FaviconFetcher {
                     // Fallback C: Direct /apple-touch-icon.png
                     val appleBmp = downloadBitmap("$origin/apple-touch-icon.png")
                     if (appleBmp != null && appleBmp.width >= 32) {
-                        fetchedBitmap = appleBmp
+                        fetchedBitmap = normalizeIcon(appleBmp)
                     }
                 }
 
@@ -182,7 +207,7 @@ object FaviconFetcher {
                     // Fallback D: Direct /favicon.ico
                     val icoBmp = downloadBitmap("$origin/favicon.ico")
                     if (icoBmp != null && icoBmp.width >= 16) {
-                        fetchedBitmap = icoBmp
+                        fetchedBitmap = normalizeIcon(icoBmp)
                     }
                 }
             } catch (_: Exception) {
@@ -203,19 +228,69 @@ object FaviconFetcher {
                 if (latest != null && latest.isActiveEntry && latest.baseUrl.trim() == requestedBaseUrl) {
                     val title = fetchedTitle
                     val currentTitle = latest.title.trim()
-                    val cleanUrl = requestedBaseUrl.removePrefix("http://")
-                        .removePrefix("https://").removePrefix("www.").trimEnd('/')
-                    val host = Uri.parse(requestedBaseUrl).host?.removePrefix("www.")
-                    if (!title.isNullOrBlank() && (currentTitle.isEmpty() ||
-                            currentTitle.equals(cleanUrl, ignoreCase = true) ||
-                            currentTitle.equals(host, ignoreCase = true) ||
-                            currentTitle.equals(requestedBaseUrl, ignoreCase = true))) {
+                    val replacesDocumentTitle =
+                        fetchedTitleSource != null &&
+                                fetchedTitleSource != TitleSource.DOCUMENT &&
+                                documentTitle != null &&
+                                currentTitle.trimEnd('/').equals(
+                                    documentTitle?.trimEnd('/'),
+                                    ignoreCase = true
+                                )
+                    if (!title.isNullOrBlank() &&
+                        (isDefaultTitle(currentTitle, requestedBaseUrl) || replacesDocumentTitle)) {
                         latest.title = title
                         DataManager.getInstance().replaceWebApp(latest)
                     }
                 }
                 onComplete?.invoke()
             }
+        }
+    }
+
+    private fun manifestIconPriority(sizes: String): Int {
+        val largestDimension = Regex("(\\d+)[xX\\u00D7](\\d+)")
+            .findAll(sizes.lowercase())
+            .mapNotNull { it.groupValues.getOrNull(1)?.toIntOrNull() }
+            .maxOrNull()
+            ?: 0
+        return when {
+            largestDimension >= 512 -> 0
+            largestDimension >= 192 -> 1
+            else -> 20
+        }
+    }
+
+    private fun isDefaultTitle(title: String, baseUrl: String): Boolean {
+        if (title.isBlank()) return true
+        val normalizedTitle = title.trim().trimEnd('/')
+        val normalizedUrl = baseUrl.trim().trimEnd('/')
+        val readableUrl = normalizedUrl.removePrefix("http://")
+            .removePrefix("https://")
+            .removePrefix("www.")
+        val host = Uri.parse(normalizedUrl).host?.removePrefix("www.")
+        return normalizedTitle.equals(normalizedUrl, ignoreCase = true) ||
+                normalizedTitle.equals(readableUrl, ignoreCase = true) ||
+                (!host.isNullOrBlank() &&
+                        normalizedTitle.equals(host, ignoreCase = true))
+    }
+
+    private fun normalizeIcon(bitmap: Bitmap): Bitmap {
+        val edge = minOf(bitmap.width, bitmap.height)
+        val square = if (bitmap.width == bitmap.height) {
+            bitmap
+        } else {
+            Bitmap.createBitmap(
+                bitmap,
+                (bitmap.width - edge) / 2,
+                (bitmap.height - edge) / 2,
+                edge,
+                edge
+            )
+        }
+        return if (square.width == ICON_SIZE && square.height == ICON_SIZE) {
+            square
+        } else {
+            Bitmap.createScaledBitmap(square, ICON_SIZE, ICON_SIZE, true)
         }
     }
 
@@ -228,8 +303,12 @@ object FaviconFetcher {
                 instanceFollowRedirects = true
                 setRequestProperty("User-Agent", Const.DESKTOP_USER_AGENT)
             }
-            con.inputStream.use { inputStream ->
-                BitmapFactory.decodeStream(inputStream)
+            try {
+                con.inputStream.use { inputStream ->
+                    BitmapFactory.decodeStream(inputStream)
+                }
+            } finally {
+                con.disconnect()
             }
         }.getOrNull()
     }

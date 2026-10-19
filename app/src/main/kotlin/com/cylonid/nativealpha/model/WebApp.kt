@@ -69,7 +69,10 @@ data class WebApp(var baseUrl: String, val ID: Int) {
     var adBlockSettings = mutableListOf<AdblockConfig>()
 
     init {
-        title = baseUrl.replace("http://", "").replace("https://", "").replace("www.", "")
+        title = baseUrl.replace("http://", "")
+            .replace("https://", "")
+            .replace("www.", "")
+            .trimEnd('/')
         initDefaultSettings()
     }
 

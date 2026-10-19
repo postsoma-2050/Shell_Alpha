@@ -208,15 +208,9 @@ public class __WebViewActivity_6 extends AppCompatActivity implements EasyPermis
             return;
         }
 
-        if (!packageName.equals(processName) && hasSandboxing) {
-            if (SandboxManager.getInstance().isSandboxUsedByAnotherApp(webapp)) {
-                SandboxManager.getInstance().unregisterWebAppFromSandbox(webapp.getContainerId());
-                WebViewLauncher.startWebViewInNewProcess(webapp, this);
-                return;
-            }
+        if (hasSandboxing) {
             try {
                 SandboxManager.getInstance().registerWebAppToSandbox(webapp);
-                WebView.setDataDirectorySuffix(webapp.getContainerId() + webapp.getAlphanumericBaseUrl() + "_" + webapp.getID());
             } catch (IllegalStateException e) {
                 e.printStackTrace();
             }
@@ -1557,10 +1551,17 @@ public class __WebViewActivity_6 extends AppCompatActivity implements EasyPermis
         public void onReceivedTitle(WebView view, String title) {
             super.onReceivedTitle(view, title);
             if (title != null && !title.trim().isEmpty() && webapp != null) {
-                String cleanBase = webapp.getBaseUrl().replace("http://", "").replace("https://", "").replace("www.", "").trim();
-                if (webapp.getTitle() == null || webapp.getTitle().trim().isEmpty() ||
-                    webapp.getTitle().trim().equalsIgnoreCase(cleanBase) ||
-                    webapp.getTitle().trim().equalsIgnoreCase(webapp.getBaseUrl().trim())) {
+                String storedTitle = trimTrailingSlashes(webapp.getTitle());
+                String cleanBase = trimTrailingSlashes(
+                        webapp.getBaseUrl()
+                                .replace("http://", "")
+                                .replace("https://", "")
+                                .replace("www.", "")
+                                .trim());
+                String cleanUrl = trimTrailingSlashes(webapp.getBaseUrl().trim());
+                if (storedTitle.isEmpty() ||
+                    storedTitle.equalsIgnoreCase(cleanBase) ||
+                    storedTitle.equalsIgnoreCase(cleanUrl)) {
                     webapp.setTitle(title.trim());
                     DataManager.getInstance().replaceWebApp(webapp);
                     DataManager.getInstance().saveWebAppData();
@@ -1568,6 +1569,15 @@ public class __WebViewActivity_6 extends AppCompatActivity implements EasyPermis
                     populateQuickSettingsHeader();
                 }
             }
+        }
+
+        private String trimTrailingSlashes(@Nullable String value) {
+            if (value == null) return "";
+            int end = value.length();
+            while (end > 0 && value.charAt(end - 1) == '/') {
+                end--;
+            }
+            return value.substring(0, end).trim();
         }
 
         private View mCustomView;

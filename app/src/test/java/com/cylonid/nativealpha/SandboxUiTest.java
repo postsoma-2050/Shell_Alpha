@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import com.cylonid.nativealpha.model.DataManager;
 import com.cylonid.nativealpha.model.GlobalSettings;
+import com.cylonid.nativealpha.model.Sandbox;
 import com.cylonid.nativealpha.model.SandboxManager;
 import com.cylonid.nativealpha.model.WebApp;
 import com.cylonid.nativealpha.util.App;
@@ -119,6 +120,24 @@ public class SandboxUiTest {
             assertEquals("绿色", ((TextView) cardList.getChildAt(2).findViewById(R.id.sandboxName)).getText().toString());
             assertEquals("橙色", ((TextView) cardList.getChildAt(3).findViewById(R.id.sandboxName)).getText().toString());
         }
+    }
+
+    @Test
+    public void containerTracksMultipleAppsWithoutEviction() {
+        Sandbox sandbox = new Sandbox(0);
+
+        sandbox.registerWebApp(10);
+        sandbox.registerWebApp(11);
+
+        assertEquals(2, sandbox.getRegisteredWebAppCount());
+        assertTrue(sandbox.containsWebApp(10));
+        assertTrue(sandbox.containsWebApp(11));
+        assertFalse(sandbox.isUnoccupied());
+
+        sandbox.unregisterWebApp(10);
+
+        assertFalse(sandbox.containsWebApp(10));
+        assertTrue(sandbox.containsWebApp(11));
     }
 
     @Test

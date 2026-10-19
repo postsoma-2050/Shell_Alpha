@@ -50,17 +50,29 @@ object ShortcutIconUtils {
             return false
         }
 
-        val maxDimension = maxOf(bitmap.width, bitmap.height)
+        val edge = minOf(bitmap.width, bitmap.height)
+        val square = if (bitmap.width == bitmap.height) {
+            bitmap
+        } else {
+            Bitmap.createBitmap(
+                bitmap,
+                (bitmap.width - edge) / 2,
+                (bitmap.height - edge) / 2,
+                edge,
+                edge
+            )
+        }
+        val maxDimension = maxOf(square.width, square.height)
         val savedBitmap = if (maxDimension > MAX_FAVICON_SIZE) {
             val scale = MAX_FAVICON_SIZE.toFloat() / maxDimension
             Bitmap.createScaledBitmap(
-                bitmap,
-                maxOf(1, (bitmap.width * scale).toInt()),
-                maxOf(1, (bitmap.height * scale).toInt()),
+                square,
+                maxOf(1, (square.width * scale).toInt()),
+                maxOf(1, (square.height * scale).toInt()),
                 true
             )
         } else {
-            bitmap
+            square
         }
 
         val saved = runCatching {
@@ -76,7 +88,19 @@ object ShortcutIconUtils {
     fun loadFavicon(context: Context, webappId: Int): Bitmap? {
         memoryCache.get(webappId)?.let { return it }
         val file = faviconFile(context, webappId)
-        val bitmap = if (file.isFile) android.graphics.BitmapFactory.decodeFile(file.absolutePath) else null
+        var bitmap = if (file.isFile) android.graphics.BitmapFactory.decodeFile(file.absolutePath) else null
+        if (bitmap != null && bitmap.width != bitmap.height) {
+            val edge = minOf(bitmap.width, bitmap.height)
+            bitmap = runCatching {
+                Bitmap.createBitmap(
+                    bitmap!!,
+                    (bitmap!!.width - edge) / 2,
+                    (bitmap!!.height - edge) / 2,
+                    edge,
+                    edge
+                )
+            }.getOrNull() ?: bitmap
+        }
         if (bitmap != null) memoryCache.put(webappId, bitmap)
         return bitmap
     }

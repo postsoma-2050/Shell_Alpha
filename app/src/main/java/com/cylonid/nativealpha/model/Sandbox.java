@@ -1,39 +1,42 @@
 package com.cylonid.nativealpha.model;
 
+import java.util.HashSet;
+import java.util.Set;
+
 public class Sandbox {
     private final int sIndex;
-    private String baseUrl;
-    private int currently_registered_webapp = -1;
-    private static final String SANDBOX_NO_BASE_URL_SET = "SANDBOX_NO_BASE_URL";
-
+    private final Set<Integer> registeredWebapps = new HashSet<>();
 
     public Sandbox(int sIndex) {
         this.sIndex = sIndex;
-        this.baseUrl = SANDBOX_NO_BASE_URL_SET;
     }
 
     public int getCurrentlyRegisteredWebapp() {
-        return currently_registered_webapp;
+        return registeredWebapps.isEmpty() ? -1 : registeredWebapps.iterator().next();
     }
 
     public boolean isUnoccupied() {
-        return currently_registered_webapp == -1 && baseUrl.equals(SANDBOX_NO_BASE_URL_SET);
+        return registeredWebapps.isEmpty();
     }
 
-    public boolean isUsedByAnotherApp(WebApp webapp) {
-        if(this.isUnoccupied()) return false;
-
-        return currently_registered_webapp != webapp.getID() || !baseUrl.equals(webapp.getBaseUrl());
+    public boolean containsWebApp(int webAppId) {
+        return registeredWebapps.contains(webAppId);
     }
 
-    public void registerWebApp(int currentlyRegisteredWebapp, String baseUrl) {
-        this.currently_registered_webapp = currentlyRegisteredWebapp;
-        this.baseUrl = baseUrl;
+    public void registerWebApp(int webAppId) {
+        registeredWebapps.add(webAppId);
     }
 
-    public void unregisterWebApp() {
-        this.currently_registered_webapp = -1;
-        this.baseUrl = SANDBOX_NO_BASE_URL_SET;
+    public void unregisterWebApp(int webAppId) {
+        registeredWebapps.remove(webAppId);
+    }
+
+    public void unregisterAllWebApps() {
+        registeredWebapps.clear();
+    }
+
+    public int getRegisteredWebAppCount() {
+        return registeredWebapps.size();
     }
 
 }

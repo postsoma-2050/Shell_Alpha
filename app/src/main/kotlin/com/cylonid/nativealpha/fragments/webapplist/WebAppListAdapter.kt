@@ -116,10 +116,28 @@ class WebAppListAdapter(
             showItemContextMenu(item)
         }
 
-        // Favicon handling: load from memory cache / disk, or trigger async fetch
+        // Favicon handling: load from memory cache / disk, and backfill title if needed
         val cachedFavicon = ShortcutIconUtils.loadFavicon(activityOfFragment, item.ID)
+        val isDefaultOrUrl = isDefaultOrUrlTitle(item.title, item.baseUrl)
+
         if (cachedFavicon != null) {
             viewHolder.faviconView.setImageBitmap(cachedFavicon)
+            if (isDefaultOrUrl && !FaviconFetcher.isFailedInCooldown(item.ID)) {
+                FaviconFetcher.fetchAndSaveFaviconAsync(activityOfFragment, item) {
+                    val currentPosition = dataSet.indexOfFirst { it.ID == item.ID }
+                    if (currentPosition >= 0) {
+                        val updatedApp = DataManager.getInstance().websites.firstOrNull { it.ID == item.ID }
+                        val hasNewFavicon = ShortcutIconUtils.loadFavicon(activityOfFragment, item.ID) != null
+                        val titleChanged = updatedApp != null && updatedApp.title != dataSet[currentPosition].title
+                        if (hasNewFavicon || titleChanged) {
+                            if (updatedApp != null) {
+                                dataSet[currentPosition].title = updatedApp.title
+                            }
+                            notifyItemChanged(currentPosition)
+                        }
+                    }
+                }
+            }
         } else {
             viewHolder.faviconView.setImageBitmap(createFallbackIcon(item))
             if (!FaviconFetcher.isFailedInCooldown(item.ID)) {
@@ -177,6 +195,7 @@ class WebAppListAdapter(
                 )
                 gravity = android.view.Gravity.START
                 textAlignment = View.TEXT_ALIGNMENT_VIEW_START
+                setLines(1)
                 maxLines = 1
                 ellipsize = TextUtils.TruncateAt.END
                 setTextSize(android.util.TypedValue.COMPLEX_UNIT_SP, 14f)
@@ -219,6 +238,7 @@ class WebAppListAdapter(
                 )
                 gravity = android.view.Gravity.CENTER
                 textAlignment = View.TEXT_ALIGNMENT_CENTER
+                setLines(2)
                 maxLines = 2
                 ellipsize = TextUtils.TruncateAt.END
                 setTextSize(android.util.TypedValue.COMPLEX_UNIT_SP, 13f)
@@ -228,6 +248,20 @@ class WebAppListAdapter(
             viewHolder.settingsButton.visibility = View.GONE
             viewHolder.overflowButton.visibility = View.GONE
         }
+    }
+
+    private fun isDefaultOrUrlTitle(title: String, baseUrl: String): Boolean {
+        if (title.isBlank()) return true
+        val normalizedTitle = title.trim().trimEnd('/')
+        val normalizedUrl = baseUrl.trim().trimEnd('/')
+        val readableUrl = normalizedUrl.removePrefix("http://")
+            .removePrefix("https://")
+            .removePrefix("www.")
+        val host = android.net.Uri.parse(normalizedUrl).host?.removePrefix("www.")
+        return normalizedTitle.equals(normalizedUrl, ignoreCase = true) ||
+                normalizedTitle.equals(readableUrl, ignoreCase = true) ||
+                (!host.isNullOrBlank() && normalizedTitle.equals(host, ignoreCase = true)) ||
+                title.contains("://") || title.endsWith("/")
     }
 
     private fun configureActionButton(button: ImageButton, dp: (Int) -> Int) {

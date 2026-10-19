@@ -50,25 +50,20 @@ public class SandboxManager {
         normalizeSandbox(webapp);
         int sId = webapp.getContainerId();
         if (!isValidContainerId(sId)) return;
-        sandboxes[sId].registerWebApp(webapp.getID(), webapp.getBaseUrl());
-        Log.d("SBX ", "Sandbox "  + webapp.getContainerId() + " is occupied by " + webapp.getTitle());
+        sandboxes[sId].registerWebApp(webapp.getID());
+        Log.d("SBX", "Sandbox " + sId + " contains "
+                + sandboxes[sId].getRegisteredWebAppCount() + " app(s)");
     }
 
     public void unregisterWebAppFromSandbox(int sandboxId) {
         if (!isValidContainerId(sandboxId)) return;
-        if(!sandboxes[sandboxId].isUnoccupied()) {
+        if (!sandboxes[sandboxId].isUnoccupied()) {
             WebApp currently_set_webapp = DataManager.getInstance().getWebApp(sandboxes[sandboxId].getCurrentlyRegisteredWebapp());
-            sandboxes[sandboxId].unregisterWebApp();
+            sandboxes[sandboxId].unregisterAllWebApps();
             if (currently_set_webapp != null) {
                 Log.d("SBX", "Sandbox " + sandboxId + " is left by " + currently_set_webapp.getTitle());
             }
         }
-    }
-
-    public boolean isSandboxUsedByAnotherApp(@NonNull WebApp webapp) {
-        int sId = webapp.getContainerId();
-        if (!isValidContainerId(sId)) return false;
-        return sandboxes[sId].isUsedByAnotherApp(webapp);
     }
 
     public int getNextContainer() {

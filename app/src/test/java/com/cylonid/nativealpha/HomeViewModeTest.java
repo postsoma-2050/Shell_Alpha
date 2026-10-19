@@ -30,6 +30,8 @@ import org.robolectric.RuntimeEnvironment;
 import org.robolectric.android.controller.ActivityController;
 import org.robolectric.annotation.Config;
 
+import java.util.Arrays;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
@@ -116,6 +118,40 @@ public class HomeViewModeTest {
     }
 
     @Test
+    public void gridTitlesReserveTwoLinesForAlignedItemHeights() {
+        WebApp shortTitleApp = new WebApp("https://short.example", 9101);
+        shortTitleApp.setTitle("Short");
+        WebApp longTitleApp = new WebApp("https://long.example", 9102);
+        longTitleApp.setTitle("A longer Lite App title that wraps onto two lines");
+        cacheIcon(9101);
+        cacheIcon(9102);
+
+        try (ActivityController<MainActivity> controller =
+                     Robolectric.buildActivity(MainActivity.class).setup()) {
+            MainActivity activity = controller.get();
+            WebAppListAdapter adapter = new WebAppListAdapter(
+                    Arrays.asList(shortTitleApp, longTitleApp),
+                    activity,
+                    webapp -> kotlin.Unit.INSTANCE
+            );
+            adapter.setListMode(false);
+
+            View shortRow = inflateAndBind(adapter, activity, shortTitleApp, 0);
+            View longRow = inflateAndBind(adapter, activity, longTitleApp, 1);
+            int cellWidth = Math.round(80 * activity.getResources().getDisplayMetrics().density);
+            measureGridCell(shortRow, cellWidth);
+            measureGridCell(longRow, cellWidth);
+
+            TextView shortTitle = shortRow.findViewById(R.id.btnWebAppTitle);
+            TextView longTitle = longRow.findViewById(R.id.btnWebAppTitle);
+            assertEquals(2, shortTitle.getMaxLines());
+            assertEquals(2, longTitle.getMaxLines());
+            assertEquals(shortRow.getMeasuredHeight(), longRow.getMeasuredHeight());
+            assertEquals(shortTitle.getMeasuredHeight(), longTitle.getMeasuredHeight());
+        }
+    }
+
+    @Test
     public void searchStillFiltersAfterSwitchingModes() {
         DataManager.getInstance().addWebsite(new WebApp("https://search.example", 9002));
         try (ActivityController<MainActivity> controller =
@@ -139,6 +175,26 @@ public class HomeViewModeTest {
     private void cacheIcon(int id) {
         ShortcutIconUtils.saveFavicon(RuntimeEnvironment.getApplication(), id,
                 Bitmap.createBitmap(48, 48, Bitmap.Config.ARGB_8888));
+    }
+
+    private View inflateAndBind(
+            WebAppListAdapter adapter,
+            Context context,
+            WebApp app,
+            int position
+    ) {
+        View row = View.inflate(context, R.layout.web_app_list_item, null);
+        WebAppListAdapter.ViewHolder holder = adapter.getViewHolderForTest(row);
+        adapter.onBindViewHolderForTest(app, holder, position);
+        return row;
+    }
+
+    private void measureGridCell(View row, int width) {
+        row.measure(
+                View.MeasureSpec.makeMeasureSpec(width, View.MeasureSpec.EXACTLY),
+                View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED)
+        );
+        row.layout(0, 0, row.getMeasuredWidth(), row.getMeasuredHeight());
     }
 
     private void assertListRowGeometry(float fontScale) {

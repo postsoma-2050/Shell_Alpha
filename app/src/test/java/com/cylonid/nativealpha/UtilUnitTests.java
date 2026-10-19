@@ -18,6 +18,14 @@ public class UtilUnitTests {
     public void getWidthFromHTMLElementString() {
         assertEquals(192, ShortcutIconUtils.getWidthFromIcon("192x192"));
     }
+
+    @Test
+    public void defaultWebAppTitleTrimsTrailingSlashes() {
+        WebApp webapp = new WebApp("https://www.example.com/path/", Integer.MAX_VALUE);
+
+        assertEquals("example.com/path", webapp.getTitle());
+    }
+
     public void testShortcutHelper(String base_url, final String expected, final int result_index) {
         WebApp webapp = new WebApp(base_url, Integer.MAX_VALUE);
         ShortcutDialogFragment frag = ShortcutDialogFragment.newInstance(webapp);

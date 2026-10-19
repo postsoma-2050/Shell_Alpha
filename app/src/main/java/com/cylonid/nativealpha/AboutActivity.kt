@@ -42,7 +42,7 @@ class AboutActivity : AppCompatActivity() {
             setDescription(
                 """
                 ShellAlpha
-                by cylonid © ${Year.now().value}
+                by postsoma-2050 © ${Year.now().value}
                 """.trimIndent()
             )
             setImage(R.mipmap.ic_shellalpha_fg)
@@ -54,9 +54,6 @@ class AboutActivity : AppCompatActivity() {
                     R.string.privacy_policy
                 )
             )
-            if(BuildConfig.FLAVOR == "extendedGithub") {
-                addItem(showLiberaPay())
-            }
             addGroup(getString(R.string.eula_title))
             addItem(showEULA())
             addGroup(getString(R.string.license))
@@ -86,6 +83,13 @@ class AboutActivity : AppCompatActivity() {
         intent.setData(Uri.parse(String.format("https://github.com/%s", id)))
 
         gitHubElement.setIntent(intent)
+        gitHubElement.setOnClickListener {
+            try {
+                startActivity(intent)
+            } catch (e: Exception) {
+                // ignore
+            }
+        }
 
         return gitHubElement
     }
@@ -107,21 +111,6 @@ class AboutActivity : AppCompatActivity() {
             startActivity(i)
         }
         return license
-    }
-
-    fun showLiberaPay(): Element {
-        val element = Element()
-        element.setTitle(getString(R.string.support_liberapay))
-        element.setIconDrawable(R.drawable.liberapay_logo)
-        element.skipTint = true
-
-        element.setOnClickListener {
-            val url = "https://liberapay.com/cylonid"
-            val i = Intent(Intent.ACTION_VIEW)
-            i.setData(Uri.parse(url))
-            startActivity(i)
-        }
-        return element
     }
 
     fun showOpenSourcelibs(): Element {

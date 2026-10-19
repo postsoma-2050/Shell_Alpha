@@ -1,0 +1,9 @@
+<resources>
+    <string name="background_media_channel">后台媒体</string>
+    <string name="background_media_notification">离开此轻应用后，媒体仍可继续播放。</string>
+    <plurals name="background_media_multiple">
+        <item quantity="other">%1$d 个轻应用正在播放媒体</item>
+    </plurals>
+    <string name="background_media_stop">停止播放</string>
+    <string name="background_media_stopped">播放已停止</string>
+</resources>

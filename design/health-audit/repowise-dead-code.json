@@ -1,0 +1,79 @@
+[
+  {
+    "kind": "unreachable_file",
+    "file_path": "gradlew",
+    "symbol_name": null,
+    "confidence": 0.5,
+    "reason": "File has no importers (in_degree=0)",
+    "safe_to_delete": false,
+    "risk_factors": [],
+    "lines": 30,
+    "primary_owner": null
+  },
+  {
+    "kind": "unreachable_file",
+    "file_path": "app/src/main/java/com/cylonid/nativealpha/lib/MovableFloatingActionButton.java",
+    "symbol_name": null,
+    "confidence": 0.5,
+    "reason": "File has no importers (in_degree=0)",
+    "safe_to_delete": false,
+    "risk_factors": [],
+    "lines": 60,
+    "primary_owner": null
+  },
+  {
+    "kind": "unused_export",
+    "file_path": "app/src/main/java/com/cylonid/nativealpha/lib/MovableFloatingActionButton.java",
+    "symbol_name": "MovableFloatingActionButton",
+    "confidence": 0.4,
+    "reason": "'MovableFloatingActionButton' is not imported, but is named elsewhere in the repo",
+    "safe_to_delete": false,
+    "risk_factors": [],
+    "lines": 90,
+    "primary_owner": null
+  },
+  {
+    "kind": "unused_export",
+    "file_path": "app/src/main/java/com/cylonid/nativealpha/util/LocUtils.kt",
+    "symbol_name": "LocUtils",
+    "confidence": 0.4,
+    "reason": "Public symbol 'LocUtils' has no importers",
+    "safe_to_delete": false,
+    "risk_factors": [],
+    "lines": 6,
+    "primary_owner": null
+  },
+  {
+    "kind": "unused_export",
+    "file_path": "app/src/main/java/com/cylonid/nativealpha/util/ResourceImageGetter.kt",
+    "symbol_name": "ResourceImageGetter",
+    "confidence": 0.4,
+    "reason": "Public symbol 'ResourceImageGetter' has no importers",
+    "safe_to_delete": false,
+    "risk_factors": [],
+    "lines": 9,
+    "primary_owner": null
+  },
+  {
+    "kind": "unused_export",
+    "file_path": "app/src/main/kotlin/com/cylonid/nativealpha/util/ColorUtils.kt",
+    "symbol_name": "ColorUtils",
+    "confidence": 0.4,
+    "reason": "Public symbol 'ColorUtils' has no importers",
+    "safe_to_delete": false,
+    "risk_factors": [],
+    "lines": 19,
+    "primary_owner": null
+  },
+  {
+    "kind": "unused_export",
+    "file_path": "app/src/main/kotlin/com/cylonid/nativealpha/util/ContextExtensions.kt",
+    "symbol_name": "resIdByName",
+    "confidence": 0.4,
+    "reason": "Public symbol 'resIdByName' has no importers",
+    "safe_to_delete": false,
+    "risk_factors": [],
+    "lines": 5,
+    "primary_owner": null
+  }
+]

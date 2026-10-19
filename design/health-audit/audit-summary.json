@@ -1,0 +1,118 @@
+{
+  "tool": "repowise 0.49.0",
+  "date": "2026-10-19",
+  "git_history_available": false,
+  "scope": {
+    "maintained_java_kotlin_files": 61,
+    "production_java_kotlin_files": 47,
+    "unit_test_files": 11,
+    "instrumentation_test_files": 3,
+    "physical_lines_in_maintained_java_kotlin": 9006
+  },
+  "health": {
+    "hotspot_health": 10.0,
+    "average_health": 8.3,
+    "worst_performer_path": "app/src/main/kotlin/com/cylonid/nativealpha/util/FaviconFetcher.kt",
+    "worst_performer_score": 5.55,
+    "file_count": 69,
+    "maintainability_average": 8.19,
+    "maintainability_hotspot": null,
+    "performance_average": 10.0,
+    "performance_hotspot": null
+  },
+  "raw_before_exclusions": {
+    "hotspot_health": 10.0,
+    "average_health": 6.6,
+    "worst_performer_path": "app/src/main/kotlin/com/cylonid/nativealpha/util/FaviconFetcher.kt",
+    "worst_performer_score": 5.35,
+    "file_count": 223,
+    "maintainability_average": 5.86,
+    "maintainability_hotspot": null,
+    "performance_average": 10.0,
+    "performance_hotspot": null
+  },
+  "health_findings": {
+    "total": 105,
+    "by_type": {
+      "dry_violation": 34,
+      "low_cohesion": 6,
+      "complex_method": 21,
+      "complex_conditional": 7,
+      "large_method": 8,
+      "brain_method": 1,
+      "god_class": 2,
+      "nested_complexity": 6,
+      "bumpy_road": 3,
+      "primitive_obsession": 2,
+      "error_handling": 3,
+      "hot_path_sync_io": 1,
+      "duplicated_assertion_block": 11
+    }
+  },
+  "dead_code": {
+    "candidate_count": 7,
+    "safe_to_delete_count": 0
+  },
+  "lint": {
+    "raw_counts": {
+      "Error": 10,
+      "Warning": 360
+    },
+    "normalized_counts_after_collapsing_eight_generated_webviews": {
+      "Error": 2,
+      "Warning": 320
+    },
+    "by_type": {
+      "MissingSuperCall": 9,
+      "ScopedStorage": 2,
+      "UnusedAttribute": 1,
+      "RedundantLabel": 8,
+      "DiscouragedApi": 11,
+      "UseCompatLoadingForDrawables": 1,
+      "Untranslatable": 12,
+      "LogNotTimber": 21,
+      "PluralsCandidate": 9,
+      "PermissionImpliesUnsupportedChromeOsHardware": 1,
+      "WebViewClientOnReceivedSslError": 18,
+      "DataExtractionRules": 1,
+      "ObsoleteSdkInt": 2,
+      "UseCompoundDrawables": 8,
+      "VectorPath": 2,
+      "Overdraw": 5,
+      "UnusedResources": 218,
+      "TooDeepLayout": 1,
+      "TooManyViews": 1,
+      "TypographyEllipsis": 3,
+      "IconLauncherShape": 5,
+      "MonochromeLauncherIcon": 1,
+      "IconDuplicates": 5,
+      "TextFields": 1,
+      "Autofill": 12,
+      "ContentDescription": 1,
+      "LabelFor": 6,
+      "HardcodedText": 2,
+      "RtlSymmetry": 3
+    }
+  },
+  "limits": [
+    "Static scores do not establish runtime performance or correctness.",
+    "No Git history/churn analysis or measured coverage input available.",
+    "Android entry points, XML and data binding require manual reachability verification.",
+    "No connected device/emulator validation."
+  ],
+  "after_requested_changes": {
+    "health": {
+      "hotspot_health": 10.0,
+      "average_health": 8.26,
+      "worst_performer_path": "app/src/main/kotlin/com/cylonid/nativealpha/util/FaviconFetcher.kt",
+      "worst_performer_score": 5.55,
+      "file_count": 74,
+      "maintainability_average": 8.24,
+      "maintainability_hotspot": null,
+      "performance_average": 10.0,
+      "performance_hotspot": null
+    },
+    "markers": 134,
+    "note": "Background media and Hermit-style grid/list implementation; final build/test evidence is recorded separately."
+  }
+}

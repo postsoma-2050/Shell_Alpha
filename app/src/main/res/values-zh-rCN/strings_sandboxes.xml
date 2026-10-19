@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="sandbox_ui_title">沙箱</string>
+    <string name="sandbox_ui_description">为此轻应用选择容器，或查看每个沙箱中的轻应用。</string>
+    <string name="sandbox_ui_isolated_note">默认环境中的轻应用共享浏览数据；彩色沙箱中的轻应用使用各自独立的站点数据。</string>
+    <string name="sandbox_ui_back">返回</string>
+    <string name="sandbox_ui_default_name">默认</string>
+    <string name="sandbox_ui_color_blue">蓝色</string>
+    <string name="sandbox_ui_color_green">绿色</string>
+    <string name="sandbox_ui_color_orange">橙色</string>
+    <string name="sandbox_ui_color_purple">紫色</string>
+    <string name="sandbox_ui_color_teal">青绿色</string>
+    <string name="sandbox_ui_color_pink">粉色</string>
+    <string name="sandbox_ui_color_amber">琥珀色</string>
+    <string name="sandbox_ui_color_indigo">靛蓝色</string>
+    <string name="sandbox_ui_active_count">%1$d 个活跃轻应用</string>
+    <string name="sandbox_ui_expand">显示已分配的轻应用</string>
+    <string name="sandbox_ui_collapse">隐藏已分配的轻应用</string>
+    <string name="sandbox_ui_empty">没有已分配的轻应用。</string>
+    <string name="sandbox_ui_open_app_settings">打开轻应用设置</string>
+    <string name="sandbox_ui_select_description">为 %2$s 使用 %1$s</string>
+    <string name="sandbox_ui_selected_description">已为 %2$s 选择 %1$s</string>
+    <string name="sandbox_ui_manage_description">%1$s，%2$d 个活跃轻应用，已收起</string>
+    <string name="sandbox_ui_manage_expanded_description">%1$s，%2$d 个活跃轻应用，已展开</string>
+</resources>

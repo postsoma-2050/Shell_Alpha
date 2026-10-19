@@ -1,0 +1,232 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'com.mikepenz.aboutlibraries.plugin'
+
+aboutLibraries {
+    excludeFields = ["generated"]
+}
+
+//https://gist.github.com/shakalaca/6422811
+android {
+    dependenciesInfo {
+        includeInApk = false
+    }
+    compileSdk 35
+    splits {
+        abi {
+            enable true
+            reset()
+            include "armeabi-v7a", "x86", "arm64-v8a", "x86_64"
+            universalApk true
+        }
+    }
+    flavorDimensions "default"
+    productFlavors {
+        extended {
+            dimension "default"
+            applicationIdSuffix ".pro"
+            resValue "string", "app_name", "ShellAlpha"
+        }
+        extendedGithub {
+            dimension "default"
+            resValue "string", "app_name", "ShellAlpha"
+        }
+        standard {
+            dimension "default"
+            isDefault true
+            resValue "string", "app_name", "ShellAlpha"
+        }
+    }
+
+    defaultConfig {
+        applicationId "com.cylonid.nativealpha"
+        minSdkVersion 28
+        targetSdkVersion 35
+        versionCode 1520
+        versionName "1.5.2"
+
+        resourceConfigurations += ['en', 'zh-rCN']
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunnerArguments clearPackageData: 'true'
+    }
+    buildFeatures {
+        dataBinding true
+        viewBinding true
+    }
+    kotlinOptions {
+        jvmTarget = '17'
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+        debug {
+          applicationIdSuffix = ".debug"
+          resValue "string", "app_name", "ShellAlpha"
+        }
+        applicationVariants.all {
+                // this method is use to rename your release apk only
+            variant ->
+                variant.outputs.each {
+                        // on below line we are setting a name to our apk
+                    output ->
+                        // on below line we are specifying our app name.
+                        project.ext { appName = 'ShellAlpha' }
+                        // on below line we are adding the formatted date to our apk file name.
+                        def formattedDate = new Date().format('yyyy-MM-dd-HH-mm-ss')
+                        // on below line we are creating a new name for our apk.
+                        def newName = output.outputFile.name
+                        // on below line we are replacing our previous name with our app name.
+                        newName = newName.replace("app-", "$project.ext.appName-")
+                        // on below line we are replacing -release with our formatted date.
+                        newName = newName.replace("-release", "-release-" + "v" + variant.versionName)
+                        // at last we are setting our apk name to it.
+                        output.outputFileName = newName
+
+                }
+        }
+    }
+    testOptions {
+        unitTests {
+            includeAndroidResources = true
+        }
+        execution 'ANDROIDX_TEST_ORCHESTRATOR'
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+
+    lint {
+        lintConfig = file("lint.xml")
+    }
+
+    namespace 'com.cylonid.nativealpha'
+
+}
+repositories {
+    google()
+    mavenCentral()
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    implementation 'com.mikhaellopez:circularprogressbar:3.1.0'
+    implementation 'org.jsoup:jsoup:1.14.1'
+    implementation 'com.github.ihimanshurawat:Hasher:1.2'
+    implementation 'androidx.navigation:navigation-fragment:2.8.9'
+    implementation 'androidx.navigation:navigation-ui:2.8.9'
+    implementation 'com.google.code.gson:gson:2.11.0'
+    implementation 'io.github.medyo:android-about-page:2.0.0'
+    implementation 'androidx.webkit:webkit:1.13.0'
+    implementation 'com.jakewharton:process-phoenix:2.1.2'
+    testImplementation 'junit:junit:4.13.2'
+    testImplementation 'org.robolectric:robolectric:4.14.1'
+    testImplementation 'org.json:json:20250107'
+    testImplementation 'org.mockito:mockito-core:5.17.0'
+    testImplementation 'org.mockito:mockito-android:5.17.0'
+    testImplementation 'org.mockito.kotlin:mockito-kotlin:5.4.0'
+    androidTestImplementation 'org.mockito:mockito-android:5.17.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-contrib:3.6.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-web:3.6.1'
+    androidTestImplementation 'androidx.test:rules:1.6.1'
+    androidTestImplementation 'androidx.test:runner:1.6.2'
+    androidTestUtil 'androidx.test:orchestrator:1.5.1'
+    androidTestImplementation 'androidx.test.ext:junit:1.2.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.6.1'
+    implementation "com.mikepenz:aboutlibraries:11.6.3"
+    implementation "com.mikepenz:aboutlibraries-core:11.6.3"
+    implementation 'pub.devrel:easypermissions:3.0.0'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
+    implementation "androidx.biometric:biometric:1.1.0"
+    implementation 'com.ernestoyaquello.dragdropswiperecyclerview:drag-drop-swipe-recyclerview:1.2.0'
+    implementation "androidx.fragment:fragment-ktx:1.8.6"
+    implementation('com.github.Edsuns.AdblockAndroid:ad-filter:v0.9.1') {
+        exclude group: 'org.jetbrains.anko'
+    }
+    implementation 'androidx.work:work-runtime:2.10.0'
+    kapt "com.android.databinding:compiler:3.1.4"
+    implementation 'com.google.android.material:material:1.12.0'
+
+
+}
+
+def sourceManifest = file('src/main/AndroidManifest.xml')
+def sourceManifestTemplate = file('src/main/AndroidManifest_original.xml')
+def sandboxManifestDir = layout.buildDirectory.dir('generated/sandboxManifest')
+def sandboxManifestTemplate = sandboxManifestDir.map { it.file('AndroidManifest_original.xml') }
+def generatedSandboxManifest = sandboxManifestDir.map { it.file('AndroidManifest.xml') }
+
+def renameManifest = tasks.register("renameManifest") {
+    doLast {
+        if (!sourceManifestTemplate.exists()) {
+            ant.copy(file: sourceManifest, tofile: sourceManifestTemplate)
+        }
+        ant.mkdir(dir: sandboxManifestDir.get().asFile)
+        ant.copy(file: sourceManifestTemplate, tofile: sandboxManifestTemplate.get().asFile)
+    }
+}
+preBuild.dependsOn renameManifest
+
+int NUM_OF_CONTAINERS = 8
+
+def generateWebViewActivities = tasks.register("extendAndroidManifest") {
+    dependsOn(renameManifest)
+
+    String placeholder = "<!--Placeholder-->"
+    String replacement = ""
+    for (int i = 0; i < NUM_OF_CONTAINERS; i++) {
+        replacement += "        <activity\n" +
+                "            android:name=\".__WebViewActivity_" + String.valueOf(i) + "\"\n" +
+                "            android:label=\"@string/app_name\"\n" +
+                "            android:parentActivityName=\".MainActivity\"\n" +
+                "            android:windowSoftInputMode=\"adjustResize\"\n" +
+                "            android:icon=\"@mipmap/native_alpha\"\n" +
+                "            android:roundIcon=\"@mipmap/native_alpha\"\n" +
+                "            android:theme=\"@style/AppTheme.WebView\"\n" +
+                "            android:configChanges=\"orientation|screenSize|smallestScreenSize|density|screenLayout|uiMode|keyboard|keyboardHidden|navigation\"\n" +
+                "            android:launchMode=\"standard\"\n" +
+                "            android:process=\":web_sandbox_" + String.valueOf(i) + "\"\n" +
+                "            android:documentLaunchMode=\"always\"\n" +
+                "         />\n" +
+                "        <service\n" +
+                "            android:name=\"com.cylonid.nativealpha.media.BackgroundPlaybackService\$Sandbox" + String.valueOf(i) + "\"\n" +
+                "            android:exported=\"false\"\n" +
+                "            android:foregroundServiceType=\"mediaPlayback\"\n" +
+                "            android:process=\":web_sandbox_" + String.valueOf(i) + "\"\n" +
+                "         />\n"
+    }
+
+    doLast {
+        def output = generatedSandboxManifest.get().asFile
+        output.setText(
+                sandboxManifestTemplate.get().asFile.getText('UTF-8').replace(placeholder, replacement),
+                'UTF-8'
+        )
+    }
+}
+preBuild.dependsOn generateWebViewActivities
+android.sourceSets.main.manifest.srcFile(generatedSandboxManifest)
+
+(0..<NUM_OF_CONTAINERS).each { int i ->
+    TaskProvider<Copy> trTask = tasks.register("createWebViewclass${i}", Copy) {
+        from 'src/main/java/com/cylonid/nativealpha/WebViewActivity.java'
+        into "src/main/java/com/cylonid/nativealpha/__WebViewActivity_${i}"
+        dependsOn(generateWebViewActivities)
+        mustRunAfter(i == 0 ? [] : tasks.getByName("createWebViewclass${i-1}"))
+
+        filter { String line ->
+            line.replaceAll("WebViewActivity", "__WebViewActivity_${i}")
+        }
+
+        rename { String fileName ->
+            fileName.replace("WebViewActivity.java", "__WebViewActivity_${i}.java")
+        }
+    }
+
+    preBuild.dependsOn(trTask)
+}

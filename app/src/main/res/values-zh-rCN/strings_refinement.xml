@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="browser_controls_title">浏览器控制</string>
+    <string name="browser_controls_subtitle">页面工具与隐私</string>
+    <string name="browser_toolbar_home_description">打开轻应用</string>
+    <string name="browser_open_controls">打开浏览器控制</string>
+    <string name="browser_close_controls">关闭浏览器控制</string>
+    <string name="browser_refresh_page">刷新页面</string>
+    <string name="browser_stop_loading">停止加载</string>
+    <string name="browser_loading_percent">页面加载中，%1$d%%</string>
+    <string name="browser_loading_stopped">加载已停止</string>
+    <string name="browser_press_back_again">再次按返回键以离开此网页应用</string>
+    <string name="browser_action_desktop">桌面模式</string>
+    <string name="browser_action_desktop_on">桌面模式已开启</string>
+    <string name="browser_action_frameless">无边框模式</string>
+    <string name="browser_action_frameless_on">无边框模式已开启</string>
+    <string name="browser_action_dark_mode">深色模式</string>
+    <string name="browser_action_dark_mode_on">深色模式已开启</string>
+    <string name="browser_action_share">分享页面</string>
+    <string name="browser_action_external">在其他浏览器中打开页面</string>
+    <string name="browser_action_shortcut">创建快捷方式</string>
+    <string name="browser_section_actions">快捷操作</string>
+    <string name="browser_section_privacy">实时隐私控制</string>
+    <string name="browser_section_theme">主题色</string>
+    <string name="browser_customize_this_app">自定义此应用</string>
+    <string name="browser_theme_color_named">%1$s 主题色</string>
+    <string name="browser_theme_color_selected">%1$s 主题色，已选择</string>
+    <string name="home_search_hint">搜索轻应用或打开 URL</string>
+    <string name="home_clear_search">清除搜索</string>
+    <string name="home_no_apps_title">你的轻应用将显示在此处</string>
+    <string name="home_no_apps_message">点击“创建”添加网站，并像应用一样启动它。</string>
+    <string name="home_no_search_results_title">没有与搜索匹配的轻应用</string>
+    <string name="home_no_search_results_message">尝试其他名称或 URL，或清除搜索以查看所有轻应用。</string>
+    <string name="home_delete_confirmation">删除 %1$s？删除后可以立即撤销。</string>
+    <string name="home_menu_settings">全局设置</string>
+    <string name="home_menu_about">关于 ShellAlpha</string>
+    <string name="privacy_clear_now_action">清除 Cookie 和站点存储…</string>
+    <string name="privacy_clear_confirm_title">清除 Cookie 和站点存储？</string>
+    <string name="privacy_clear_confirm_message">此操作会清除轻应用在沙箱外共享的 Cookie 和站点存储，且无法撤销。沙箱数据和 WebView 缓存将保留。</string>
+    <string name="privacy_clear_confirm_action">清除数据</string>
+    <string name="privacy_cleared_snackbar">沙箱外的 Cookie 和站点存储已清除。沙箱数据和 WebView 缓存未更改。</string>
+    <string name="privacy_done">完成</string>
+    <string name="search_engine_validation_help">请使用 http:// 或 https:// URL，并在路径或查询中恰好包含一个 %s 占位符。支持现有的百分号编码 URL。</string>
+    <string name="search_engine_invalid">请输入有效的 http 或 https 搜索 URL，并在其路径或查询中恰好包含一个 %s 占位符。</string>
+    <string name="theme_color_swatch_description">%1$s 颜色</string>
+    <string name="theme_color_swatch_selected_description">%1$s 颜色，已选择</string>
+</resources>

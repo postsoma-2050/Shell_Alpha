@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/webAppListItem"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="4dp"
+    android:clickable="true"
+    android:focusable="true"
+    android:background="@drawable/home_app_item_background"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:minHeight="104dp"
+    android:paddingStart="6dp"
+    android:paddingTop="10dp"
+    android:paddingEnd="6dp"
+    android:paddingBottom="10dp">
+
+    <!-- Hermit-style icon tile; the parent item remains the only click target. -->
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/iconTile"
+        android:layout_width="52dp"
+        android:layout_height="52dp"
+        android:clickable="false"
+        android:focusable="false"
+        app:cardBackgroundColor="?attr/colorSurfaceContainerHigh"
+        app:cardCornerRadius="18dp"
+        app:cardElevation="0dp"
+        app:strokeWidth="0dp">
+
+        <!-- Hidden anchor for DragDrop library compatibility -->
+        <ImageView
+            android:id="@+id/dragAnchor"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:visibility="gone"
+            android:contentDescription="@null" />
+
+        <ImageView
+            android:id="@+id/imgFavicon"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:contentDescription="@null"
+            android:padding="6dp"
+            android:scaleType="fitCenter" />
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <LinearLayout
+        android:id="@+id/homeItemTextContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/btnWebAppTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:breakStrategy="simple"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:maxLines="2"
+            android:textAlignment="center"
+            android:textColor="?attr/colorOnSurface"
+            android:textSize="13sp"
+            android:lineSpacingExtra="2dp" />
+
+        <TextView
+            android:id="@+id/txtWebAppUrl"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textColor="?attr/colorOnSurfaceVariant"
+            android:textSize="12sp"
+            android:visibility="gone" />
+    </LinearLayout>
+
+    <ImageButton
+        android:id="@+id/btnWebAppSettings"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:contentDescription="@string/open_settings"
+        android:padding="12dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/ic_settings_gear_24"
+        android:visibility="gone"
+        app:tint="?attr/colorOnSurfaceVariant" />
+
+    <ImageButton
+        android:id="@+id/btnWebAppMenu"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:contentDescription="@string/home_item_more_actions"
+        android:padding="12dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/ic_more_vert_24"
+        android:visibility="gone"
+        app:tint="?attr/colorOnSurfaceVariant" />
+
+    <!-- Retained for legacy view references -->
+    <View
+        android:id="@+id/containerDot"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:visibility="gone" />
+
+</LinearLayout>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="sandbox_default_count">Default: %1$d active Lite Apps</string>
+    <string name="sandbox_item_count">Sandbox #%1$d: %2$d active Lite Apps</string>
+    <string name="userscripts_empty_message">No Lite Apps currently have User Scripts enabled.\n\nYou can enable and edit custom JavaScript in each Lite App\'s settings under Integration.</string>
+    <string name="userscripts_list_header">Lite Apps with custom scripts enabled:\n</string>
+    <string name="webmonitors_empty_message">No active Web Monitors configured.\n\nYou can toggle 15-minute background monitors in each Lite App\'s Quick Settings or Integration menu.</string>
+    <string name="webmonitors_list_header">Active Web Monitors (15m periodic check):\n</string>
+    <string name="webmonitors_run_check_now">Run Check Now</string>
+    <string name="webmonitors_triggered_check">Triggered background check</string>
+    <string name="select_a_file">Select a file</string>
+</resources>

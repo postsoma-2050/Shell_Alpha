@@ -1,0 +1,40 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:padding="?android:dialogPreferredPadding"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/websiteUrlLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:labelFor="@id/websiteUrl"
+        android:text="@string/url"
+        android:textAppearance="?attr/textAppearanceLabelLarge" />
+
+    <EditText
+        android:id="@+id/websiteUrl"
+        android:inputType="textUri"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:minHeight="48dp"
+        android:hint="@string/website_address_hint"
+        android:imeOptions="actionDone"
+        android:maxLines="1" />
+
+    <com.google.android.material.materialswitch.MaterialSwitch
+        android:id="@+id/switchCreateShortcut"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:minHeight="48dp"
+        android:checked="true"
+        android:text="@string/create_shortcut_on_home_screen" />
+</LinearLayout>
+</ScrollView>

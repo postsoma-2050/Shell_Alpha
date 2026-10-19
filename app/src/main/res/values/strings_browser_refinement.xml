@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="browser_controls_title">Browser controls</string>
+    <string name="browser_controls_subtitle">Page tools and privacy</string>
+    <string name="browser_toolbar_home_description">Open Lite Apps</string>
+    <string name="browser_open_controls">Open browser controls</string>
+    <string name="browser_close_controls">Close browser controls</string>
+    <string name="browser_refresh_page">Refresh page</string>
+    <string name="browser_stop_loading">Stop loading</string>
+    <string name="browser_loading_percent">Loading page, %1$d%%</string>
+    <string name="browser_loading_stopped">Loading stopped</string>
+    <string name="browser_press_back_again">Press Back again to leave this Web App</string>
+    <string name="browser_action_desktop">Desktop mode</string>
+    <string name="browser_action_desktop_on">Desktop mode on</string>
+    <string name="browser_action_frameless">Frameless mode</string>
+    <string name="browser_action_frameless_on">Frameless mode on</string>
+    <string name="browser_action_dark_mode">Dark mode</string>
+    <string name="browser_action_dark_mode_on">Dark mode on</string>
+    <string name="browser_action_share">Share page</string>
+    <string name="browser_action_external">Open page in another browser</string>
+    <string name="browser_action_shortcut">Create a shortcut</string>
+    <string name="browser_section_actions">Quick actions</string>
+    <string name="browser_section_privacy">Live privacy controls</string>
+    <string name="browser_section_theme">Theme color</string>
+    <string name="browser_customize_this_app">Customize this app</string>
+    <string name="browser_theme_color_named">%1$s theme color</string>
+    <string name="browser_theme_color_selected">%1$s theme color, selected</string>
+</resources>

@@ -1,0 +1,986 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="webapp"
+            type="com.cylonid.nativealpha.model.WebApp" />
+        <variable
+            name="activity"
+            type="com.cylonid.nativealpha.WebAppSettingsActivity" />
+    </data>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="?attr/colorSurface"
+        tools:context=".WebAppSettingsActivity">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <!-- Top Identity Card (Hermit style) -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/appIdentityCard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/margin_activity"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="10dp"
+                app:cardBackgroundColor="?attr/colorSurfaceContainer"
+                app:cardCornerRadius="24dp"
+                app:cardElevation="0dp"
+                app:strokeColor="?attr/colorOutlineVariant"
+                app:strokeWidth="1dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:padding="14dp">
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:layout_width="64dp"
+                        android:layout_height="64dp"
+                        app:cardBackgroundColor="?attr/colorSurfaceContainerHigh"
+                        app:cardCornerRadius="20dp"
+                        app:cardElevation="0dp">
+
+                        <ImageView
+                            android:id="@+id/imgSettingsFavicon"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:contentDescription="@null"
+                            android:padding="10dp"
+                            android:scaleType="fitCenter" />
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/labelTitle"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:ellipsize="end"
+                            android:maxLines="1"
+                            android:text="@{webapp.title}"
+                            android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/txtSettingsHost"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:ellipsize="middle"
+                            android:maxLines="1"
+                            android:text="@{webapp.baseUrl}"
+                            android:textAppearance="@style/TextAppearance.Material3.BodySmall"
+                            android:textColor="?attr/colorOnSurfaceVariant" />
+
+                        <TextView
+                            android:id="@+id/txtSettingsSandbox"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:background="@drawable/sandbox_badge_background"
+                            android:paddingHorizontal="8dp"
+                            android:paddingVertical="2dp"
+                            android:textAppearance="@style/TextAppearance.Material3.LabelSmall" />
+                    </LinearLayout>
+
+                    <com.google.android.material.materialswitch.MaterialSwitch
+                        android:id="@+id/switchOverrideGlobal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:minHeight="48dp"
+                        android:checked="@={webapp.overrideGlobalSettings}"
+                        android:contentDescription="@string/customize_app_settings"
+                        android:onCheckedChanged="@{(switch, checked) -> webapp.onSwitchOverrideGlobalSettingsChanged(switch, checked)}" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- 4 Hermit-style Tabs -->
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clipToPadding="false"
+                android:paddingHorizontal="@dimen/margin_activity"
+                android:scrollbars="none">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingBottom="10dp">
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnTabBehavior"
+                        style="@style/Widget.Material3.Button.TonalButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="6dp"
+                        android:minHeight="48dp"
+                        android:text="@string/behavior"
+                        app:cornerRadius="22dp" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnTabPrivacy"
+                        style="@style/Widget.Material3.Button.TonalButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="6dp"
+                        android:minHeight="48dp"
+                        android:text="@string/privacy"
+                        app:cornerRadius="22dp" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnTabTheme"
+                        style="@style/Widget.Material3.Button.TonalButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="6dp"
+                        android:minHeight="48dp"
+                        android:text="@string/theme"
+                        app:cornerRadius="22dp" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnTabTools"
+                        style="@style/Widget.Material3.Button.TonalButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:minHeight="48dp"
+                        android:text="@string/integration"
+                        app:cornerRadius="22dp" />
+                </LinearLayout>
+            </HorizontalScrollView>
+
+            <ScrollView
+                android:id="@+id/webAppSettingsScroll"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:fadeScrollbars="false"
+                android:fillViewport="true"
+                android:paddingHorizontal="@dimen/margin_activity"
+                android:paddingBottom="16dp"
+                android:scrollbarStyle="outsideOverlay">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/globalSettingsInfoText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="12dp"
+                    android:visibility="gone"
+                    android:text="@string/these_settings_are_applied_globally_and_override_app_specific_settings"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+
+                <LinearLayout
+                    android:id="@+id/sectionWebAppDetailSettings"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingEnd="4dp">
+
+                    <!-- TAB 1: BEHAVIOR -->
+                    <LinearLayout
+                        android:id="@+id/tabContainerBehavior"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:id="@+id/sectionBehavior"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/settings_bottom"
+                            android:divider="@drawable/empty_10dp_vertical"
+                            android:orientation="vertical"
+                            android:showDividers="middle">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="@dimen/remove_divider"
+                                android:text="@string/webapp_section_behavior"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                                android:textStyle="bold" />
+
+                            <com.google.android.material.materialswitch.MaterialSwitch
+                                android:id="@+id/switchFrameless"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:checked="@={webapp.frameless}"
+                                android:text="@string/enable_frameless" />
+
+                            <com.google.android.material.materialswitch.MaterialSwitch
+                                android:id="@+id/switchPullToRefresh"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:checked="@={webapp.pullToRefresh}"
+                                android:text="@string/enable_pull_to_refresh" />
+
+                            <com.google.android.material.materialswitch.MaterialSwitch
+                                android:id="@+id/switchDesktopSite"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:checked="@={webapp.requestDesktop}"
+                                android:enabled="@{webapp.allowJs}"
+                                android:text="@string/request_website_in_desktop_version" />
+
+                            <com.google.android.material.materialswitch.MaterialSwitch
+                                android:id="@+id/switchEnableZoom"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:checked="@={webapp.enableZooming}"
+                                android:text="@string/activate_two_finger_zoom" />
+
+                            <LinearLayout
+                                android:id="@+id/sectionKioskMode"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical">
+
+                                <com.google.android.material.materialswitch.MaterialSwitch
+                                    android:id="@+id/switchFullScreen"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:checked="@={webapp.showFullscreen}"
+                                    android:text="@string/show_fullscreen" />
+
+                                <com.google.android.material.materialswitch.MaterialSwitch
+                                    android:id="@+id/switchKeepAwake"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:checked="@={webapp.keepAwake}"
+                                    android:text="@string/keep_screen_awake" />
+                            </LinearLayout>
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="@string/immersive_settings_hint"
+                                android:textAppearance="@style/TextAppearance.Material3.BodySmall"
+                                android:textColor="?attr/colorOnSurfaceVariant" />
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical">
+
+                                <com.google.android.material.materialswitch.MaterialSwitch
+                                    android:id="@+id/switchAllowMediaPlaybackInBackground"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:checked="@={webapp.allowMediaPlaybackInBackground}"
+                                    android:minHeight="48dp"
+                                    android:text="@string/allow_media_playback_in_background" />
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:paddingBottom="8dp"
+                                    android:text="@string/media_playback_in_background_hint"
+                                    android:textAppearance="@style/TextAppearance.Material3.BodySmall"
+                                    android:textColor="?attr/colorOnSurfaceVariant" />
+                            </LinearLayout>
+
+                            <com.google.android.material.materialswitch.MaterialSwitch
+                                android:id="@+id/switchFallbackToStandardContextmenu"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:checked="@={webapp.alwaysUseFallbackContextMenu}"
+                                android:text="@string/use_standard_context_menu_permanently" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/sectionAutoreload"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/settings_bottom"
+                            android:divider="@drawable/empty_10dp_vertical"
+                            android:orientation="vertical"
+                            android:showDividers="middle">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="@dimen/remove_divider"
+                                android:text="@string/webapp_autoreload"
+                                android:textStyle="bold" />
+
+                            <com.google.android.material.materialswitch.MaterialSwitch
+                                android:id="@+id/switchAutoreload"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:checked="@={webapp.autoreload}"
+                                android:onCheckedChanged="@{(switch, checked) -> webapp.onSwitchAutoreloadChanged(switch, checked)}"
+                                android:text="@string/webapp_autoreload_switch" />
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:id="@+id/labelReloadInterval"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:enabled="@{webapp.autoreload}"
+                                    android:text="@string/webapp_interval_for_reload" />
+
+                                <EditText
+                                    android:id="@+id/textReloadInterval"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:enabled="@{webapp.autoreload}"
+                                    android:fontFamily="sans-serif"
+                                    android:inputType="number"
+                                    android:text="@={`` + webapp.timeAutoreload}" />
+                            </LinearLayout>
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <!-- TAB 2: PRIVACY -->
+                    <LinearLayout
+                        android:id="@+id/tabContainerPrivacy"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:visibility="gone">
+
+                        <LinearLayout
+                            android:id="@+id/sectionPrivacy"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/settings_bottom"
+                            android:divider="@drawable/empty_10dp_vertical"
+                            android:orientation="vertical"
+                            android:showDividers="middle">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="@dimen/remove_divider"
+                                android:text="@string/webapp_section_privacy"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                                android:textStyle="bold" />
+
+                            <com.google.android.material.materialswitch.MaterialSwitch
+                                android:id="@+id/switchAdblock"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:checked="@={webapp.useAdblock}"
+                                android:enabled="@{webapp.allowJs}"
+                                android:text="@string/enable_adblock_experimental" />
+
+                            <com.google.android.material.materialswitch.MaterialSwitch
+                                android:id="@+id/switchStripTrackingParams"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:checked="@={webapp.stripTrackingParams}"
+                                android:text="@string/strip_tracking_params" />
+
+                            <com.google.android.material.materialswitch.MaterialSwitch
+                                android:id="@+id/switchBlockThirdParty"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:checked="@={webapp.blockThirdPartyRequests}"
+                                android:text="@string/block_all_third_party_requests" />
+
+                            <com.google.android.material.materialswitch.MaterialSwitch
+                                android:id="@+id/switchCookies"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:checked="@={webapp.allowCookies}"
+                                android:onCheckedChanged="@{(switch, checked) -> webapp.onSwitchCookiesChanged(switch, checked)}"
+                                android:text="@string/accept_cookies" />
+
+                            <com.google.android.material.materialswitch.MaterialSwitch
+                                android:id="@+id/switch3PCookies"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:checked="@={webapp.allowThirdPartyCookies}"
+                                android:enabled="@{webapp.allowCookies}"
+                                android:text="@string/accept_third_party_cookies" />
+
+                            <com.google.android.material.materialswitch.MaterialSwitch
+                                android:id="@+id/switchAllowAppLaunch"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:checked="@={webapp.allowAppLaunch}"
+                                android:text="@string/allow_app_launch" />
+
+                            <com.google.android.material.materialswitch.MaterialSwitch
+                                android:id="@+id/switchOpenUrlExternal"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:checked="@={webapp.openUrlExternal}"
+                                android:text="@string/open_external_links_in_browser_app" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/sectionDatasaving"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/settings_bottom"
+                            android:divider="@drawable/empty_10dp_vertical"
+                            android:orientation="vertical"
+                            android:showDividers="middle">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="@dimen/remove_divider"
+                                android:text="@string/webapp_section_datasaving"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                                android:textStyle="bold" />
+
+                            <com.google.android.material.materialswitch.MaterialSwitch
+                                android:id="@+id/switchSaveDataRequest"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:checked="@={webapp.sendSavedataRequest}"
+                                android:text="@string/request_data_saving_page" />
+
+                            <com.google.android.material.materialswitch.MaterialSwitch
+                                android:id="@+id/switchBlockImages"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:checked="@={webapp.blockImages}"
+                                android:text="@string/do_not_load_images" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/sectionAccessRestriction"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/settings_bottom"
+                            android:divider="@drawable/empty_10dp_vertical"
+                            android:orientation="vertical"
+                            android:showDividers="middle">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="@dimen/remove_divider"
+                                android:text="@string/webapp_section_access_restriction"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                                android:textStyle="bold" />
+
+                            <com.google.android.material.materialswitch.MaterialSwitch
+                                android:id="@+id/switchBiometricAccess"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:checked="@={webapp.biometricProtection}"
+                                android:onCheckedChanged="@{(switch, checked) -> webapp.onSwitchBiometricAccessChanged(switch, checked, activity)}"
+                                android:text="@string/enable_access_restriction" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/sectionSecurity"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/settings_bottom"
+                            android:divider="@drawable/empty_10dp_vertical"
+                            android:orientation="vertical"
+                            android:showDividers="middle">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="@dimen/remove_divider"
+                                android:text="@string/webapp_section_security"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                                android:textStyle="bold" />
+
+                            <com.google.android.material.materialswitch.MaterialSwitch
+                                android:id="@+id/switchJavascript"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:checked="@={webapp.allowJs}"
+                                android:onCheckedChanged="@{(switch, checked) -> webapp.onSwitchJsChanged(switch, checked)}"
+                                android:text="@string/allow_javascript" />
+
+                            <com.google.android.material.materialswitch.MaterialSwitch
+                                android:id="@+id/switchLocationAccess"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:checked="@={webapp.allowLocationAccess}"
+                                android:text="@string/allow_location_access" />
+
+                            <com.google.android.material.materialswitch.MaterialSwitch
+                                android:id="@+id/switchCameraAccess"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:checked="@={webapp.cameraPermission}"
+                                android:text="@string/allow_camera_access" />
+
+                            <com.google.android.material.materialswitch.MaterialSwitch
+                                android:id="@+id/switchMicrophoneAccess"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:checked="@={webapp.microphonePermission}"
+                                android:text="@string/allow_microphone_access" />
+
+                            <com.google.android.material.materialswitch.MaterialSwitch
+                                android:id="@+id/switchDRMContent"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:checked="@={webapp.drmAllowed}"
+                                android:text="@string/allow_drm_content" />
+
+                            <com.google.android.material.materialswitch.MaterialSwitch
+                                android:id="@+id/switchHTTP"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:checked="@={webapp.allowHttp}"
+                                android:text="@string/allow_http" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <!-- TAB 3: THEME -->
+                    <LinearLayout
+                        android:id="@+id/tabContainerTheme"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:visibility="gone">
+
+                        <LinearLayout
+                            android:id="@+id/sectionAppearance"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/settings_bottom"
+                            android:divider="@drawable/empty_10dp_vertical"
+                            android:orientation="vertical"
+                            android:showDividers="middle">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="@dimen/remove_divider"
+                                android:text="@string/webapp_section_appearance"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="@string/theme_color"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+
+                            <Spinner
+                                android:id="@+id/spinnerThemeColor"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:spinnerMode="dropdown"
+                                tools:listitem="@android:layout/simple_spinner_item" />
+
+                            <GridLayout
+                                android:id="@+id/settingsColorGrid"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="8dp"
+                                android:columnCount="7"
+                                android:useDefaultMargins="false" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/sectionDarkmode"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/settings_bottom"
+                            android:divider="@drawable/empty_10dp_vertical"
+                            android:orientation="vertical"
+                            android:showDividers="middle">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="@dimen/remove_divider"
+                                android:text="@string/dark_mode"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                                android:textStyle="bold" />
+
+                            <com.google.android.material.materialswitch.MaterialSwitch
+                                android:id="@+id/switchDarkMode"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:checked="@={webapp.forceDarkMode}"
+                                android:onCheckedChanged="@{(switch, checked) -> webapp.onSwitchForceDarkChanged(switch, checked)}"
+                                android:text="@string/force_dark_mode" />
+
+                            <com.google.android.material.materialswitch.MaterialSwitch
+                                android:id="@+id/switchTimeSpanDarkMode"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:checked="@={webapp.useTimespanDarkMode}"
+                                android:enabled="@{webapp.forceDarkMode}"
+                                android:onCheckedChanged="@{(switch, checked) -> webapp.onSwitchTimeSpanDarkChanged(switch, checked)}"
+                                android:text="@string/limit_dark_mode_to_time_span" />
+
+                            <LinearLayout
+                                android:id="@+id/layoutTimeSpanDarkMode"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical">
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="vertical">
+
+                                    <TextView
+                                        android:id="@+id/lblDarkModeBegin"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:enabled="@{webapp.useTimespanDarkMode}"
+                                        android:text="@string/begin"
+                                        android:textColor="?android:attr/textColorPrimary" />
+
+                                    <EditText
+                                        android:id="@+id/textDarkModeBegin"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:background="@null"
+                                        android:enabled="@{webapp.useTimespanDarkMode}"
+                                        android:focusable="false"
+                                        android:fontFamily="sans-serif"
+                                        android:inputType="none"
+                                        android:text="@={webapp.timespanDarkModeBegin}" />
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="8dp"
+                                    android:orientation="vertical">
+
+                                    <TextView
+                                        android:id="@+id/lblDarkModeEnd"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:enabled="@{webapp.useTimespanDarkMode}"
+                                        android:text="@string/end"
+                                        android:textColor="?android:attr/textColorPrimary" />
+
+                                    <EditText
+                                        android:id="@+id/textDarkModeEnd"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:background="@null"
+                                        android:enabled="@{webapp.useTimespanDarkMode}"
+                                        android:focusable="false"
+                                        android:fontFamily="sans-serif"
+                                        android:inputType="none"
+                                        android:text="@={webapp.timespanDarkModeEnd}" />
+                                </LinearLayout>
+                            </LinearLayout>
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <!-- TAB 4: INTEGRATION (TOOLS) -->
+                    <LinearLayout
+                        android:id="@+id/tabContainerTools"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:visibility="gone">
+
+                        <!-- App Name & Shortcut -->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/settings_bottom"
+                            android:divider="@drawable/empty_10dp_vertical"
+                            android:orientation="vertical"
+                            android:showDividers="middle">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="@dimen/remove_divider"
+                                android:text="@string/integration"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/labelWebAppName"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="@string/label"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+
+                            <EditText
+                                android:id="@+id/txtWebAppName"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:autofillHints=""
+                                android:fontFamily="sans-serif"
+                                android:inputType="text"
+                                android:text="@={webapp.title}" />
+
+                            <com.google.android.material.button.MaterialButton
+                                android:id="@+id/btnRecreateShortcut"
+                                style="@style/Widget.Material3.Button.TonalButton"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/re_create_shortcut"
+                                app:icon="@drawable/ic_baseline_home_24" />
+                        </LinearLayout>
+
+                        <!-- Sandbox Container -->
+                        <LinearLayout
+                            android:id="@+id/sectionSandbox"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/settings_bottom"
+                            android:divider="@drawable/empty_10dp_vertical"
+                            android:orientation="vertical"
+                            android:showDividers="middle">
+
+                            <TextView
+                                android:id="@+id/labelSandbox"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="@string/sandbox"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+
+                            <com.google.android.material.materialswitch.MaterialSwitch
+                                android:id="@+id/switchSandbox"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:checked="@={webapp.useContainer}"
+                                android:onCheckedChanged="@{(switch, checked) -> webapp.onSwitchSandboxChanged(switch, checked)}"
+                                android:text="@string/enable_sandbox" />
+                        </LinearLayout>
+
+                        <!-- Web Monitors (Hermit killer feature) -->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/settings_bottom"
+                            android:divider="@drawable/empty_10dp_vertical"
+                            android:orientation="vertical"
+                            android:showDividers="middle">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="@dimen/remove_divider"
+                                android:text="@string/setting_webmonitors_title"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                                android:textStyle="bold" />
+
+                            <com.google.android.material.materialswitch.MaterialSwitch
+                                android:id="@+id/switchMonitorEnabled"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:checked="@={webapp.monitorEnabled}"
+                                android:text="@string/enable_monitor" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:enabled="@{webapp.monitorEnabled}"
+                                android:text="@string/monitor_css_selector"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+
+                            <EditText
+                                android:id="@+id/textMonitorSelector"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:enabled="@{webapp.monitorEnabled}"
+                                android:fontFamily="monospace"
+                                android:hint="body"
+                                android:inputType="text"
+                                android:text="@={webapp.monitorSelector}" />
+                        </LinearLayout>
+
+                        <!-- Userscripts Sandboxing (Hermit feature) -->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/settings_bottom"
+                            android:divider="@drawable/empty_10dp_vertical"
+                            android:orientation="vertical"
+                            android:showDividers="middle">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="@dimen/remove_divider"
+                                android:text="@string/setting_userscripts_title"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                                android:textStyle="bold" />
+
+                            <com.google.android.material.materialswitch.MaterialSwitch
+                                android:id="@+id/switchUserscriptEnabled"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:checked="@={webapp.userscriptEnabled}"
+                                android:text="@string/enable_userscript" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:enabled="@{webapp.userscriptEnabled}"
+                                android:text="@string/userscript_code"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+
+                            <EditText
+                                android:id="@+id/textUserscriptCode"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:enabled="@{webapp.userscriptEnabled}"
+                                android:fontFamily="monospace"
+                                android:gravity="top|start"
+                                android:inputType="textMultiLine|textNoSuggestions"
+                                android:minLines="4"
+                                android:text="@={webapp.userscriptCode}" />
+                        </LinearLayout>
+
+                        <!-- Expert Settings -->
+                        <com.google.android.material.materialswitch.MaterialSwitch
+                            android:id="@+id/switchExpertSettings"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/settings_bottom_innersection"
+                            android:checked="@={webapp.showExpertSettings}"
+                            android:onCheckedChanged="@{(switch, checked) -> webapp.onSwitchExpertSettingsChanged(switch, checked)}"
+                            android:text="@string/show_expert_settings" />
+
+                        <LinearLayout
+                            android:id="@+id/sectionExpertSettings"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/settings_bottom"
+                            android:divider="@drawable/empty_10dp_vertical"
+                            android:orientation="vertical"
+                            android:showDividers="middle"
+                            android:visibility="gone">
+
+                            <TextView
+                                android:id="@+id/labelEditableBaseUrl"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="@dimen/remove_divider"
+                                android:text="@string/start_url"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                                android:textStyle="bold" />
+
+                            <EditText
+                                android:id="@+id/textBaseUrl"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="sans-serif"
+                                android:inputType="textUri"
+                                android:text="@={webapp.baseUrl}"
+                                tools:ignore="UnusedAttribute" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="@dimen/remove_divider"
+                                android:text="@string/user_agent"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                                android:textStyle="bold" />
+
+                            <com.google.android.material.materialswitch.MaterialSwitch
+                                android:id="@+id/switchUserAgent"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:checked="@={webapp.useCustomUserAgent}"
+                                android:onCheckedChanged="@{(switch, checked) -> webapp.onSwitchUserAgentChanged(switch, checked)}"
+                                android:text="@string/use_custom_user_agent" />
+
+                            <TextView
+                                android:id="@+id/txthintUserAgent"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content" />
+
+                            <EditText
+                                android:id="@+id/textUserAgent"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="sans-serif"
+                                android:hint="@string/insert_custom_user_agent"
+                                android:inputType="text"
+                                android:text="@={webapp.userAgent}"
+                                tools:ignore="UnusedAttribute" />
+
+                            <LinearLayout
+                                android:id="@+id/sectionSSL"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/ssl_errors"
+                                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                                    android:textStyle="bold" />
+
+                                <com.google.android.material.materialswitch.MaterialSwitch
+                                    android:id="@+id/switchIgnoreSSLErrors"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:checked="@={webapp.ignoreSslErrors}"
+                                    android:text="@string/ignore_ssl_errors" />
+                            </LinearLayout>
+                        </LinearLayout>
+                    </LinearLayout>
+                </LinearLayout>
+                </LinearLayout>
+            </ScrollView>
+
+            <!-- Bottom Cancel & Save Buttons -->
+            <LinearLayout
+                style="?android:attr/buttonBarStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:background="?attr/colorSurface"
+                android:gravity="end"
+                android:orientation="horizontal"
+                android:paddingBottom="8dp"
+                android:paddingHorizontal="@dimen/margin_activity"
+                android:paddingTop="8dp">
+
+                <Button
+                    android:id="@+id/btnCancel"
+                    style="?android:attr/buttonBarButtonStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:minHeight="48dp"
+                    android:text="@string/cancel" />
+
+                <Button
+                    android:id="@+id/btnSave"
+                    style="?android:attr/buttonBarButtonStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:minHeight="48dp"
+                    android:text="@string/save" />
+            </LinearLayout>
+        </LinearLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>

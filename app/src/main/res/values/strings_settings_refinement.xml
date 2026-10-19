@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="privacy_clear_now_action">Clear cookies and site storage…</string>
+    <string name="privacy_clear_confirm_title">Clear cookies and site storage?</string>
+    <string name="privacy_clear_confirm_message">This removes cookies and site storage shared by Lite Apps outside sandboxes and cannot be undone. Sandbox data and the WebView cache will remain.</string>
+    <string name="privacy_clear_confirm_action">Clear data</string>
+    <string name="privacy_cleared_snackbar">Cookies and site storage outside sandboxes cleared. Sandbox data and WebView cache were not changed.</string>
+    <string name="privacy_done">Done</string>
+    <string name="search_engine_validation_help">Use an http:// or https:// URL with exactly one %s placeholder in the path or query. Existing percent-encoded URLs are supported.</string>
+    <string name="search_engine_invalid">Enter a valid http or https search URL with exactly one %s placeholder in its path or query.</string>
+    <string name="theme_color_swatch_description">%1$s color</string>
+    <string name="theme_color_swatch_selected_description">%1$s color, selected</string>
+</resources>

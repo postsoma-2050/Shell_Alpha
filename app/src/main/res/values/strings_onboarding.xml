@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="onboarding_brand_name" translatable="false">ShellAlpha</string>
+    <string name="onboarding_version">Version %1$s</string>
+    <string name="onboarding_headline">Welcome to ShellAlpha</string>
+    <string name="onboarding_intro">Turn websites into focused Lite Apps, with clear privacy boundaries and the tools you need to get started.</string>
+
+    <string name="onboarding_lite_apps_title">Lite Apps, close at hand</string>
+    <string name="onboarding_lite_apps_body">Open, search, and organize Lite Apps from the ShellAlpha home screen.</string>
+
+    <string name="onboarding_postsoma_title">Start with PostSoma</string>
+    <string name="onboarding_postsoma_body">New installs start with a PostSoma Lite App. You can add other websites whenever you need them.</string>
+
+    <string name="onboarding_sandbox_title">Know the boundary</string>
+    <string name="onboarding_sandbox_body">Lite Apps assigned to a sandbox can use separate WebView data. Site permissions and third-party network requests still depend on each website and the choices you make.</string>
+
+    <string name="onboarding_language_glyph" translatable="false">文</string>
+    <string name="onboarding_language_title">English and Simplified Chinese</string>
+    <string name="onboarding_language_body">The interface follows your system language.</string>
+
+    <string name="onboarding_data_title">Your data and the network</string>
+    <string name="onboarding_data_body">ShellAlpha stores app data on this device. Opening a website can send requests to that site and the services it loads.</string>
+
+    <string name="onboarding_attribution">ShellAlpha is based on NativeAlpha by cylonid. The software is licensed under GNU GPL v3.</string>
+    <string name="onboarding_agree_and_continue">I understand, continue</string>
+    <string name="onboarding_continue">Continue</string>
+</resources>

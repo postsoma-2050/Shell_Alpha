@@ -1,0 +1,7 @@
+<resources>
+    <string name="navigation_open_drawer">Open navigation</string>
+    <string name="navigation_close_drawer">Close navigation</string>
+    <string name="navigation_section_browse">Browse</string>
+    <string name="navigation_section_app">App</string>
+    <string name="navigation_current_lite_apps">Lite Apps, current page</string>
+</resources>

@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="media_playback_in_background_hint">切换到其他应用或关闭屏幕时继续播放音频。网站支持情况可能有所不同。</string>
+</resources>

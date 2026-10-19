@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="home_mode_switch_to_grid">切换到四列图标网格</string>
+    <string name="home_mode_switch_to_list">切换到列表视图</string>
+    <string name="home_mode_grid_active">四列图标网格</string>
+    <string name="home_mode_list_active">列表视图</string>
+    <string name="home_item_more_actions">更多操作</string>
+    <string name="home_item_overflow">%1$s 的更多操作</string>
+</resources>

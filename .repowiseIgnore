@@ -1,0 +1,12 @@
+# Audit only maintained source; these are snapshots, outputs, and local caches.
+backups/
+dist/
+design/
+.gradle/
+.kotlin/
+build/
+app/build/
+
+# Gradle generates these eight live sandbox process entry points from WebViewActivity.java.
+# Exclude them from static quality/duplication scoring, not from Android builds.
+app/src/main/java/com/cylonid/nativealpha/__WebViewActivity_*/

@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.cylonid.nativealpha">
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-feature android:name="android.hardware.camera" android:required="false" />
+    <uses-feature android:name="android.hardware.camera.autofocus" android:required="false" />
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+
+    <meta-data android:name="android.webkit.WebView.EnableSafeBrowsing"
+        android:value="false" />
+
+    <application
+        android:name="com.cylonid.nativealpha.util.App"
+        android:allowBackup="true"
+        android:icon="@mipmap/native_alpha"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/native_alpha"
+        android:supportsRtl="true"
+        android:screenOrientation="portrait"
+        android:usesCleartextTraffic="true"
+        android:resizeableActivity="true"
+        android:fullBackupContent="true">
+
+        <activity
+            android:name="com.cylonid.nativealpha.MainActivity"
+            android:launchMode="singleTask"
+            android:theme="@style/AppTheme.Launcher"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="http" />
+                <data android:scheme="https" />
+            </intent-filter>
+        </activity>
+
+<!--        Make sure to also copy changes to WebViewActivity in build.gradle-->
+        <activity
+            android:name=".WebViewActivity"
+            android:parentActivityName=".MainActivity"
+            android:windowSoftInputMode="adjustResize"
+            android:icon="@mipmap/native_alpha"
+            android:roundIcon="@mipmap/native_alpha"
+            android:theme="@style/AppTheme.WebView"
+            android:configChanges="orientation|screenSize|smallestScreenSize|density|screenLayout|uiMode|keyboard|keyboardHidden|navigation"
+            android:launchMode="standard"
+            android:documentLaunchMode="always"
+            />
+ 
+        <!--Placeholder-->
+        <service
+            android:name="com.cylonid.nativealpha.media.BackgroundPlaybackService"
+            android:exported="false"
+            android:foregroundServiceType="mediaPlayback" />
+        <activity
+            android:name="com.cylonid.nativealpha.SettingsActivity"
+            android:parentActivityName=".MainActivity"
+            android:icon="@mipmap/native_alpha"
+            android:roundIcon="@mipmap/native_alpha"
+            android:theme="@style/AppTheme">
+        </activity>
+        <activity
+            android:name="com.cylonid.nativealpha.SandboxActivity"
+            android:parentActivityName=".MainActivity"
+            android:icon="@mipmap/native_alpha"
+            android:roundIcon="@mipmap/native_alpha"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name="com.cylonid.nativealpha.WebAppSettingsActivity"
+            android:parentActivityName=".MainActivity"
+            android:icon="@mipmap/native_alpha"
+            android:roundIcon="@mipmap/native_alpha"
+            android:theme="@style/AppTheme">
+        </activity>
+
+        <activity
+            android:name="com.cylonid.nativealpha.AboutActivity"
+            android:parentActivityName=".MainActivity"
+            android:icon="@mipmap/native_alpha"
+            android:roundIcon="@mipmap/native_alpha"
+            android:theme="@style/AppTheme">
+        </activity>
+
+        <activity
+            android:name="com.cylonid.nativealpha.activities.NewsActivity"
+            android:parentActivityName=".MainActivity"
+            android:icon="@mipmap/native_alpha"
+            android:roundIcon="@mipmap/native_alpha"
+            android:theme="@style/AppTheme">
+        </activity>
+
+        <activity
+            android:name="com.cylonid.nativealpha.activities.AdblockConfigActivity"
+            android:parentActivityName=".SettingsActivity"
+            android:icon="@mipmap/native_alpha"
+            android:roundIcon="@mipmap/native_alpha"
+            android:theme="@style/AppTheme">
+        </activity>
+
+        <activity android:name="com.mikepenz.aboutlibraries.ui.LibsActivity"
+            android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar">
+        </activity>
+
+
+        <meta-data android:name="com.samsung.android.keepalive.density" android:value="true"/>
+        <meta-data android:name="com.samsung.android.multidisplay.keep_process_alive" android:value="true"/>
+        <!--        https://developer.samsung.com/samsung-dex/modify-optimizing.html-->
+    </application>
+
+</manifest>

@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="media_playback_in_background_hint">Keeps audio playing when you switch apps or turn off the screen. Website support may vary.</string>
+</resources>

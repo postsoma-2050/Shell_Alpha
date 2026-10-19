@@ -1,0 +1,11 @@
+<resources>
+    <string name="home_search_hint">Search Lite Apps or open a URL</string>
+    <string name="home_clear_search">Clear search</string>
+    <string name="home_no_apps_title">Your Lite Apps will appear here</string>
+    <string name="home_no_apps_message">Tap Create to add a website and launch it like an app.</string>
+    <string name="home_no_search_results_title">No Lite Apps match your search</string>
+    <string name="home_no_search_results_message">Try another name or URL, or clear the search to see all Lite Apps.</string>
+    <string name="home_delete_confirmation">Delete %1$s? You can undo this right after deletion.</string>
+    <string name="home_menu_settings">Global settings</string>
+    <string name="home_menu_about">About ShellAlpha</string>
+</resources>

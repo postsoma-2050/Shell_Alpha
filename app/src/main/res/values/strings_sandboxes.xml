@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="sandbox_ui_title">Sandboxes</string>
+    <string name="sandbox_ui_description">Choose a container for this Lite App, or review which apps use each sandbox.</string>
+    <string name="sandbox_ui_isolated_note">Default Lite Apps share browsing data. In a colored sandbox, each Lite App uses separate site data.</string>
+    <string name="sandbox_ui_back">Back</string>
+    <string name="sandbox_ui_default_name">Default</string>
+    <string name="sandbox_ui_color_blue">Blue</string>
+    <string name="sandbox_ui_color_green">Green</string>
+    <string name="sandbox_ui_color_orange">Orange</string>
+    <string name="sandbox_ui_color_purple">Purple</string>
+    <string name="sandbox_ui_color_teal">Teal</string>
+    <string name="sandbox_ui_color_pink">Pink</string>
+    <string name="sandbox_ui_color_amber">Amber</string>
+    <string name="sandbox_ui_color_indigo">Indigo</string>
+    <string name="sandbox_ui_active_count">%1$d active Lite Apps</string>
+    <string name="sandbox_ui_expand">Show assigned Lite Apps</string>
+    <string name="sandbox_ui_collapse">Hide assigned Lite Apps</string>
+    <string name="sandbox_ui_empty">No Lite Apps assigned.</string>
+    <string name="sandbox_ui_open_app_settings">Open Lite App settings</string>
+    <string name="sandbox_ui_select_description">Use %1$s for %2$s</string>
+    <string name="sandbox_ui_selected_description">%1$s is selected for %2$s</string>
+    <string name="sandbox_ui_manage_description">%1$s, %2$d active Lite Apps, collapsed</string>
+    <string name="sandbox_ui_manage_expanded_description">%1$s, %2$d active Lite Apps, expanded</string>
+</resources>

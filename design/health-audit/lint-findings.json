@@ -1,0 +1,4489 @@
+[
+  {
+    "id": "MissingSuperCall",
+    "severity": "Error",
+    "message": "Overriding method should call `super.onBackPressed`",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/java/com/cylonid/nativealpha/WebViewActivity.java",
+        "line": "1193",
+        "column": "17"
+      }
+    ]
+  },
+  {
+    "id": "MissingSuperCall",
+    "severity": "Error",
+    "message": "Overriding method should call `super.onBackPressed`",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/java/com/cylonid/nativealpha/__WebViewActivity_0/__WebViewActivity_0.java",
+        "line": "1193",
+        "column": "17"
+      }
+    ]
+  },
+  {
+    "id": "MissingSuperCall",
+    "severity": "Error",
+    "message": "Overriding method should call `super.onBackPressed`",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/java/com/cylonid/nativealpha/__WebViewActivity_1/__WebViewActivity_1.java",
+        "line": "1193",
+        "column": "17"
+      }
+    ]
+  },
+  {
+    "id": "MissingSuperCall",
+    "severity": "Error",
+    "message": "Overriding method should call `super.onBackPressed`",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/java/com/cylonid/nativealpha/__WebViewActivity_2/__WebViewActivity_2.java",
+        "line": "1193",
+        "column": "17"
+      }
+    ]
+  },
+  {
+    "id": "MissingSuperCall",
+    "severity": "Error",
+    "message": "Overriding method should call `super.onBackPressed`",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/java/com/cylonid/nativealpha/__WebViewActivity_3/__WebViewActivity_3.java",
+        "line": "1193",
+        "column": "17"
+      }
+    ]
+  },
+  {
+    "id": "MissingSuperCall",
+    "severity": "Error",
+    "message": "Overriding method should call `super.onBackPressed`",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/java/com/cylonid/nativealpha/__WebViewActivity_4/__WebViewActivity_4.java",
+        "line": "1193",
+        "column": "17"
+      }
+    ]
+  },
+  {
+    "id": "MissingSuperCall",
+    "severity": "Error",
+    "message": "Overriding method should call `super.onBackPressed`",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/java/com/cylonid/nativealpha/__WebViewActivity_5/__WebViewActivity_5.java",
+        "line": "1193",
+        "column": "17"
+      }
+    ]
+  },
+  {
+    "id": "MissingSuperCall",
+    "severity": "Error",
+    "message": "Overriding method should call `super.onBackPressed`",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/java/com/cylonid/nativealpha/__WebViewActivity_6/__WebViewActivity_6.java",
+        "line": "1193",
+        "column": "17"
+      }
+    ]
+  },
+  {
+    "id": "MissingSuperCall",
+    "severity": "Error",
+    "message": "Overriding method should call `super.onBackPressed`",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/java/com/cylonid/nativealpha/__WebViewActivity_7/__WebViewActivity_7.java",
+        "line": "1193",
+        "column": "17"
+      }
+    ]
+  },
+  {
+    "id": "ScopedStorage",
+    "severity": "Warning",
+    "message": "WRITE_EXTERNAL_STORAGE is deprecated (and is not granted) when targeting Android 13+. If you need to write to shared storage, use the `MediaStore.createWriteRequest` intent.",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/build/generated/sandboxManifest/AndroidManifest.xml",
+        "line": "9",
+        "column": "36"
+      }
+    ]
+  },
+  {
+    "id": "ScopedStorage",
+    "severity": "Warning",
+    "message": "READ_EXTERNAL_STORAGE is deprecated (and is not granted) when targeting Android 13+. If you need to query or interact with MediaStore or media files on the shared storage, you should instead use one or more new storage permissions: `READ_MEDIA_IMAGES`, `READ_MEDIA_VIDEO` or `READ_MEDIA_AUDIO`.",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/build/generated/sandboxManifest/AndroidManifest.xml",
+        "line": "10",
+        "column": "36"
+      }
+    ]
+  },
+  {
+    "id": "UnusedAttribute",
+    "severity": "Warning",
+    "message": "Attribute `forceDarkAllowed` is only used in API level 29 and higher (current min is 28)",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/layout/full_webview.xml",
+        "line": "33",
+        "column": "17"
+      }
+    ]
+  },
+  {
+    "id": "RedundantLabel",
+    "severity": "Warning",
+    "message": "Redundant label can be removed",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/build/generated/sandboxManifest/AndroidManifest.xml",
+        "line": "64",
+        "column": "13"
+      }
+    ]
+  },
+  {
+    "id": "RedundantLabel",
+    "severity": "Warning",
+    "message": "Redundant label can be removed",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/build/generated/sandboxManifest/AndroidManifest.xml",
+        "line": "77",
+        "column": "13"
+      }
+    ]
+  },
+  {
+    "id": "RedundantLabel",
+    "severity": "Warning",
+    "message": "Redundant label can be removed",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/build/generated/sandboxManifest/AndroidManifest.xml",
+        "line": "90",
+        "column": "13"
+      }
+    ]
+  },
+  {
+    "id": "RedundantLabel",
+    "severity": "Warning",
+    "message": "Redundant label can be removed",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/build/generated/sandboxManifest/AndroidManifest.xml",
+        "line": "103",
+        "column": "13"
+      }
+    ]
+  },
+  {
+    "id": "RedundantLabel",
+    "severity": "Warning",
+    "message": "Redundant label can be removed",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/build/generated/sandboxManifest/AndroidManifest.xml",
+        "line": "116",
+        "column": "13"
+      }
+    ]
+  },
+  {
+    "id": "RedundantLabel",
+    "severity": "Warning",
+    "message": "Redundant label can be removed",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/build/generated/sandboxManifest/AndroidManifest.xml",
+        "line": "129",
+        "column": "13"
+      }
+    ]
+  },
+  {
+    "id": "RedundantLabel",
+    "severity": "Warning",
+    "message": "Redundant label can be removed",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/build/generated/sandboxManifest/AndroidManifest.xml",
+        "line": "142",
+        "column": "13"
+      }
+    ]
+  },
+  {
+    "id": "RedundantLabel",
+    "severity": "Warning",
+    "message": "Redundant label can be removed",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/build/generated/sandboxManifest/AndroidManifest.xml",
+        "line": "155",
+        "column": "13"
+      }
+    ]
+  },
+  {
+    "id": "DiscouragedApi",
+    "severity": "Warning",
+    "message": "Should not restrict activity to fixed orientation. This may not be suitable for different form factors, causing the app to be letterboxed.",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/build/generated/sandboxManifest/AndroidManifest.xml",
+        "line": "26",
+        "column": "9"
+      }
+    ]
+  },
+  {
+    "id": "DiscouragedApi",
+    "severity": "Warning",
+    "message": "Use of this function is discouraged because resource reflection makes it harder to perform build optimizations and compile-time verification of code. It is much more efficient to retrieve resources by identifier (e.g. `R.foo.bar`) than by name (e.g. `getIdentifier(\"bar\", \"foo\", null)`).",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/kotlin/com/cylonid/nativealpha/util/ContextExtensions.kt",
+        "line": "8",
+        "column": "26"
+      }
+    ]
+  },
+  {
+    "id": "DiscouragedApi",
+    "severity": "Warning",
+    "message": "Use of this function is discouraged because resource reflection makes it harder to perform build optimizations and compile-time verification of code. It is much more efficient to retrieve resources by identifier (e.g. `R.foo.bar`) than by name (e.g. `getIdentifier(\"bar\", \"foo\", null)`).",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/java/com/cylonid/nativealpha/WebViewActivity.java",
+        "line": "1558",
+        "column": "66"
+      }
+    ]
+  },
+  {
+    "id": "DiscouragedApi",
+    "severity": "Warning",
+    "message": "Use of this function is discouraged because resource reflection makes it harder to perform build optimizations and compile-time verification of code. It is much more efficient to retrieve resources by identifier (e.g. `R.foo.bar`) than by name (e.g. `getIdentifier(\"bar\", \"foo\", null)`).",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/java/com/cylonid/nativealpha/__WebViewActivity_0/__WebViewActivity_0.java",
+        "line": "1558",
+        "column": "70"
+      }
+    ]
+  },
+  {
+    "id": "DiscouragedApi",
+    "severity": "Warning",
+    "message": "Use of this function is discouraged because resource reflection makes it harder to perform build optimizations and compile-time verification of code. It is much more efficient to retrieve resources by identifier (e.g. `R.foo.bar`) than by name (e.g. `getIdentifier(\"bar\", \"foo\", null)`).",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/java/com/cylonid/nativealpha/__WebViewActivity_1/__WebViewActivity_1.java",
+        "line": "1558",
+        "column": "70"
+      }
+    ]
+  },
+  {
+    "id": "DiscouragedApi",
+    "severity": "Warning",
+    "message": "Use of this function is discouraged because resource reflection makes it harder to perform build optimizations and compile-time verification of code. It is much more efficient to retrieve resources by identifier (e.g. `R.foo.bar`) than by name (e.g. `getIdentifier(\"bar\", \"foo\", null)`).",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/java/com/cylonid/nativealpha/__WebViewActivity_2/__WebViewActivity_2.java",
+        "line": "1558",
+        "column": "70"
+      }
+    ]
+  },
+  {
+    "id": "DiscouragedApi",
+    "severity": "Warning",
+    "message": "Use of this function is discouraged because resource reflection makes it harder to perform build optimizations and compile-time verification of code. It is much more efficient to retrieve resources by identifier (e.g. `R.foo.bar`) than by name (e.g. `getIdentifier(\"bar\", \"foo\", null)`).",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/java/com/cylonid/nativealpha/__WebViewActivity_3/__WebViewActivity_3.java",
+        "line": "1558",
+        "column": "70"
+      }
+    ]
+  },
+  {
+    "id": "DiscouragedApi",
+    "severity": "Warning",
+    "message": "Use of this function is discouraged because resource reflection makes it harder to perform build optimizations and compile-time verification of code. It is much more efficient to retrieve resources by identifier (e.g. `R.foo.bar`) than by name (e.g. `getIdentifier(\"bar\", \"foo\", null)`).",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/java/com/cylonid/nativealpha/__WebViewActivity_4/__WebViewActivity_4.java",
+        "line": "1558",
+        "column": "70"
+      }
+    ]
+  },
+  {
+    "id": "DiscouragedApi",
+    "severity": "Warning",
+    "message": "Use of this function is discouraged because resource reflection makes it harder to perform build optimizations and compile-time verification of code. It is much more efficient to retrieve resources by identifier (e.g. `R.foo.bar`) than by name (e.g. `getIdentifier(\"bar\", \"foo\", null)`).",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/java/com/cylonid/nativealpha/__WebViewActivity_5/__WebViewActivity_5.java",
+        "line": "1558",
+        "column": "70"
+      }
+    ]
+  },
+  {
+    "id": "DiscouragedApi",
+    "severity": "Warning",
+    "message": "Use of this function is discouraged because resource reflection makes it harder to perform build optimizations and compile-time verification of code. It is much more efficient to retrieve resources by identifier (e.g. `R.foo.bar`) than by name (e.g. `getIdentifier(\"bar\", \"foo\", null)`).",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/java/com/cylonid/nativealpha/__WebViewActivity_6/__WebViewActivity_6.java",
+        "line": "1558",
+        "column": "70"
+      }
+    ]
+  },
+  {
+    "id": "DiscouragedApi",
+    "severity": "Warning",
+    "message": "Use of this function is discouraged because resource reflection makes it harder to perform build optimizations and compile-time verification of code. It is much more efficient to retrieve resources by identifier (e.g. `R.foo.bar`) than by name (e.g. `getIdentifier(\"bar\", \"foo\", null)`).",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/java/com/cylonid/nativealpha/__WebViewActivity_7/__WebViewActivity_7.java",
+        "line": "1558",
+        "column": "70"
+      }
+    ]
+  },
+  {
+    "id": "UseCompatLoadingForDrawables",
+    "severity": "Warning",
+    "message": "Use `ResourcesCompat.getDrawable()`",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/java/com/cylonid/nativealpha/util/ResourceImageGetter.kt",
+        "line": "11",
+        "column": "19"
+      }
+    ]
+  },
+  {
+    "id": "Untranslatable",
+    "severity": "Warning",
+    "message": "The resource string \"app_name\" is marked as translatable=\"false\", but is translated to \"es\" (Spanish) here",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values-es/strings.xml",
+        "line": "2",
+        "column": "29"
+      }
+    ]
+  },
+  {
+    "id": "Untranslatable",
+    "severity": "Warning",
+    "message": "The resource string \"app_name\" is marked as translatable=\"false\", but is translated to \"it\" (Italian) here",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values-it/strings.xml",
+        "line": "3",
+        "column": "29"
+      }
+    ]
+  },
+  {
+    "id": "Untranslatable",
+    "severity": "Warning",
+    "message": "The resource string \"url\" is marked as translatable=\"false\", but is translated to \"es\" (Spanish) here",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values-es/strings.xml",
+        "line": "22",
+        "column": "24"
+      }
+    ]
+  },
+  {
+    "id": "Untranslatable",
+    "severity": "Warning",
+    "message": "The resource string \"eula_content\" has been marked as translatable=\"false\" elsewhere (usually in the `values` folder), but is translated to \"it\" (Italian) here",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values-it/strings.xml",
+        "line": "42",
+        "column": "13"
+      }
+    ]
+  },
+  {
+    "id": "Untranslatable",
+    "severity": "Warning",
+    "message": "The resource string \"eula_content\" has been marked as translatable=\"false\" elsewhere (usually in the `values` folder), but is translated to \"es\" (Spanish) here",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values-es/strings.xml",
+        "line": "43",
+        "column": "13"
+      }
+    ]
+  },
+  {
+    "id": "Untranslatable",
+    "severity": "Warning",
+    "message": "The resource string \"eula_content\" has been marked as translatable=\"false\" elsewhere (usually in the `values` folder), but is translated to \"zh\" (Chinese) here",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values-zh-rCN/strings.xml",
+        "line": "54",
+        "column": "13"
+      }
+    ]
+  },
+  {
+    "id": "Untranslatable",
+    "severity": "Warning",
+    "message": "The resource string \"paypal\" has been marked as translatable=\"false\" elsewhere (usually in the `values` folder), but is translated to \"it\" (Italian) here",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values-it/strings.xml",
+        "line": "67",
+        "column": "13"
+      }
+    ]
+  },
+  {
+    "id": "Untranslatable",
+    "severity": "Warning",
+    "message": "The resource string \"paypal\" is marked as translatable=\"false\", but is translated to \"es\" (Spanish) here",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values-es/strings.xml",
+        "line": "68",
+        "column": "27"
+      }
+    ]
+  },
+  {
+    "id": "Untranslatable",
+    "severity": "Warning",
+    "message": "The resource string \"app_name_plus\" is marked as translatable=\"false\", but is translated to \"es\" (Spanish) here",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values-es/strings.xml",
+        "line": "139",
+        "column": "34"
+      }
+    ]
+  },
+  {
+    "id": "Untranslatable",
+    "severity": "Warning",
+    "message": "The resource string \"eula_content\" is marked as translatable=\"false\", but is translated to \"de\" (German) here",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values-de/strings.xml",
+        "line": "155",
+        "column": "33"
+      }
+    ]
+  },
+  {
+    "id": "Untranslatable",
+    "severity": "Warning",
+    "message": "The resource string \"onboarding_brand_name\" is marked as translatable=\"false\", but is translated to \"zh\" (Chinese) here",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values-zh-rCN/strings_onboarding.xml",
+        "line": "3",
+        "column": "42"
+      }
+    ]
+  },
+  {
+    "id": "Untranslatable",
+    "severity": "Warning",
+    "message": "The resource string \"onboarding_language_glyph\" is marked as translatable=\"false\", but is translated to \"zh\" (Chinese) here",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values-zh-rCN/strings_onboarding.xml",
+        "line": "17",
+        "column": "46"
+      }
+    ]
+  },
+  {
+    "id": "LogNotTimber",
+    "severity": "Warning",
+    "message": "Using 'Log' instead of 'Timber'",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/java/com/cylonid/nativealpha/model/SandboxManager.java",
+        "line": "54",
+        "column": "9"
+      }
+    ]
+  },
+  {
+    "id": "LogNotTimber",
+    "severity": "Warning",
+    "message": "Using 'Log' instead of 'Timber'",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/java/com/cylonid/nativealpha/model/SandboxManager.java",
+        "line": "63",
+        "column": "17"
+      }
+    ]
+  },
+  {
+    "id": "LogNotTimber",
+    "severity": "Warning",
+    "message": "Using 'Log' instead of 'Timber'",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/java/com/cylonid/nativealpha/ShortcutDialogFragment.java",
+        "line": "95",
+        "column": "13"
+      }
+    ]
+  },
+  {
+    "id": "LogNotTimber",
+    "severity": "Warning",
+    "message": "Using 'Log' instead of 'Timber'",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/java/com/cylonid/nativealpha/WebViewActivity.java",
+        "line": "1316",
+        "column": "13"
+      }
+    ]
+  },
+  {
+    "id": "LogNotTimber",
+    "severity": "Warning",
+    "message": "Using 'Log' instead of 'Timber'",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/java/com/cylonid/nativealpha/WebViewActivity.java",
+        "line": "1476",
+        "column": "25"
+      }
+    ]
+  },
+  {
+    "id": "LogNotTimber",
+    "severity": "Warning",
+    "message": "Using 'Log' instead of 'Timber'",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/java/com/cylonid/nativealpha/__WebViewActivity_0/__WebViewActivity_0.java",
+        "line": "1316",
+        "column": "13"
+      }
+    ]
+  },
+  {
+    "id": "LogNotTimber",
+    "severity": "Warning",
+    "message": "Using 'Log' instead of 'Timber'",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/java/com/cylonid/nativealpha/__WebViewActivity_0/__WebViewActivity_0.java",
+        "line": "1476",
+        "column": "25"
+      }
+    ]
+  },
+  {
+    "id": "LogNotTimber",
+    "severity": "Warning",
+    "message": "Using 'Log' instead of 'Timber'",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/java/com/cylonid/nativealpha/__WebViewActivity_1/__WebViewActivity_1.java",
+        "line": "1316",
+        "column": "13"
+      }
+    ]
+  },
+  {
+    "id": "LogNotTimber",
+    "severity": "Warning",
+    "message": "Using 'Log' instead of 'Timber'",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/java/com/cylonid/nativealpha/__WebViewActivity_1/__WebViewActivity_1.java",
+        "line": "1476",
+        "column": "25"
+      }
+    ]
+  },
+  {
+    "id": "LogNotTimber",
+    "severity": "Warning",
+    "message": "Using 'Log' instead of 'Timber'",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/java/com/cylonid/nativealpha/__WebViewActivity_2/__WebViewActivity_2.java",
+        "line": "1316",
+        "column": "13"
+      }
+    ]
+  },
+  {
+    "id": "LogNotTimber",
+    "severity": "Warning",
+    "message": "Using 'Log' instead of 'Timber'",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/java/com/cylonid/nativealpha/__WebViewActivity_2/__WebViewActivity_2.java",
+        "line": "1476",
+        "column": "25"
+      }
+    ]
+  },
+  {
+    "id": "LogNotTimber",
+    "severity": "Warning",
+    "message": "Using 'Log' instead of 'Timber'",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/java/com/cylonid/nativealpha/__WebViewActivity_3/__WebViewActivity_3.java",
+        "line": "1316",
+        "column": "13"
+      }
+    ]
+  },
+  {
+    "id": "LogNotTimber",
+    "severity": "Warning",
+    "message": "Using 'Log' instead of 'Timber'",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/java/com/cylonid/nativealpha/__WebViewActivity_3/__WebViewActivity_3.java",
+        "line": "1476",
+        "column": "25"
+      }
+    ]
+  },
+  {
+    "id": "LogNotTimber",
+    "severity": "Warning",
+    "message": "Using 'Log' instead of 'Timber'",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/java/com/cylonid/nativealpha/__WebViewActivity_4/__WebViewActivity_4.java",
+        "line": "1316",
+        "column": "13"
+      }
+    ]
+  },
+  {
+    "id": "LogNotTimber",
+    "severity": "Warning",
+    "message": "Using 'Log' instead of 'Timber'",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/java/com/cylonid/nativealpha/__WebViewActivity_4/__WebViewActivity_4.java",
+        "line": "1476",
+        "column": "25"
+      }
+    ]
+  },
+  {
+    "id": "LogNotTimber",
+    "severity": "Warning",
+    "message": "Using 'Log' instead of 'Timber'",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/java/com/cylonid/nativealpha/__WebViewActivity_5/__WebViewActivity_5.java",
+        "line": "1316",
+        "column": "13"
+      }
+    ]
+  },
+  {
+    "id": "LogNotTimber",
+    "severity": "Warning",
+    "message": "Using 'Log' instead of 'Timber'",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/java/com/cylonid/nativealpha/__WebViewActivity_5/__WebViewActivity_5.java",
+        "line": "1476",
+        "column": "25"
+      }
+    ]
+  },
+  {
+    "id": "LogNotTimber",
+    "severity": "Warning",
+    "message": "Using 'Log' instead of 'Timber'",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/java/com/cylonid/nativealpha/__WebViewActivity_6/__WebViewActivity_6.java",
+        "line": "1316",
+        "column": "13"
+      }
+    ]
+  },
+  {
+    "id": "LogNotTimber",
+    "severity": "Warning",
+    "message": "Using 'Log' instead of 'Timber'",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/java/com/cylonid/nativealpha/__WebViewActivity_6/__WebViewActivity_6.java",
+        "line": "1476",
+        "column": "25"
+      }
+    ]
+  },
+  {
+    "id": "LogNotTimber",
+    "severity": "Warning",
+    "message": "Using 'Log' instead of 'Timber'",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/java/com/cylonid/nativealpha/__WebViewActivity_7/__WebViewActivity_7.java",
+        "line": "1316",
+        "column": "13"
+      }
+    ]
+  },
+  {
+    "id": "LogNotTimber",
+    "severity": "Warning",
+    "message": "Using 'Log' instead of 'Timber'",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/java/com/cylonid/nativealpha/__WebViewActivity_7/__WebViewActivity_7.java",
+        "line": "1476",
+        "column": "25"
+      }
+    ]
+  },
+  {
+    "id": "PluralsCandidate",
+    "severity": "Warning",
+    "message": "Formatting %d followed by words (\"columns\"): This should probably be a plural rather than a string",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/strings.xml",
+        "line": "7",
+        "column": "5"
+      }
+    ]
+  },
+  {
+    "id": "PluralsCandidate",
+    "severity": "Warning",
+    "message": "Formatting %d followed by words (\"Web\"): This should probably be a plural rather than a string",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/strings.xml",
+        "line": "84",
+        "column": "5"
+      }
+    ]
+  },
+  {
+    "id": "PluralsCandidate",
+    "severity": "Warning",
+    "message": "Formatting %d followed by words (\"active\"): This should probably be a plural rather than a string",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/strings_bilingual.xml",
+        "line": "3",
+        "column": "5"
+      }
+    ]
+  },
+  {
+    "id": "PluralsCandidate",
+    "severity": "Warning",
+    "message": "Formatting %d followed by words (\"active\"): This should probably be a plural rather than a string",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/strings_bilingual.xml",
+        "line": "4",
+        "column": "5"
+      }
+    ]
+  },
+  {
+    "id": "PluralsCandidate",
+    "severity": "Warning",
+    "message": "Formatting %d followed by words (\"columns\"): This should probably be a plural rather than a string",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/strings_home_refinement.xml",
+        "line": "9",
+        "column": "5"
+      }
+    ]
+  },
+  {
+    "id": "PluralsCandidate",
+    "severity": "Warning",
+    "message": "Formatting %d followed by words (\"columns\"): This should probably be a plural rather than a string",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/strings_home_refinement.xml",
+        "line": "10",
+        "column": "5"
+      }
+    ]
+  },
+  {
+    "id": "PluralsCandidate",
+    "severity": "Warning",
+    "message": "Formatting %d followed by words (\"active\"): This should probably be a plural rather than a string",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/strings_sandboxes.xml",
+        "line": "16",
+        "column": "5"
+      }
+    ]
+  },
+  {
+    "id": "PluralsCandidate",
+    "severity": "Warning",
+    "message": "Formatting %d followed by words (\"active\"): This should probably be a plural rather than a string",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/strings_sandboxes.xml",
+        "line": "23",
+        "column": "5"
+      }
+    ]
+  },
+  {
+    "id": "PluralsCandidate",
+    "severity": "Warning",
+    "message": "Formatting %d followed by words (\"active\"): This should probably be a plural rather than a string",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/strings_sandboxes.xml",
+        "line": "24",
+        "column": "5"
+      }
+    ]
+  },
+  {
+    "id": "PermissionImpliesUnsupportedChromeOsHardware",
+    "severity": "Error",
+    "message": "Permission exists without corresponding hardware `<uses-feature android:name=\"android.hardware.camera\" required=\"false\">` tag",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/build/generated/sandboxManifest/AndroidManifest.xml",
+        "line": "11",
+        "column": "6"
+      }
+    ]
+  },
+  {
+    "id": "WebViewClientOnReceivedSslError",
+    "severity": "Warning",
+    "message": "Permitting connections with SSL-related errors could allow eavesdroppers to intercept data sent by your app, which impacts the privacy of your users. Consider canceling the connections by invoking `SslErrorHandler#cancel()`.",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/java/com/cylonid/nativealpha/WebViewActivity.java",
+        "line": "1733",
+        "column": "17"
+      }
+    ]
+  },
+  {
+    "id": "WebViewClientOnReceivedSslError",
+    "severity": "Warning",
+    "message": "Permitting connections with SSL-related errors could allow eavesdroppers to intercept data sent by your app, which impacts the privacy of your users. Consider canceling the connections by invoking `SslErrorHandler#cancel()`.",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/java/com/cylonid/nativealpha/WebViewActivity.java",
+        "line": "1761",
+        "column": "88"
+      }
+    ]
+  },
+  {
+    "id": "WebViewClientOnReceivedSslError",
+    "severity": "Warning",
+    "message": "Permitting connections with SSL-related errors could allow eavesdroppers to intercept data sent by your app, which impacts the privacy of your users. Consider canceling the connections by invoking `SslErrorHandler#cancel()`.",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/java/com/cylonid/nativealpha/__WebViewActivity_0/__WebViewActivity_0.java",
+        "line": "1733",
+        "column": "17"
+      }
+    ]
+  },
+  {
+    "id": "WebViewClientOnReceivedSslError",
+    "severity": "Warning",
+    "message": "Permitting connections with SSL-related errors could allow eavesdroppers to intercept data sent by your app, which impacts the privacy of your users. Consider canceling the connections by invoking `SslErrorHandler#cancel()`.",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/java/com/cylonid/nativealpha/__WebViewActivity_0/__WebViewActivity_0.java",
+        "line": "1761",
+        "column": "88"
+      }
+    ]
+  },
+  {
+    "id": "WebViewClientOnReceivedSslError",
+    "severity": "Warning",
+    "message": "Permitting connections with SSL-related errors could allow eavesdroppers to intercept data sent by your app, which impacts the privacy of your users. Consider canceling the connections by invoking `SslErrorHandler#cancel()`.",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/java/com/cylonid/nativealpha/__WebViewActivity_1/__WebViewActivity_1.java",
+        "line": "1733",
+        "column": "17"
+      }
+    ]
+  },
+  {
+    "id": "WebViewClientOnReceivedSslError",
+    "severity": "Warning",
+    "message": "Permitting connections with SSL-related errors could allow eavesdroppers to intercept data sent by your app, which impacts the privacy of your users. Consider canceling the connections by invoking `SslErrorHandler#cancel()`.",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/java/com/cylonid/nativealpha/__WebViewActivity_1/__WebViewActivity_1.java",
+        "line": "1761",
+        "column": "88"
+      }
+    ]
+  },
+  {
+    "id": "WebViewClientOnReceivedSslError",
+    "severity": "Warning",
+    "message": "Permitting connections with SSL-related errors could allow eavesdroppers to intercept data sent by your app, which impacts the privacy of your users. Consider canceling the connections by invoking `SslErrorHandler#cancel()`.",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/java/com/cylonid/nativealpha/__WebViewActivity_2/__WebViewActivity_2.java",
+        "line": "1733",
+        "column": "17"
+      }
+    ]
+  },
+  {
+    "id": "WebViewClientOnReceivedSslError",
+    "severity": "Warning",
+    "message": "Permitting connections with SSL-related errors could allow eavesdroppers to intercept data sent by your app, which impacts the privacy of your users. Consider canceling the connections by invoking `SslErrorHandler#cancel()`.",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/java/com/cylonid/nativealpha/__WebViewActivity_2/__WebViewActivity_2.java",
+        "line": "1761",
+        "column": "88"
+      }
+    ]
+  },
+  {
+    "id": "WebViewClientOnReceivedSslError",
+    "severity": "Warning",
+    "message": "Permitting connections with SSL-related errors could allow eavesdroppers to intercept data sent by your app, which impacts the privacy of your users. Consider canceling the connections by invoking `SslErrorHandler#cancel()`.",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/java/com/cylonid/nativealpha/__WebViewActivity_3/__WebViewActivity_3.java",
+        "line": "1733",
+        "column": "17"
+      }
+    ]
+  },
+  {
+    "id": "WebViewClientOnReceivedSslError",
+    "severity": "Warning",
+    "message": "Permitting connections with SSL-related errors could allow eavesdroppers to intercept data sent by your app, which impacts the privacy of your users. Consider canceling the connections by invoking `SslErrorHandler#cancel()`.",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/java/com/cylonid/nativealpha/__WebViewActivity_3/__WebViewActivity_3.java",
+        "line": "1761",
+        "column": "88"
+      }
+    ]
+  },
+  {
+    "id": "WebViewClientOnReceivedSslError",
+    "severity": "Warning",
+    "message": "Permitting connections with SSL-related errors could allow eavesdroppers to intercept data sent by your app, which impacts the privacy of your users. Consider canceling the connections by invoking `SslErrorHandler#cancel()`.",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/java/com/cylonid/nativealpha/__WebViewActivity_4/__WebViewActivity_4.java",
+        "line": "1733",
+        "column": "17"
+      }
+    ]
+  },
+  {
+    "id": "WebViewClientOnReceivedSslError",
+    "severity": "Warning",
+    "message": "Permitting connections with SSL-related errors could allow eavesdroppers to intercept data sent by your app, which impacts the privacy of your users. Consider canceling the connections by invoking `SslErrorHandler#cancel()`.",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/java/com/cylonid/nativealpha/__WebViewActivity_4/__WebViewActivity_4.java",
+        "line": "1761",
+        "column": "88"
+      }
+    ]
+  },
+  {
+    "id": "WebViewClientOnReceivedSslError",
+    "severity": "Warning",
+    "message": "Permitting connections with SSL-related errors could allow eavesdroppers to intercept data sent by your app, which impacts the privacy of your users. Consider canceling the connections by invoking `SslErrorHandler#cancel()`.",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/java/com/cylonid/nativealpha/__WebViewActivity_5/__WebViewActivity_5.java",
+        "line": "1733",
+        "column": "17"
+      }
+    ]
+  },
+  {
+    "id": "WebViewClientOnReceivedSslError",
+    "severity": "Warning",
+    "message": "Permitting connections with SSL-related errors could allow eavesdroppers to intercept data sent by your app, which impacts the privacy of your users. Consider canceling the connections by invoking `SslErrorHandler#cancel()`.",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/java/com/cylonid/nativealpha/__WebViewActivity_5/__WebViewActivity_5.java",
+        "line": "1761",
+        "column": "88"
+      }
+    ]
+  },
+  {
+    "id": "WebViewClientOnReceivedSslError",
+    "severity": "Warning",
+    "message": "Permitting connections with SSL-related errors could allow eavesdroppers to intercept data sent by your app, which impacts the privacy of your users. Consider canceling the connections by invoking `SslErrorHandler#cancel()`.",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/java/com/cylonid/nativealpha/__WebViewActivity_6/__WebViewActivity_6.java",
+        "line": "1733",
+        "column": "17"
+      }
+    ]
+  },
+  {
+    "id": "WebViewClientOnReceivedSslError",
+    "severity": "Warning",
+    "message": "Permitting connections with SSL-related errors could allow eavesdroppers to intercept data sent by your app, which impacts the privacy of your users. Consider canceling the connections by invoking `SslErrorHandler#cancel()`.",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/java/com/cylonid/nativealpha/__WebViewActivity_6/__WebViewActivity_6.java",
+        "line": "1761",
+        "column": "88"
+      }
+    ]
+  },
+  {
+    "id": "WebViewClientOnReceivedSslError",
+    "severity": "Warning",
+    "message": "Permitting connections with SSL-related errors could allow eavesdroppers to intercept data sent by your app, which impacts the privacy of your users. Consider canceling the connections by invoking `SslErrorHandler#cancel()`.",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/java/com/cylonid/nativealpha/__WebViewActivity_7/__WebViewActivity_7.java",
+        "line": "1733",
+        "column": "17"
+      }
+    ]
+  },
+  {
+    "id": "WebViewClientOnReceivedSslError",
+    "severity": "Warning",
+    "message": "Permitting connections with SSL-related errors could allow eavesdroppers to intercept data sent by your app, which impacts the privacy of your users. Consider canceling the connections by invoking `SslErrorHandler#cancel()`.",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/java/com/cylonid/nativealpha/__WebViewActivity_7/__WebViewActivity_7.java",
+        "line": "1761",
+        "column": "88"
+      }
+    ]
+  },
+  {
+    "id": "DataExtractionRules",
+    "severity": "Warning",
+    "message": "The attribute `android:fullBackupContent` is deprecated from Android 12 and higher and may be removed in future versions. Consider adding the attribute `android:dataExtractionRules` specifying an `@xml` resource which configures cloud backups and device transfers on Android 12 and higher.",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/build/generated/sandboxManifest/AndroidManifest.xml",
+        "line": "29",
+        "column": "36"
+      }
+    ]
+  },
+  {
+    "id": "ObsoleteSdkInt",
+    "severity": "Warning",
+    "message": "Unnecessary; `SDK_INT` is always >= 28",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/kotlin/com/cylonid/nativealpha/monitors/WebMonitorWorker.kt",
+        "line": "63",
+        "column": "13"
+      }
+    ]
+  },
+  {
+    "id": "ObsoleteSdkInt",
+    "severity": "Warning",
+    "message": "This folder configuration (`v26`) is unnecessary; `minSdkVersion` is 28. Merge all the resources in this folder into `mipmap-anydpi`.",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/mipmap-anydpi-v26"
+      }
+    ]
+  },
+  {
+    "id": "UseCompoundDrawables",
+    "severity": "Warning",
+    "message": "This tag and its children can be replaced by one `<TextView/>` and a compound drawable",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/layout-w480dp/activity_main.xml",
+        "line": "186",
+        "column": "14"
+      }
+    ]
+  },
+  {
+    "id": "UseCompoundDrawables",
+    "severity": "Warning",
+    "message": "This tag and its children can be replaced by one `<TextView/>` and a compound drawable",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/layout/activity_main.xml",
+        "line": "198",
+        "column": "14"
+      }
+    ]
+  },
+  {
+    "id": "UseCompoundDrawables",
+    "severity": "Warning",
+    "message": "This tag and its children can be replaced by one `<TextView/>` and a compound drawable",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/layout/full_webview.xml",
+        "line": "339",
+        "column": "22"
+      }
+    ]
+  },
+  {
+    "id": "UseCompoundDrawables",
+    "severity": "Warning",
+    "message": "This tag and its children can be replaced by one `<TextView/>` and a compound drawable",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/layout/full_webview.xml",
+        "line": "384",
+        "column": "22"
+      }
+    ]
+  },
+  {
+    "id": "UseCompoundDrawables",
+    "severity": "Warning",
+    "message": "This tag and its children can be replaced by one `<TextView/>` and a compound drawable",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/layout/full_webview.xml",
+        "line": "429",
+        "column": "22"
+      }
+    ]
+  },
+  {
+    "id": "UseCompoundDrawables",
+    "severity": "Warning",
+    "message": "This tag and its children can be replaced by one `<TextView/>` and a compound drawable",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/layout/full_webview.xml",
+        "line": "473",
+        "column": "22"
+      }
+    ]
+  },
+  {
+    "id": "UseCompoundDrawables",
+    "severity": "Warning",
+    "message": "This tag and its children can be replaced by one `<TextView/>` and a compound drawable",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/layout/full_webview.xml",
+        "line": "516",
+        "column": "22"
+      }
+    ]
+  },
+  {
+    "id": "UseCompoundDrawables",
+    "severity": "Warning",
+    "message": "This tag and its children can be replaced by one `<TextView/>` and a compound drawable",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/layout/full_webview.xml",
+        "line": "559",
+        "column": "22"
+      }
+    ]
+  },
+  {
+    "id": "VectorPath",
+    "severity": "Warning",
+    "message": "Very long vector path (910 characters), which is bad for performance. Considering reducing precision, removing minor details or rasterizing vector.",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/drawable/ic_settings_gear_24.xml",
+        "line": "9",
+        "column": "27"
+      }
+    ]
+  },
+  {
+    "id": "VectorPath",
+    "severity": "Warning",
+    "message": "Very long vector path (1100 characters), which is bad for performance. Considering reducing precision, removing minor details or rasterizing vector.",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/drawable/liberapay_logo.xml",
+        "line": "10",
+        "column": "25"
+      }
+    ]
+  },
+  {
+    "id": "Overdraw",
+    "severity": "Warning",
+    "message": "Possible overdraw: Root element paints background `?attr/colorSurface` with a theme that also paints a background (inferred theme is `@style/AppTheme`)",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/layout/activity_sandbox.xml",
+        "line": "6",
+        "column": "5"
+      }
+    ]
+  },
+  {
+    "id": "Overdraw",
+    "severity": "Warning",
+    "message": "Possible overdraw: Root element paints background `?attr/colorSurface` with a theme that also paints a background (inferred theme is `@style/AppTheme_WebView`)",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/layout/full_webview.xml",
+        "line": "8",
+        "column": "5"
+      }
+    ]
+  },
+  {
+    "id": "Overdraw",
+    "severity": "Warning",
+    "message": "Possible overdraw: Root element paints background `?attr/selectableItemBackground` with a theme that also paints a background (inferred theme is `@style/AppTheme`)",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/layout/item_sandbox_app.xml",
+        "line": "7",
+        "column": "5"
+      }
+    ]
+  },
+  {
+    "id": "Overdraw",
+    "severity": "Warning",
+    "message": "Possible overdraw: Root element paints background `?attr/colorSurface` with a theme that also paints a background (inferred theme is `@style/AppTheme`)",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/layout/news_activity.xml",
+        "line": "8",
+        "column": "5"
+      }
+    ]
+  },
+  {
+    "id": "Overdraw",
+    "severity": "Warning",
+    "message": "Possible overdraw: Root element paints background `?attr/colorSurface` with a theme that also paints a background (inferred theme is `@android:style/Theme.Holo`)",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/layout/toolbar_back_action.xml",
+        "line": "7",
+        "column": "5"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.drawable.baseline_drag_indicator_24` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/drawable/baseline_drag_indicator_24.xml",
+        "line": "1",
+        "column": "1"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.color.md_theme_scrim` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/colors.xml",
+        "line": "26",
+        "column": "12"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.color.md_theme_primary_mediumContrast` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/colors.xml",
+        "line": "49",
+        "column": "12"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.color.md_theme_onPrimary_mediumContrast` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/colors.xml",
+        "line": "50",
+        "column": "12"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.color.md_theme_primaryContainer_mediumContrast` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/colors.xml",
+        "line": "51",
+        "column": "12"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.color.md_theme_onPrimaryContainer_mediumContrast` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/colors.xml",
+        "line": "52",
+        "column": "12"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.color.md_theme_secondary_mediumContrast` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/colors.xml",
+        "line": "53",
+        "column": "12"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.color.md_theme_onSecondary_mediumContrast` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/colors.xml",
+        "line": "54",
+        "column": "12"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.color.md_theme_secondaryContainer_mediumContrast` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/colors.xml",
+        "line": "55",
+        "column": "12"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.color.md_theme_onSecondaryContainer_mediumContrast` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/colors.xml",
+        "line": "56",
+        "column": "12"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.color.md_theme_tertiary_mediumContrast` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/colors.xml",
+        "line": "57",
+        "column": "12"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.color.md_theme_onTertiary_mediumContrast` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/colors.xml",
+        "line": "58",
+        "column": "12"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.color.md_theme_tertiaryContainer_mediumContrast` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/colors.xml",
+        "line": "59",
+        "column": "12"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.color.md_theme_onTertiaryContainer_mediumContrast` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/colors.xml",
+        "line": "60",
+        "column": "12"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.color.md_theme_error_mediumContrast` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/colors.xml",
+        "line": "61",
+        "column": "12"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.color.md_theme_onError_mediumContrast` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/colors.xml",
+        "line": "62",
+        "column": "12"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.color.md_theme_errorContainer_mediumContrast` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/colors.xml",
+        "line": "63",
+        "column": "12"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.color.md_theme_onErrorContainer_mediumContrast` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/colors.xml",
+        "line": "64",
+        "column": "12"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.color.md_theme_background_mediumContrast` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/colors.xml",
+        "line": "65",
+        "column": "12"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.color.md_theme_onBackground_mediumContrast` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/colors.xml",
+        "line": "66",
+        "column": "12"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.color.md_theme_surface_mediumContrast` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/colors.xml",
+        "line": "67",
+        "column": "12"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.color.md_theme_onSurface_mediumContrast` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/colors.xml",
+        "line": "68",
+        "column": "12"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.color.md_theme_surfaceVariant_mediumContrast` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/colors.xml",
+        "line": "69",
+        "column": "12"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.color.md_theme_onSurfaceVariant_mediumContrast` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/colors.xml",
+        "line": "70",
+        "column": "12"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.color.md_theme_outline_mediumContrast` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/colors.xml",
+        "line": "71",
+        "column": "12"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.color.md_theme_outlineVariant_mediumContrast` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/colors.xml",
+        "line": "72",
+        "column": "12"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.color.md_theme_scrim_mediumContrast` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/colors.xml",
+        "line": "73",
+        "column": "12"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.color.md_theme_inverseSurface_mediumContrast` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/colors.xml",
+        "line": "74",
+        "column": "12"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.color.md_theme_inverseOnSurface_mediumContrast` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/colors.xml",
+        "line": "75",
+        "column": "12"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.color.md_theme_inversePrimary_mediumContrast` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/colors.xml",
+        "line": "76",
+        "column": "12"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.color.md_theme_primaryFixed_mediumContrast` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/colors.xml",
+        "line": "77",
+        "column": "12"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.color.md_theme_onPrimaryFixed_mediumContrast` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/colors.xml",
+        "line": "78",
+        "column": "12"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.color.md_theme_primaryFixedDim_mediumContrast` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/colors.xml",
+        "line": "79",
+        "column": "12"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.color.md_theme_onPrimaryFixedVariant_mediumContrast` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/colors.xml",
+        "line": "80",
+        "column": "12"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.color.md_theme_secondaryFixed_mediumContrast` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/colors.xml",
+        "line": "81",
+        "column": "12"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.color.md_theme_onSecondaryFixed_mediumContrast` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/colors.xml",
+        "line": "82",
+        "column": "12"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.color.md_theme_secondaryFixedDim_mediumContrast` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/colors.xml",
+        "line": "83",
+        "column": "12"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.color.md_theme_onSecondaryFixedVariant_mediumContrast` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/colors.xml",
+        "line": "84",
+        "column": "12"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.color.md_theme_tertiaryFixed_mediumContrast` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/colors.xml",
+        "line": "85",
+        "column": "12"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.color.md_theme_onTertiaryFixed_mediumContrast` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/colors.xml",
+        "line": "86",
+        "column": "12"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.color.md_theme_tertiaryFixedDim_mediumContrast` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/colors.xml",
+        "line": "87",
+        "column": "12"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.color.md_theme_onTertiaryFixedVariant_mediumContrast` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/colors.xml",
+        "line": "88",
+        "column": "12"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.color.md_theme_surfaceDim_mediumContrast` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/colors.xml",
+        "line": "89",
+        "column": "12"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.color.md_theme_surfaceBright_mediumContrast` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/colors.xml",
+        "line": "90",
+        "column": "12"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.color.md_theme_surfaceContainerLowest_mediumContrast` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/colors.xml",
+        "line": "91",
+        "column": "12"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.color.md_theme_surfaceContainerLow_mediumContrast` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/colors.xml",
+        "line": "92",
+        "column": "12"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.color.md_theme_surfaceContainer_mediumContrast` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/colors.xml",
+        "line": "93",
+        "column": "12"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.color.md_theme_surfaceContainerHigh_mediumContrast` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/colors.xml",
+        "line": "94",
+        "column": "12"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.color.md_theme_surfaceContainerHighest_mediumContrast` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/colors.xml",
+        "line": "95",
+        "column": "12"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.color.md_theme_primary_highContrast` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/colors.xml",
+        "line": "96",
+        "column": "12"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.color.md_theme_onPrimary_highContrast` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/colors.xml",
+        "line": "97",
+        "column": "12"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.color.md_theme_primaryContainer_highContrast` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/colors.xml",
+        "line": "98",
+        "column": "12"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.color.md_theme_onPrimaryContainer_highContrast` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/colors.xml",
+        "line": "99",
+        "column": "12"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.color.md_theme_secondary_highContrast` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/colors.xml",
+        "line": "100",
+        "column": "12"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.color.md_theme_onSecondary_highContrast` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/colors.xml",
+        "line": "101",
+        "column": "12"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.color.md_theme_secondaryContainer_highContrast` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/colors.xml",
+        "line": "102",
+        "column": "12"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.color.md_theme_onSecondaryContainer_highContrast` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/colors.xml",
+        "line": "103",
+        "column": "12"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.color.md_theme_tertiary_highContrast` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/colors.xml",
+        "line": "104",
+        "column": "12"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.color.md_theme_onTertiary_highContrast` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/colors.xml",
+        "line": "105",
+        "column": "12"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.color.md_theme_tertiaryContainer_highContrast` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/colors.xml",
+        "line": "106",
+        "column": "12"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.color.md_theme_onTertiaryContainer_highContrast` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/colors.xml",
+        "line": "107",
+        "column": "12"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.color.md_theme_error_highContrast` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/colors.xml",
+        "line": "108",
+        "column": "12"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.color.md_theme_onError_highContrast` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/colors.xml",
+        "line": "109",
+        "column": "12"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.color.md_theme_errorContainer_highContrast` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/colors.xml",
+        "line": "110",
+        "column": "12"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.color.md_theme_onErrorContainer_highContrast` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/colors.xml",
+        "line": "111",
+        "column": "12"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.color.md_theme_background_highContrast` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/colors.xml",
+        "line": "112",
+        "column": "12"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.color.md_theme_onBackground_highContrast` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/colors.xml",
+        "line": "113",
+        "column": "12"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.color.md_theme_surface_highContrast` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/colors.xml",
+        "line": "114",
+        "column": "12"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.color.md_theme_onSurface_highContrast` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/colors.xml",
+        "line": "115",
+        "column": "12"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.color.md_theme_surfaceVariant_highContrast` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/colors.xml",
+        "line": "116",
+        "column": "12"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.color.md_theme_onSurfaceVariant_highContrast` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/colors.xml",
+        "line": "117",
+        "column": "12"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.color.md_theme_outline_highContrast` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/colors.xml",
+        "line": "118",
+        "column": "12"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.color.md_theme_outlineVariant_highContrast` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/colors.xml",
+        "line": "119",
+        "column": "12"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.color.md_theme_scrim_highContrast` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/colors.xml",
+        "line": "120",
+        "column": "12"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.color.md_theme_inverseSurface_highContrast` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/colors.xml",
+        "line": "121",
+        "column": "12"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.color.md_theme_inverseOnSurface_highContrast` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/colors.xml",
+        "line": "122",
+        "column": "12"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.color.md_theme_inversePrimary_highContrast` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/colors.xml",
+        "line": "123",
+        "column": "12"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.color.md_theme_primaryFixed_highContrast` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/colors.xml",
+        "line": "124",
+        "column": "12"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.color.md_theme_onPrimaryFixed_highContrast` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/colors.xml",
+        "line": "125",
+        "column": "12"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.color.md_theme_primaryFixedDim_highContrast` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/colors.xml",
+        "line": "126",
+        "column": "12"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.color.md_theme_onPrimaryFixedVariant_highContrast` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/colors.xml",
+        "line": "127",
+        "column": "12"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.color.md_theme_secondaryFixed_highContrast` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/colors.xml",
+        "line": "128",
+        "column": "12"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.color.md_theme_onSecondaryFixed_highContrast` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/colors.xml",
+        "line": "129",
+        "column": "12"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.color.md_theme_secondaryFixedDim_highContrast` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/colors.xml",
+        "line": "130",
+        "column": "12"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.color.md_theme_onSecondaryFixedVariant_highContrast` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/colors.xml",
+        "line": "131",
+        "column": "12"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.color.md_theme_tertiaryFixed_highContrast` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/colors.xml",
+        "line": "132",
+        "column": "12"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.color.md_theme_onTertiaryFixed_highContrast` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/colors.xml",
+        "line": "133",
+        "column": "12"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.color.md_theme_tertiaryFixedDim_highContrast` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/colors.xml",
+        "line": "134",
+        "column": "12"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.color.md_theme_onTertiaryFixedVariant_highContrast` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/colors.xml",
+        "line": "135",
+        "column": "12"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.color.md_theme_surfaceDim_highContrast` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/colors.xml",
+        "line": "136",
+        "column": "12"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.color.md_theme_surfaceBright_highContrast` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/colors.xml",
+        "line": "137",
+        "column": "12"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.color.md_theme_surfaceContainerLowest_highContrast` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/colors.xml",
+        "line": "138",
+        "column": "12"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.color.md_theme_surfaceContainerLow_highContrast` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/colors.xml",
+        "line": "139",
+        "column": "12"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.color.md_theme_surfaceContainer_highContrast` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/colors.xml",
+        "line": "140",
+        "column": "12"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.color.md_theme_surfaceContainerHigh_highContrast` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/colors.xml",
+        "line": "141",
+        "column": "12"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.color.md_theme_surfaceContainerHighest_highContrast` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/colors.xml",
+        "line": "142",
+        "column": "12"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.color.colorSignatureDark` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/colors.xml",
+        "line": "145",
+        "column": "12"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.color.transparent` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/colors.xml",
+        "line": "147",
+        "column": "12"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.color.snackbar_background` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/colors.xml",
+        "line": "148",
+        "column": "12"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.color.disabled_background_color` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/colors.xml",
+        "line": "150",
+        "column": "12"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.color.disabled_text_color` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/colors.xml",
+        "line": "151",
+        "column": "12"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.color.secondary_text_color` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/colors.xml",
+        "line": "152",
+        "column": "12"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.color.swipe_action_positive` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/colors.xml",
+        "line": "154",
+        "column": "12"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.color.hermit_amber` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/colors.xml",
+        "line": "159",
+        "column": "12"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.color.hermit_aquamarine` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/colors.xml",
+        "line": "160",
+        "column": "12"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.color.hermit_blue` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/colors.xml",
+        "line": "161",
+        "column": "12"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.color.hermit_brick` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/colors.xml",
+        "line": "162",
+        "column": "12"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.color.hermit_brown` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/colors.xml",
+        "line": "163",
+        "column": "12"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.color.hermit_crimson` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/colors.xml",
+        "line": "164",
+        "column": "12"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.color.hermit_cyan` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/colors.xml",
+        "line": "165",
+        "column": "12"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.color.hermit_green` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/colors.xml",
+        "line": "166",
+        "column": "12"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.color.hermit_indigo` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/colors.xml",
+        "line": "167",
+        "column": "12"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.color.hermit_lavender` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/colors.xml",
+        "line": "168",
+        "column": "12"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.color.hermit_lime` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/colors.xml",
+        "line": "169",
+        "column": "12"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.color.hermit_olive` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/colors.xml",
+        "line": "170",
+        "column": "12"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.color.hermit_orange` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/colors.xml",
+        "line": "171",
+        "column": "12"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.color.hermit_pink` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/colors.xml",
+        "line": "172",
+        "column": "12"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.color.hermit_purple` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/colors.xml",
+        "line": "173",
+        "column": "12"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.color.hermit_red` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/colors.xml",
+        "line": "174",
+        "column": "12"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.color.hermit_signature` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/colors.xml",
+        "line": "175",
+        "column": "12"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.color.hermit_tangerine` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/colors.xml",
+        "line": "176",
+        "column": "12"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.color.hermit_teal` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/colors.xml",
+        "line": "177",
+        "column": "12"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.color.hermit_violet` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/colors.xml",
+        "line": "178",
+        "column": "12"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.color.hermit_yellow` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/colors.xml",
+        "line": "179",
+        "column": "12"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.color.search_field_background` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/colors.xml",
+        "line": "181",
+        "column": "12"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.layout.context_menu_title` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/layout/context_menu_title.xml",
+        "line": "2",
+        "column": "1"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.dimen.line_height` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/dimens.xml",
+        "line": "3",
+        "column": "12"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.dimen.material_button_gap_space` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/dimens.xml",
+        "line": "10",
+        "column": "12"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.dimen.main_toolbar_height` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/dimens.xml",
+        "line": "13",
+        "column": "12"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.drawable.ic_baseline_format_quote_24` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/drawable/ic_baseline_format_quote_24.xml",
+        "line": "1",
+        "column": "1"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.mipmap.native_alpha_round` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/mipmap-hdpi/native_alpha_round.png"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.color.native_alpha_shortcut_background` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/native_alpha_shortcut_background.xml",
+        "line": "3",
+        "column": "12"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.drawable.native_alpha_shortcut_foreground` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/drawable/native_alpha_shortcut_foreground.xml",
+        "line": "1",
+        "column": "1"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.mipmap.native_alpha_shortcut_round` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/mipmap-hdpi/native_alpha_shortcut_round.png"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.color.native_alpha_white_background` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/native_alpha_white_background.xml",
+        "line": "3",
+        "column": "12"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.drawable.native_alpha_white_foreground` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/drawable/native_alpha_white_foreground.xml",
+        "line": "1",
+        "column": "1"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.mipmap.native_alpha_white_round` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/mipmap-hdpi/native_alpha_white_round.png"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.string.quick_settings_button_label` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/optimization_strings.xml",
+        "line": "5",
+        "column": "13"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.drawable.search_field_background` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/drawable/search_field_background.xml",
+        "line": "2",
+        "column": "1"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.string.action_settings` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/strings.xml",
+        "line": "3",
+        "column": "13"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.string.search_web_apps` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/strings.xml",
+        "line": "4",
+        "column": "13"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.string.clear_search` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/strings.xml",
+        "line": "5",
+        "column": "13"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.string.grid_columns_toggle` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/strings.xml",
+        "line": "7",
+        "column": "13"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.string.empty_lite_apps_title` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/strings.xml",
+        "line": "8",
+        "column": "13"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.string.empty_lite_apps_message` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/strings.xml",
+        "line": "9",
+        "column": "13"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.string.empty_search_title` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/strings.xml",
+        "line": "10",
+        "column": "13"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.string.empty_search_message` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/strings.xml",
+        "line": "11",
+        "column": "13"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.string.open_global_settings` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/strings.xml",
+        "line": "14",
+        "column": "13"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.string.spinner_prompt` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/strings.xml",
+        "line": "17",
+        "column": "13"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.string.use_three_finger_swipes_to_switch_between_web_apps_experimental` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/strings.xml",
+        "line": "21",
+        "column": "13"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.string.select_ui_mode` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/strings.xml",
+        "line": "22",
+        "column": "13"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.string.timeout_for_page_restore_in_minutes` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/strings.xml",
+        "line": "31",
+        "column": "13"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.string.use_two_finger_swipes_for_browser_forward_and_backward_navigation` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/strings.xml",
+        "line": "36",
+        "column": "13"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.array.ui_modes` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/strings.xml",
+        "line": "37",
+        "column": "19"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.string.delete_question` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/strings.xml",
+        "line": "45",
+        "column": "13"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.string.enter_valid_url` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/strings.xml",
+        "line": "46",
+        "column": "13"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.string.edit_webapp_settings` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/strings.xml",
+        "line": "47",
+        "column": "13"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.string.restore_last_opened_page` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/strings.xml",
+        "line": "50",
+        "column": "13"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.string.os_libraries_title` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/strings.xml",
+        "line": "61",
+        "column": "13"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.string.webapp_section_cookies` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/strings.xml",
+        "line": "78",
+        "column": "13"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.string.webapp_section_misc` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/strings.xml",
+        "line": "80",
+        "column": "13"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.string.webapp_section_restorepage` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/strings.xml",
+        "line": "82",
+        "column": "13"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.string.import_success_dialog_txt1` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/strings.xml",
+        "line": "88",
+        "column": "13"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.string.global_settings_multitouch_reload` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/strings.xml",
+        "line": "94",
+        "column": "13"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.string.dialog_permission_location_title` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/strings.xml",
+        "line": "97",
+        "column": "13"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.string.dialog_permission_location_txt` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/strings.xml",
+        "line": "98",
+        "column": "13"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.string.dialog_permission_drm_title` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/strings.xml",
+        "line": "99",
+        "column": "13"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.string.dialog_permission_drm_txt` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/strings.xml",
+        "line": "100",
+        "column": "13"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.string.permission_location_rationale` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/strings.xml",
+        "line": "101",
+        "column": "13"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.string.file_download_failed` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/strings.xml",
+        "line": "104",
+        "column": "13"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.string.show_progress_bar_during_page_load` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/strings.xml",
+        "line": "106",
+        "column": "13"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.string.backup_import_done` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/strings.xml",
+        "line": "116",
+        "column": "13"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.string.backup_imported_done_txt` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/strings.xml",
+        "line": "117",
+        "column": "13"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.string.expert_settings` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/strings.xml",
+        "line": "124",
+        "column": "13"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.string.ssl_permanent_warning` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/strings.xml",
+        "line": "127",
+        "column": "13"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.string.override_global_settings` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/strings.xml",
+        "line": "130",
+        "column": "13"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.string.general` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/strings.xml",
+        "line": "132",
+        "column": "13"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.string.backup` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/strings.xml",
+        "line": "133",
+        "column": "13"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.string.use_google_safe_browsing` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/strings.xml",
+        "line": "134",
+        "column": "13"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.string.no_sandbox` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/strings.xml",
+        "line": "137",
+        "column": "13"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.string.all_sandboxes_used` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/strings.xml",
+        "line": "138",
+        "column": "13"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.string.site_not_found` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/strings.xml",
+        "line": "141",
+        "column": "13"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.string.webapp_section_kiosk` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/strings.xml",
+        "line": "144",
+        "column": "13"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.string.dialog_permission_camera_title` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/strings.xml",
+        "line": "146",
+        "column": "13"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.string.dialog_permission_camera_txt` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/strings.xml",
+        "line": "147",
+        "column": "13"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.string.dialog_permission_microphone_title` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/strings.xml",
+        "line": "150",
+        "column": "13"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.string.dialog_permission_microphone_txt` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/strings.xml",
+        "line": "151",
+        "column": "13"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.string.allow_media_playback_in_background` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/strings.xml",
+        "line": "165",
+        "column": "13"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.string.select_text` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/strings.xml",
+        "line": "169",
+        "column": "13"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.string.accept` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/strings.xml",
+        "line": "173",
+        "column": "13"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.string.cancel_eula` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/strings.xml",
+        "line": "174",
+        "column": "13"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.string.no_url_entered` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/strings.xml",
+        "line": "178",
+        "column": "13"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.string.scroll_to_bottom` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/strings.xml",
+        "line": "179",
+        "column": "13"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.string.always_show_software_buttons` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/strings.xml",
+        "line": "180",
+        "column": "13"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.string.question_delete_item` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/strings.xml",
+        "line": "186",
+        "column": "13"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.string.lite_apps` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/strings.xml",
+        "line": "216",
+        "column": "13"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.string.refresh` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/strings.xml",
+        "line": "217",
+        "column": "13"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.string.close` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/strings.xml",
+        "line": "218",
+        "column": "13"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.string.customize_this_app` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/strings.xml",
+        "line": "220",
+        "column": "13"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.string.quick_actions` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/strings.xml",
+        "line": "221",
+        "column": "13"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.string.live_privacy_controls` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/strings.xml",
+        "line": "226",
+        "column": "13"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.string.more_settings` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/strings.xml",
+        "line": "233",
+        "column": "13"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.string.app_identity` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/strings.xml",
+        "line": "234",
+        "column": "13"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.string.open_quick_settings` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/strings.xml",
+        "line": "241",
+        "column": "13"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.string.settings_section_website_defaults` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/strings.xml",
+        "line": "245",
+        "column": "13"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.string.settings_section_interface` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/strings.xml",
+        "line": "246",
+        "column": "13"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.string.settings_section_data_backup` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/strings.xml",
+        "line": "247",
+        "column": "13"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.string.toolbar_position` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/strings.xml",
+        "line": "249",
+        "column": "13"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.string.swipe_gesture_mode` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/strings.xml",
+        "line": "250",
+        "column": "13"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.string.set_default_browser` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/strings.xml",
+        "line": "251",
+        "column": "13"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.array.toolbar_positions` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/strings.xml",
+        "line": "252",
+        "column": "19"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.array.swipe_gesture_modes` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/strings.xml",
+        "line": "256",
+        "column": "19"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.string.search_or_type_url` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/strings.xml",
+        "line": "280",
+        "column": "13"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.string.navigation_close_drawer` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/strings_navigation.xml",
+        "line": "3",
+        "column": "13"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.string.sandbox_ui_expand` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/strings_sandboxes.xml",
+        "line": "17",
+        "column": "13"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.string.sandbox_ui_collapse` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/strings_sandboxes.xml",
+        "line": "18",
+        "column": "13"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.style.ThemeOverlay_AppTheme_MediumContrast` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/theme_overlays.xml",
+        "line": "2",
+        "column": "12"
+      }
+    ]
+  },
+  {
+    "id": "UnusedResources",
+    "severity": "Warning",
+    "message": "The resource `R.style.ThemeOverlay_AppTheme_HighContrast` appears to be unused",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values/theme_overlays.xml",
+        "line": "50",
+        "column": "12"
+      }
+    ]
+  },
+  {
+    "id": "TooDeepLayout",
+    "severity": "Warning",
+    "message": "`webapp_settings.xml` has more than 10 levels, bad for performance",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/layout/webapp_settings.xml",
+        "line": "258",
+        "column": "34"
+      }
+    ]
+  },
+  {
+    "id": "TooManyViews",
+    "severity": "Warning",
+    "message": "`webapp_settings.xml` has more than 80 views, bad for performance",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/layout/webapp_settings.xml",
+        "line": "621",
+        "column": "34"
+      }
+    ]
+  },
+  {
+    "id": "TypographyEllipsis",
+    "severity": "Warning",
+    "message": "Replace \"...\" with ellipsis character (…, &#8230;) ?",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values-es/strings.xml",
+        "line": "12",
+        "column": "51"
+      }
+    ]
+  },
+  {
+    "id": "TypographyEllipsis",
+    "severity": "Warning",
+    "message": "Replace \"...\" with ellipsis character (…, &#8230;) ?",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values-es/strings.xml",
+        "line": "90",
+        "column": "34"
+      }
+    ]
+  },
+  {
+    "id": "TypographyEllipsis",
+    "severity": "Warning",
+    "message": "Replace \"...\" with ellipsis character (…, &#8230;) ?",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/values-es/strings.xml",
+        "line": "96",
+        "column": "45"
+      }
+    ]
+  },
+  {
+    "id": "IconLauncherShape",
+    "severity": "Warning",
+    "message": "Launcher icon used as round icon did not have a circular shape",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/mipmap-hdpi/native_alpha.png"
+      }
+    ]
+  },
+  {
+    "id": "IconLauncherShape",
+    "severity": "Warning",
+    "message": "Launcher icon used as round icon did not have a circular shape",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/mipmap-mdpi/native_alpha.png"
+      }
+    ]
+  },
+  {
+    "id": "IconLauncherShape",
+    "severity": "Warning",
+    "message": "Launcher icon used as round icon did not have a circular shape",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/mipmap-xhdpi/native_alpha.png"
+      }
+    ]
+  },
+  {
+    "id": "IconLauncherShape",
+    "severity": "Warning",
+    "message": "Launcher icon used as round icon did not have a circular shape",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/mipmap-xxhdpi/native_alpha.png"
+      }
+    ]
+  },
+  {
+    "id": "IconLauncherShape",
+    "severity": "Warning",
+    "message": "Launcher icon used as round icon did not have a circular shape",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/mipmap-xxxhdpi/native_alpha.png"
+      }
+    ]
+  },
+  {
+    "id": "MonochromeLauncherIcon",
+    "severity": "Warning",
+    "message": "The application adaptive icon is missing a monochrome tag",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/mipmap-anydpi-v26/native_alpha.xml",
+        "line": "2",
+        "column": "1"
+      }
+    ]
+  },
+  {
+    "id": "IconDuplicates",
+    "severity": "Warning",
+    "message": "The following unrelated icon files have identical contents: native_alpha.png, native_alpha_round.png, native_alpha_shortcut.png, native_alpha_shortcut_round.png, native_alpha_white.png, native_alpha_white_round.png",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/mipmap-hdpi/native_alpha_white_round.png"
+      },
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/mipmap-hdpi/native_alpha_white.png"
+      },
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/mipmap-hdpi/native_alpha_shortcut_round.png"
+      },
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/mipmap-hdpi/native_alpha_shortcut.png"
+      },
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/mipmap-hdpi/native_alpha_round.png"
+      },
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/mipmap-hdpi/native_alpha.png"
+      }
+    ]
+  },
+  {
+    "id": "IconDuplicates",
+    "severity": "Warning",
+    "message": "The following unrelated icon files have identical contents: native_alpha.png, native_alpha_round.png, native_alpha_shortcut.png, native_alpha_shortcut_round.png, native_alpha_white.png, native_alpha_white_round.png",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/mipmap-mdpi/native_alpha_white_round.png"
+      },
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/mipmap-mdpi/native_alpha_white.png"
+      },
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/mipmap-mdpi/native_alpha_shortcut_round.png"
+      },
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/mipmap-mdpi/native_alpha_shortcut.png"
+      },
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/mipmap-mdpi/native_alpha_round.png"
+      },
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/mipmap-mdpi/native_alpha.png"
+      }
+    ]
+  },
+  {
+    "id": "IconDuplicates",
+    "severity": "Warning",
+    "message": "The following unrelated icon files have identical contents: native_alpha.png, native_alpha_round.png, native_alpha_shortcut.png, native_alpha_shortcut_round.png, native_alpha_white.png, native_alpha_white_round.png",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/mipmap-xhdpi/native_alpha_white_round.png"
+      },
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/mipmap-xhdpi/native_alpha_white.png"
+      },
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/mipmap-xhdpi/native_alpha_shortcut_round.png"
+      },
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/mipmap-xhdpi/native_alpha_shortcut.png"
+      },
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/mipmap-xhdpi/native_alpha_round.png"
+      },
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/mipmap-xhdpi/native_alpha.png"
+      }
+    ]
+  },
+  {
+    "id": "IconDuplicates",
+    "severity": "Warning",
+    "message": "The following unrelated icon files have identical contents: native_alpha.png, native_alpha_round.png, native_alpha_shortcut.png, native_alpha_shortcut_round.png, native_alpha_white.png, native_alpha_white_round.png",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/mipmap-xxhdpi/native_alpha_white_round.png"
+      },
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/mipmap-xxhdpi/native_alpha_white.png"
+      },
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/mipmap-xxhdpi/native_alpha_shortcut_round.png"
+      },
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/mipmap-xxhdpi/native_alpha_shortcut.png"
+      },
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/mipmap-xxhdpi/native_alpha_round.png"
+      },
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/mipmap-xxhdpi/native_alpha.png"
+      }
+    ]
+  },
+  {
+    "id": "IconDuplicates",
+    "severity": "Warning",
+    "message": "The following unrelated icon files have identical contents: native_alpha.png, native_alpha_round.png, native_alpha_shortcut.png, native_alpha_shortcut_round.png, native_alpha_white.png, native_alpha_white_round.png",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/mipmap-xxxhdpi/native_alpha_white_round.png"
+      },
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/mipmap-xxxhdpi/native_alpha_white.png"
+      },
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/mipmap-xxxhdpi/native_alpha_shortcut_round.png"
+      },
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/mipmap-xxxhdpi/native_alpha_shortcut.png"
+      },
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/mipmap-xxxhdpi/native_alpha_round.png"
+      },
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/mipmap-xxxhdpi/native_alpha.png"
+      }
+    ]
+  },
+  {
+    "id": "TextFields",
+    "severity": "Warning",
+    "message": "This text field does not specify an `inputType`",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/layout/global_settings.xml",
+        "line": "452",
+        "column": "26"
+      }
+    ]
+  },
+  {
+    "id": "Autofill",
+    "severity": "Warning",
+    "message": "Missing `autofillHints` attribute",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/layout-w480dp/activity_main.xml",
+        "line": "80",
+        "column": "26"
+      }
+    ]
+  },
+  {
+    "id": "Autofill",
+    "severity": "Warning",
+    "message": "Missing `autofillHints` attribute",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/layout/activity_main.xml",
+        "line": "115",
+        "column": "26"
+      }
+    ]
+  },
+  {
+    "id": "Autofill",
+    "severity": "Warning",
+    "message": "Missing `autofillHints` attribute",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/layout/add_website_dialogue.xml",
+        "line": "20",
+        "column": "6"
+      }
+    ]
+  },
+  {
+    "id": "Autofill",
+    "severity": "Warning",
+    "message": "Missing `autofillHints` attribute",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/layout/global_settings.xml",
+        "line": "452",
+        "column": "26"
+      }
+    ]
+  },
+  {
+    "id": "Autofill",
+    "severity": "Warning",
+    "message": "Missing `autofillHints` attribute",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/layout/shortcut_dialog.xml",
+        "line": "64",
+        "column": "14"
+      }
+    ]
+  },
+  {
+    "id": "Autofill",
+    "severity": "Warning",
+    "message": "Missing `autofillHints` attribute",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/layout/webapp_settings.xml",
+        "line": "324",
+        "column": "34"
+      }
+    ]
+  },
+  {
+    "id": "Autofill",
+    "severity": "Warning",
+    "message": "Missing `autofillHints` attribute",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/layout/webapp_settings.xml",
+        "line": "634",
+        "column": "38"
+      }
+    ]
+  },
+  {
+    "id": "Autofill",
+    "severity": "Warning",
+    "message": "Missing `autofillHints` attribute",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/layout/webapp_settings.xml",
+        "line": "660",
+        "column": "38"
+      }
+    ]
+  },
+  {
+    "id": "Autofill",
+    "severity": "Warning",
+    "message": "Missing `autofillHints` attribute",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/layout/webapp_settings.xml",
+        "line": "782",
+        "column": "30"
+      }
+    ]
+  },
+  {
+    "id": "Autofill",
+    "severity": "Warning",
+    "message": "Missing `autofillHints` attribute",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/layout/webapp_settings.xml",
+        "line": "824",
+        "column": "30"
+      }
+    ]
+  },
+  {
+    "id": "Autofill",
+    "severity": "Warning",
+    "message": "Missing `autofillHints` attribute",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/layout/webapp_settings.xml",
+        "line": "865",
+        "column": "30"
+      }
+    ]
+  },
+  {
+    "id": "Autofill",
+    "severity": "Warning",
+    "message": "Missing `autofillHints` attribute",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/layout/webapp_settings.xml",
+        "line": "895",
+        "column": "30"
+      }
+    ]
+  },
+  {
+    "id": "ContentDescription",
+    "severity": "Warning",
+    "message": "Missing `contentDescription` attribute on image",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/layout/shortcut_dialog.xml",
+        "line": "40",
+        "column": "14"
+      }
+    ]
+  },
+  {
+    "id": "LabelFor",
+    "severity": "Warning",
+    "message": "Missing accessibility label: provide either a view with an `android:labelFor` that references this view or provide an `android:hint`, but not both",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/layout/add_website_dialogue.xml",
+        "line": "20",
+        "column": "6"
+      }
+    ]
+  },
+  {
+    "id": "LabelFor",
+    "severity": "Warning",
+    "message": "Missing accessibility label: provide either a view with an `android:labelFor` that references this view or provide an `android:hint`",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/layout/global_settings.xml",
+        "line": "452",
+        "column": "25"
+      }
+    ]
+  },
+  {
+    "id": "LabelFor",
+    "severity": "Warning",
+    "message": "Missing accessibility label: provide either a view with an `android:labelFor` that references this view or provide an `android:hint`",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/layout/webapp_settings.xml",
+        "line": "324",
+        "column": "34"
+      }
+    ]
+  },
+  {
+    "id": "LabelFor",
+    "severity": "Warning",
+    "message": "Missing accessibility label: provide either a view with an `android:labelFor` that references this view or provide an `android:hint`",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/layout/webapp_settings.xml",
+        "line": "634",
+        "column": "38"
+      }
+    ]
+  },
+  {
+    "id": "LabelFor",
+    "severity": "Warning",
+    "message": "Missing accessibility label: provide either a view with an `android:labelFor` that references this view or provide an `android:hint`",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/layout/webapp_settings.xml",
+        "line": "660",
+        "column": "38"
+      }
+    ]
+  },
+  {
+    "id": "LabelFor",
+    "severity": "Warning",
+    "message": "Missing accessibility label: provide either a view with an `android:labelFor` that references this view or provide an `android:hint`",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/layout/webapp_settings.xml",
+        "line": "707",
+        "column": "30"
+      }
+    ]
+  },
+  {
+    "id": "HardcodedText",
+    "severity": "Warning",
+    "message": "Hardcoded string \"body\", should use `@string` resource",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/layout/webapp_settings.xml",
+        "line": "788",
+        "column": "33"
+      }
+    ]
+  },
+  {
+    "id": "HardcodedText",
+    "severity": "Warning",
+    "message": "Hardcoded string \"Adblock providers\", should use `@string` resource",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/menu/wv_context_menu.xml",
+        "line": "39",
+        "column": "15"
+      }
+    ]
+  },
+  {
+    "id": "RtlSymmetry",
+    "severity": "Warning",
+    "message": "When you define `paddingEnd` you should probably also define `paddingStart` for right-to-left symmetry",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/layout-w480dp/activity_main.xml",
+        "line": "193",
+        "column": "17"
+      }
+    ]
+  },
+  {
+    "id": "RtlSymmetry",
+    "severity": "Warning",
+    "message": "When you define `paddingEnd` you should probably also define `paddingStart` for right-to-left symmetry",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/layout/activity_main.xml",
+        "line": "205",
+        "column": "17"
+      }
+    ]
+  },
+  {
+    "id": "RtlSymmetry",
+    "severity": "Warning",
+    "message": "When you define `paddingEnd` you should probably also define `paddingStart` for right-to-left symmetry",
+    "locations": [
+      {
+        "file": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/src/main/res/layout/webapp_settings.xml",
+        "line": "197",
+        "column": "21"
+      }
+    ]
+  }
+]

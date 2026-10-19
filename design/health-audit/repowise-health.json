@@ -1,0 +1,2219 @@
+{
+  "kpis": {
+    "hotspot_health": 10.0,
+    "average_health": 8.3,
+    "worst_performer_path": "app/src/main/kotlin/com/cylonid/nativealpha/util/FaviconFetcher.kt",
+    "worst_performer_score": 5.55,
+    "file_count": 69,
+    "maintainability_average": 8.19,
+    "maintainability_hotspot": null,
+    "performance_average": 10.0,
+    "performance_hotspot": null
+  },
+  "metrics": [
+    {
+      "file_path": "app/src/main/kotlin/com/cylonid/nativealpha/util/FaviconFetcher.kt",
+      "score": 5.55,
+      "max_ccn": 49,
+      "max_nesting": 7,
+      "nloc": 176,
+      "has_test_file": false,
+      "line_coverage_pct": null,
+      "branch_coverage_pct": null,
+      "duplication_pct": 13.16
+    },
+    {
+      "file_path": "app/src/main/java/com/cylonid/nativealpha/WebViewActivity.java",
+      "score": 5.85,
+      "max_ccn": 34,
+      "max_nesting": 5,
+      "nloc": 1675,
+      "has_test_file": true,
+      "line_coverage_pct": null,
+      "branch_coverage_pct": null,
+      "duplication_pct": 15.31
+    },
+    {
+      "file_path": "app/src/main/java/com/cylonid/nativealpha/model/DataManager.java",
+      "score": 5.85,
+      "max_ccn": 13,
+      "max_nesting": 5,
+      "nloc": 500,
+      "has_test_file": true,
+      "line_coverage_pct": null,
+      "branch_coverage_pct": null,
+      "duplication_pct": 24.65
+    },
+    {
+      "file_path": "app/src/main/java/com/cylonid/nativealpha/ShortcutDialogFragment.java",
+      "score": 6.02,
+      "max_ccn": 16,
+      "max_nesting": 4,
+      "nloc": 336,
+      "has_test_file": true,
+      "line_coverage_pct": null,
+      "branch_coverage_pct": null,
+      "duplication_pct": 23.19
+    },
+    {
+      "file_path": "app/src/main/java/com/cylonid/nativealpha/MainActivity.kt",
+      "score": 7.07,
+      "max_ccn": 11,
+      "max_nesting": 3,
+      "nloc": 330,
+      "has_test_file": true,
+      "line_coverage_pct": null,
+      "branch_coverage_pct": null,
+      "duplication_pct": 16.92
+    },
+    {
+      "file_path": "app/src/main/java/com/cylonid/nativealpha/util/SearchEngineUrl.kt",
+      "score": 8.5,
+      "max_ccn": 15,
+      "max_nesting": 1,
+      "nloc": 59,
+      "has_test_file": true,
+      "line_coverage_pct": null,
+      "branch_coverage_pct": null,
+      "duplication_pct": null
+    },
+    {
+      "file_path": "app/src/main/java/com/cylonid/nativealpha/SandboxActivity.kt",
+      "score": 8.63,
+      "max_ccn": 12,
+      "max_nesting": 2,
+      "nloc": 260,
+      "has_test_file": false,
+      "line_coverage_pct": null,
+      "branch_coverage_pct": null,
+      "duplication_pct": 18.08
+    },
+    {
+      "file_path": "app/src/main/kotlin/com/cylonid/nativealpha/util/UrlSanitizer.kt",
+      "score": 9.15,
+      "max_ccn": 11,
+      "max_nesting": 2,
+      "nloc": 71,
+      "has_test_file": true,
+      "line_coverage_pct": null,
+      "branch_coverage_pct": null,
+      "duplication_pct": null
+    },
+    {
+      "file_path": "app/src/test/java/com/cylonid/nativealpha/HomeNavigationTest.java",
+      "score": 9.15,
+      "max_ccn": 5,
+      "max_nesting": 3,
+      "nloc": 129,
+      "has_test_file": true,
+      "line_coverage_pct": null,
+      "branch_coverage_pct": null,
+      "duplication_pct": 86.05
+    },
+    {
+      "file_path": "app/src/test/java/com/cylonid/nativealpha/SandboxUiTest.java",
+      "score": 9.15,
+      "max_ccn": 1,
+      "max_nesting": 1,
+      "nloc": 247,
+      "has_test_file": true,
+      "line_coverage_pct": null,
+      "branch_coverage_pct": null,
+      "duplication_pct": 59.51
+    },
+    {
+      "file_path": "app/src/test/java/com/cylonid/nativealpha/SettingsLayoutTest.java",
+      "score": 9.15,
+      "max_ccn": 4,
+      "max_nesting": 2,
+      "nloc": 121,
+      "has_test_file": true,
+      "line_coverage_pct": null,
+      "branch_coverage_pct": null,
+      "duplication_pct": 35.54
+    },
+    {
+      "file_path": "app/src/test/java/com/cylonid/nativealpha/ImmersiveBrowserTest.java",
+      "score": 9.32,
+      "max_ccn": 4,
+      "max_nesting": 1,
+      "nloc": 91,
+      "has_test_file": true,
+      "line_coverage_pct": null,
+      "branch_coverage_pct": null,
+      "duplication_pct": 22.92
+    },
+    {
+      "file_path": "app/src/main/java/com/cylonid/nativealpha/model/Sandbox.java",
+      "score": 9.4,
+      "max_ccn": 3,
+      "max_nesting": 1,
+      "nloc": 29,
+      "has_test_file": false,
+      "line_coverage_pct": null,
+      "branch_coverage_pct": null,
+      "duplication_pct": null
+    },
+    {
+      "file_path": "app/src/main/java/com/cylonid/nativealpha/model/SandboxManager.java",
+      "score": 9.4,
+      "max_ccn": 4,
+      "max_nesting": 2,
+      "nloc": 66,
+      "has_test_file": true,
+      "line_coverage_pct": null,
+      "branch_coverage_pct": null,
+      "duplication_pct": null
+    },
+    {
+      "file_path": "app/src/androidTest/java/com/cylonid/nativealpha/UITests.java",
+      "score": 9.65,
+      "max_ccn": 2,
+      "max_nesting": 1,
+      "nloc": 136,
+      "has_test_file": true,
+      "line_coverage_pct": null,
+      "branch_coverage_pct": null,
+      "duplication_pct": 52.08
+    },
+    {
+      "file_path": "app/src/androidTest/kotlin/com/cylonid/nativealpha/AdblockProviderApiHelperTest.kt",
+      "score": 9.65,
+      "max_ccn": 1,
+      "max_nesting": 0,
+      "nloc": 62,
+      "has_test_file": true,
+      "line_coverage_pct": null,
+      "branch_coverage_pct": null,
+      "duplication_pct": 41.94
+    },
+    {
+      "file_path": "app/src/main/java/com/cylonid/nativealpha/AboutActivity.kt",
+      "score": 9.65,
+      "max_ccn": 2,
+      "max_nesting": 1,
+      "nloc": 131,
+      "has_test_file": false,
+      "line_coverage_pct": null,
+      "branch_coverage_pct": null,
+      "duplication_pct": 35.88
+    },
+    {
+      "file_path": "app/src/main/java/com/cylonid/nativealpha/model/DataVersionConverter.java",
+      "score": 9.65,
+      "max_ccn": 3,
+      "max_nesting": 1,
+      "nloc": 58,
+      "has_test_file": true,
+      "line_coverage_pct": null,
+      "branch_coverage_pct": null,
+      "duplication_pct": 60.34
+    },
+    {
+      "file_path": "app/src/main/java/com/cylonid/nativealpha/util/Const.java",
+      "score": 9.65,
+      "max_ccn": 1,
+      "max_nesting": 0,
+      "nloc": 23,
+      "has_test_file": true,
+      "line_coverage_pct": null,
+      "branch_coverage_pct": null,
+      "duplication_pct": 56.52
+    },
+    {
+      "file_path": "app/src/main/kotlin/com/cylonid/nativealpha/activities/AdblockConfigActivity.kt",
+      "score": 9.65,
+      "max_ccn": 5,
+      "max_nesting": 1,
+      "nloc": 78,
+      "has_test_file": false,
+      "line_coverage_pct": null,
+      "branch_coverage_pct": null,
+      "duplication_pct": 39.74
+    },
+    {
+      "file_path": "app/src/main/kotlin/com/cylonid/nativealpha/activities/NewsActivity.kt",
+      "score": 9.65,
+      "max_ccn": 3,
+      "max_nesting": 1,
+      "nloc": 42,
+      "has_test_file": false,
+      "line_coverage_pct": null,
+      "branch_coverage_pct": null,
+      "duplication_pct": 26.19
+    },
+    {
+      "file_path": "app/src/main/kotlin/com/cylonid/nativealpha/fragments/adblocklist/AdblockListAdapter.kt",
+      "score": 9.65,
+      "max_ccn": 1,
+      "max_nesting": 0,
+      "nloc": 28,
+      "has_test_file": false,
+      "line_coverage_pct": null,
+      "branch_coverage_pct": null,
+      "duplication_pct": 64.29
+    },
+    {
+      "file_path": "app/src/main/kotlin/com/cylonid/nativealpha/model/WebApp.kt",
+      "score": 9.65,
+      "max_ccn": 3,
+      "max_nesting": 1,
+      "nloc": 286,
+      "has_test_file": true,
+      "line_coverage_pct": null,
+      "branch_coverage_pct": null,
+      "duplication_pct": 43.49
+    },
+    {
+      "file_path": "app/src/main/kotlin/com/cylonid/nativealpha/model/deserializer/GlobalSettingsDeserializer.kt",
+      "score": 9.65,
+      "max_ccn": 5,
+      "max_nesting": 2,
+      "nloc": 36,
+      "has_test_file": true,
+      "line_coverage_pct": null,
+      "branch_coverage_pct": null,
+      "duplication_pct": 25.0
+    },
+    {
+      "file_path": "app/src/test/java/com/cylonid/nativealpha/DateUtilsTest.kt",
+      "score": 9.65,
+      "max_ccn": 1,
+      "max_nesting": 0,
+      "nloc": 77,
+      "has_test_file": true,
+      "line_coverage_pct": null,
+      "branch_coverage_pct": null,
+      "duplication_pct": 40.26
+    },
+    {
+      "file_path": "app/src/test/java/com/cylonid/nativealpha/PresetLiteAppTest.java",
+      "score": 9.65,
+      "max_ccn": 1,
+      "max_nesting": 2,
+      "nloc": 180,
+      "has_test_file": true,
+      "line_coverage_pct": null,
+      "branch_coverage_pct": null,
+      "duplication_pct": 31.67
+    },
+    {
+      "file_path": "app/src/test/java/com/cylonid/nativealpha/UtilUnitTests.java",
+      "score": 9.65,
+      "max_ccn": 1,
+      "max_nesting": 0,
+      "nloc": 41,
+      "has_test_file": true,
+      "line_coverage_pct": null,
+      "branch_coverage_pct": null,
+      "duplication_pct": 54.35
+    },
+    {
+      "file_path": "app/src/main/kotlin/com/cylonid/nativealpha/monitors/WebMonitorWorker.kt",
+      "score": 9.7,
+      "max_ccn": 4,
+      "max_nesting": 2,
+      "nloc": 105,
+      "has_test_file": false,
+      "line_coverage_pct": null,
+      "branch_coverage_pct": null,
+      "duplication_pct": 19.81
+    },
+    {
+      "file_path": "app/src/androidTest/java/com/cylonid/nativealpha/TestUtils.java",
+      "score": 9.85,
+      "max_ccn": 3,
+      "max_nesting": 2,
+      "nloc": 148,
+      "has_test_file": true,
+      "line_coverage_pct": null,
+      "branch_coverage_pct": null,
+      "duplication_pct": 22.58
+    },
+    {
+      "file_path": "app/src/main/java/com/cylonid/nativealpha/SettingsActivity.kt",
+      "score": 9.85,
+      "max_ccn": 8,
+      "max_nesting": 2,
+      "nloc": 296,
+      "has_test_file": false,
+      "line_coverage_pct": null,
+      "branch_coverage_pct": null,
+      "duplication_pct": 17.97
+    },
+    {
+      "file_path": "app/src/main/java/com/cylonid/nativealpha/WebAppSettingsActivity.kt",
+      "score": 9.85,
+      "max_ccn": 5,
+      "max_nesting": 2,
+      "nloc": 319,
+      "has_test_file": false,
+      "line_coverage_pct": null,
+      "branch_coverage_pct": null,
+      "duplication_pct": 14.73
+    },
+    {
+      "file_path": "app/src/main/kotlin/com/cylonid/nativealpha/fragments/adblocklist/AdblockListFragment.kt",
+      "score": 9.85,
+      "max_ccn": 3,
+      "max_nesting": 1,
+      "nloc": 71,
+      "has_test_file": false,
+      "line_coverage_pct": null,
+      "branch_coverage_pct": null,
+      "duplication_pct": 18.31
+    },
+    {
+      "file_path": "app/src/main/kotlin/com/cylonid/nativealpha/fragments/webapplist/WebAppListAdapter.kt",
+      "score": 9.85,
+      "max_ccn": 8,
+      "max_nesting": 3,
+      "nloc": 198,
+      "has_test_file": false,
+      "line_coverage_pct": null,
+      "branch_coverage_pct": null,
+      "duplication_pct": 24.26
+    },
+    {
+      "file_path": "app/src/main/kotlin/com/cylonid/nativealpha/fragments/webapplist/WebAppListFragment.kt",
+      "score": 9.85,
+      "max_ccn": 5,
+      "max_nesting": 1,
+      "nloc": 213,
+      "has_test_file": false,
+      "line_coverage_pct": null,
+      "branch_coverage_pct": null,
+      "duplication_pct": 15.42
+    },
+    {
+      "file_path": "app/src/main/kotlin/com/cylonid/nativealpha/helper/BiometricPromptHelper.kt",
+      "score": 9.85,
+      "max_ccn": 2,
+      "max_nesting": 1,
+      "nloc": 59,
+      "has_test_file": false,
+      "line_coverage_pct": null,
+      "branch_coverage_pct": null,
+      "duplication_pct": 20.34
+    },
+    {
+      "file_path": "app/src/main/kotlin/com/cylonid/nativealpha/model/deserializer/WebAppDeserializer.kt",
+      "score": 9.85,
+      "max_ccn": 8,
+      "max_nesting": 3,
+      "nloc": 68,
+      "has_test_file": true,
+      "line_coverage_pct": null,
+      "branch_coverage_pct": null,
+      "duplication_pct": 15.28
+    },
+    {
+      "file_path": "app/src/main/kotlin/com/cylonid/nativealpha/util/ShortcutIconUtils.kt",
+      "score": 9.85,
+      "max_ccn": 5,
+      "max_nesting": 2,
+      "nloc": 84,
+      "has_test_file": true,
+      "line_coverage_pct": null,
+      "branch_coverage_pct": null,
+      "duplication_pct": 10.71
+    },
+    {
+      "file_path": "app/src/test/kotlin/com/cylonid/nativealpha/OnboardingTest.kt",
+      "score": 9.85,
+      "max_ccn": 1,
+      "max_nesting": 0,
+      "nloc": 122,
+      "has_test_file": true,
+      "line_coverage_pct": null,
+      "branch_coverage_pct": null,
+      "duplication_pct": 14.75
+    },
+    {
+      "file_path": "README.md",
+      "score": 10.0,
+      "max_ccn": 1,
+      "max_nesting": 0,
+      "nloc": 108,
+      "has_test_file": false,
+      "line_coverage_pct": null,
+      "branch_coverage_pct": null,
+      "duplication_pct": null
+    },
+    {
+      "file_path": "changelog.md",
+      "score": 10.0,
+      "max_ccn": 1,
+      "max_nesting": 0,
+      "nloc": 27,
+      "has_test_file": false,
+      "line_coverage_pct": null,
+      "branch_coverage_pct": null,
+      "duplication_pct": null
+    },
+    {
+      "file_path": "gradlew",
+      "score": 10.0,
+      "max_ccn": 1,
+      "max_nesting": 0,
+      "nloc": 128,
+      "has_test_file": false,
+      "line_coverage_pct": null,
+      "branch_coverage_pct": null,
+      "duplication_pct": null
+    },
+    {
+      "file_path": "privacy_policy.md",
+      "score": 10.0,
+      "max_ccn": 1,
+      "max_nesting": 0,
+      "nloc": 9,
+      "has_test_file": false,
+      "line_coverage_pct": null,
+      "branch_coverage_pct": null,
+      "duplication_pct": null
+    },
+    {
+      "file_path": "app/src/main/assets/errorSite/error_de.html",
+      "score": 10.0,
+      "max_ccn": 1,
+      "max_nesting": 0,
+      "nloc": 14,
+      "has_test_file": false,
+      "line_coverage_pct": null,
+      "branch_coverage_pct": null,
+      "duplication_pct": null
+    },
+    {
+      "file_path": "app/src/main/assets/errorSite/error_en.html",
+      "score": 10.0,
+      "max_ccn": 1,
+      "max_nesting": 0,
+      "nloc": 14,
+      "has_test_file": false,
+      "line_coverage_pct": null,
+      "branch_coverage_pct": null,
+      "duplication_pct": null
+    },
+    {
+      "file_path": "app/src/main/assets/news/latestUpdate_de.html",
+      "score": 10.0,
+      "max_ccn": 1,
+      "max_nesting": 0,
+      "nloc": 61,
+      "has_test_file": false,
+      "line_coverage_pct": null,
+      "branch_coverage_pct": null,
+      "duplication_pct": null
+    },
+    {
+      "file_path": "app/src/main/assets/news/latestUpdate_en.html",
+      "score": 10.0,
+      "max_ccn": 1,
+      "max_nesting": 0,
+      "nloc": 61,
+      "has_test_file": false,
+      "line_coverage_pct": null,
+      "branch_coverage_pct": null,
+      "duplication_pct": null
+    },
+    {
+      "file_path": "app/src/main/java/com/cylonid/nativealpha/lib/MovableFloatingActionButton.java",
+      "score": 10.0,
+      "max_ccn": 6,
+      "max_nesting": 2,
+      "nloc": 73,
+      "has_test_file": false,
+      "line_coverage_pct": null,
+      "branch_coverage_pct": null,
+      "duplication_pct": null
+    },
+    {
+      "file_path": "app/src/main/java/com/cylonid/nativealpha/model/GlobalSettings.kt",
+      "score": 10.0,
+      "max_ccn": 1,
+      "max_nesting": 0,
+      "nloc": 20,
+      "has_test_file": true,
+      "line_coverage_pct": null,
+      "branch_coverage_pct": null,
+      "duplication_pct": null
+    },
+    {
+      "file_path": "app/src/main/java/com/cylonid/nativealpha/util/App.java",
+      "score": 10.0,
+      "max_ccn": 2,
+      "max_nesting": 1,
+      "nloc": 20,
+      "has_test_file": true,
+      "line_coverage_pct": null,
+      "branch_coverage_pct": null,
+      "duplication_pct": null
+    },
+    {
+      "file_path": "app/src/main/java/com/cylonid/nativealpha/util/InvalidChecksumException.java",
+      "score": 10.0,
+      "max_ccn": 1,
+      "max_nesting": 0,
+      "nloc": 12,
+      "has_test_file": true,
+      "line_coverage_pct": null,
+      "branch_coverage_pct": null,
+      "duplication_pct": null
+    },
+    {
+      "file_path": "app/src/main/java/com/cylonid/nativealpha/util/LocUtils.kt",
+      "score": 10.0,
+      "max_ccn": 1,
+      "max_nesting": 0,
+      "nloc": 9,
+      "has_test_file": false,
+      "line_coverage_pct": null,
+      "branch_coverage_pct": null,
+      "duplication_pct": null
+    },
+    {
+      "file_path": "app/src/main/java/com/cylonid/nativealpha/util/ResourceImageGetter.kt",
+      "score": 10.0,
+      "max_ccn": 1,
+      "max_nesting": 0,
+      "nloc": 13,
+      "has_test_file": false,
+      "line_coverage_pct": null,
+      "branch_coverage_pct": null,
+      "duplication_pct": null
+    },
+    {
+      "file_path": "app/src/main/java/com/cylonid/nativealpha/util/Utility.java",
+      "score": 10.0,
+      "max_ccn": 5,
+      "max_nesting": 2,
+      "nloc": 42,
+      "has_test_file": true,
+      "line_coverage_pct": null,
+      "branch_coverage_pct": null,
+      "duplication_pct": null
+    },
+    {
+      "file_path": "app/src/main/java/com/cylonid/nativealpha/util/WebViewLauncher.kt",
+      "score": 10.0,
+      "max_ccn": 5,
+      "max_nesting": 2,
+      "nloc": 64,
+      "has_test_file": true,
+      "line_coverage_pct": null,
+      "branch_coverage_pct": null,
+      "duplication_pct": null
+    },
+    {
+      "file_path": "app/src/main/kotlin/com/cylonid/nativealpha/activities/ToolbarBaseActivity.kt",
+      "score": 10.0,
+      "max_ccn": 1,
+      "max_nesting": 0,
+      "nloc": 35,
+      "has_test_file": false,
+      "line_coverage_pct": null,
+      "branch_coverage_pct": null,
+      "duplication_pct": null
+    },
+    {
+      "file_path": "app/src/main/kotlin/com/cylonid/nativealpha/helper/AdblockLifecycleHelper.kt",
+      "score": 10.0,
+      "max_ccn": 2,
+      "max_nesting": 1,
+      "nloc": 42,
+      "has_test_file": false,
+      "line_coverage_pct": null,
+      "branch_coverage_pct": null,
+      "duplication_pct": null
+    },
+    {
+      "file_path": "app/src/main/kotlin/com/cylonid/nativealpha/helper/AdblockProviderApiHelper.kt",
+      "score": 10.0,
+      "max_ccn": 6,
+      "max_nesting": 2,
+      "nloc": 33,
+      "has_test_file": true,
+      "line_coverage_pct": null,
+      "branch_coverage_pct": null,
+      "duplication_pct": null
+    },
+    {
+      "file_path": "app/src/main/kotlin/com/cylonid/nativealpha/helper/IconPopupMenuHelper.kt",
+      "score": 10.0,
+      "max_ccn": 2,
+      "max_nesting": 1,
+      "nloc": 18,
+      "has_test_file": false,
+      "line_coverage_pct": null,
+      "branch_coverage_pct": null,
+      "duplication_pct": null
+    },
+    {
+      "file_path": "app/src/main/kotlin/com/cylonid/nativealpha/util/ColorPalette.kt",
+      "score": 10.0,
+      "max_ccn": 3,
+      "max_nesting": 1,
+      "nloc": 71,
+      "has_test_file": false,
+      "line_coverage_pct": null,
+      "branch_coverage_pct": null,
+      "duplication_pct": null
+    },
+    {
+      "file_path": "app/src/main/kotlin/com/cylonid/nativealpha/util/ColorUtils.kt",
+      "score": 10.0,
+      "max_ccn": 2,
+      "max_nesting": 1,
+      "nloc": 23,
+      "has_test_file": false,
+      "line_coverage_pct": null,
+      "branch_coverage_pct": null,
+      "duplication_pct": null
+    },
+    {
+      "file_path": "app/src/main/kotlin/com/cylonid/nativealpha/util/ContextExtensions.kt",
+      "score": 10.0,
+      "max_ccn": 1,
+      "max_nesting": 0,
+      "nloc": 9,
+      "has_test_file": false,
+      "line_coverage_pct": null,
+      "branch_coverage_pct": null,
+      "duplication_pct": null
+    },
+    {
+      "file_path": "app/src/main/kotlin/com/cylonid/nativealpha/util/DateUtils.kt",
+      "score": 10.0,
+      "max_ccn": 4,
+      "max_nesting": 2,
+      "nloc": 53,
+      "has_test_file": true,
+      "line_coverage_pct": null,
+      "branch_coverage_pct": null,
+      "duplication_pct": null
+    },
+    {
+      "file_path": "app/src/main/kotlin/com/cylonid/nativealpha/util/EntryPointUtils.kt",
+      "score": 10.0,
+      "max_ccn": 2,
+      "max_nesting": 1,
+      "nloc": 39,
+      "has_test_file": true,
+      "line_coverage_pct": null,
+      "branch_coverage_pct": null,
+      "duplication_pct": null
+    },
+    {
+      "file_path": "app/src/main/kotlin/com/cylonid/nativealpha/util/LocaleUtils.kt",
+      "score": 10.0,
+      "max_ccn": 1,
+      "max_nesting": 0,
+      "nloc": 10,
+      "has_test_file": false,
+      "line_coverage_pct": null,
+      "branch_coverage_pct": null,
+      "duplication_pct": null
+    },
+    {
+      "file_path": "app/src/main/kotlin/com/cylonid/nativealpha/util/NotificationUtils.kt",
+      "score": 10.0,
+      "max_ccn": 1,
+      "max_nesting": 0,
+      "nloc": 32,
+      "has_test_file": false,
+      "line_coverage_pct": null,
+      "branch_coverage_pct": null,
+      "duplication_pct": null
+    },
+    {
+      "file_path": "app/src/main/kotlin/com/cylonid/nativealpha/util/ProcessUtils.kt",
+      "score": 10.0,
+      "max_ccn": 5,
+      "max_nesting": 2,
+      "nloc": 24,
+      "has_test_file": false,
+      "line_coverage_pct": null,
+      "branch_coverage_pct": null,
+      "duplication_pct": null
+    },
+    {
+      "file_path": "app/src/test/java/com/cylonid/nativealpha/RoboTests.java",
+      "score": 10.0,
+      "max_ccn": 1,
+      "max_nesting": 0,
+      "nloc": 8,
+      "has_test_file": true,
+      "line_coverage_pct": null,
+      "branch_coverage_pct": null,
+      "duplication_pct": null
+    },
+    {
+      "file_path": "app/src/test/kotlin/com/cylonid/nativealpha/util/SearchEngineUrlTest.kt",
+      "score": 10.0,
+      "max_ccn": 1,
+      "max_nesting": 0,
+      "nloc": 75,
+      "has_test_file": true,
+      "line_coverage_pct": null,
+      "branch_coverage_pct": null,
+      "duplication_pct": null
+    },
+    {
+      "file_path": "app/src/test/kotlin/com/cylonid/nativealpha/util/UrlSanitizerTest.kt",
+      "score": 10.0,
+      "max_ccn": 1,
+      "max_nesting": 0,
+      "nloc": 45,
+      "has_test_file": true,
+      "line_coverage_pct": null,
+      "branch_coverage_pct": null,
+      "duplication_pct": null
+    }
+  ],
+  "findings": [
+    {
+      "biomarker_type": "dry_violation",
+      "severity": "low",
+      "file_path": "app/src/androidTest/java/com/cylonid/nativealpha/TestUtils.java",
+      "function_name": null,
+      "health_impact": 0.15,
+      "details": {
+        "duplication_pct": 22.58,
+        "clone_pair_count": 18,
+        "worst_clone_lines": 36,
+        "worst_clone_partner": "app/src/main/java/com/cylonid/nativealpha/WebViewActivity.java",
+        "worst_clone_co_change": 0
+      },
+      "reason": "23% of file duplicated; worst clone shares 36 lines with app/src/main/java/com/cylonid/nativealpha/WebViewActivity.java"
+    },
+    {
+      "biomarker_type": "dry_violation",
+      "severity": "medium",
+      "file_path": "app/src/androidTest/java/com/cylonid/nativealpha/UITests.java",
+      "function_name": null,
+      "health_impact": 0.35,
+      "details": {
+        "duplication_pct": 52.08,
+        "clone_pair_count": 10,
+        "worst_clone_lines": 27,
+        "worst_clone_partner": "app/src/androidTest/java/com/cylonid/nativealpha/TestUtils.java",
+        "worst_clone_co_change": 0
+      },
+      "reason": "52% of file duplicated; worst clone shares 27 lines with app/src/androidTest/java/com/cylonid/nativealpha/TestUtils.java"
+    },
+    {
+      "biomarker_type": "dry_violation",
+      "severity": "medium",
+      "file_path": "app/src/androidTest/kotlin/com/cylonid/nativealpha/AdblockProviderApiHelperTest.kt",
+      "function_name": null,
+      "health_impact": 0.35,
+      "details": {
+        "duplication_pct": 41.94,
+        "clone_pair_count": 1,
+        "worst_clone_lines": 13,
+        "worst_clone_partner": "app/src/androidTest/kotlin/com/cylonid/nativealpha/AdblockProviderApiHelperTest.kt",
+        "worst_clone_co_change": 0
+      },
+      "reason": "42% of file duplicated; worst clone shares 13 lines with app/src/androidTest/kotlin/com/cylonid/nativealpha/AdblockProviderApiHelperTest.kt"
+    },
+    {
+      "biomarker_type": "dry_violation",
+      "severity": "medium",
+      "file_path": "app/src/main/java/com/cylonid/nativealpha/AboutActivity.kt",
+      "function_name": null,
+      "health_impact": 0.35,
+      "details": {
+        "duplication_pct": 35.88,
+        "clone_pair_count": 10,
+        "worst_clone_lines": 13,
+        "worst_clone_partner": "app/src/main/java/com/cylonid/nativealpha/AboutActivity.kt",
+        "worst_clone_co_change": 0
+      },
+      "reason": "36% of file duplicated; worst clone shares 13 lines with app/src/main/java/com/cylonid/nativealpha/AboutActivity.kt"
+    },
+    {
+      "biomarker_type": "low_cohesion",
+      "severity": "critical",
+      "file_path": "app/src/main/java/com/cylonid/nativealpha/MainActivity.kt",
+      "function_name": "MainActivity",
+      "health_impact": 1.0,
+      "details": {
+        "class_name": "MainActivity",
+        "lcom4": 19,
+        "method_count": 19,
+        "field_count": 1
+      },
+      "reason": "MainActivity has low cohesion (LCOM4=19): its 19 methods split into 19 groups that share no fields or calls"
+    },
+    {
+      "biomarker_type": "complex_method",
+      "severity": "medium",
+      "file_path": "app/src/main/java/com/cylonid/nativealpha/MainActivity.kt",
+      "function_name": "setUpSearch",
+      "health_impact": 0.847,
+      "details": {
+        "ccn": 11,
+        "cognitive": 13,
+        "nloc": 39
+      },
+      "reason": "setUpSearch has cyclomatic complexity 11"
+    },
+    {
+      "biomarker_type": "dry_violation",
+      "severity": "low",
+      "file_path": "app/src/main/java/com/cylonid/nativealpha/MainActivity.kt",
+      "function_name": null,
+      "health_impact": 0.15,
+      "details": {
+        "duplication_pct": 16.92,
+        "clone_pair_count": 24,
+        "worst_clone_lines": 36,
+        "worst_clone_partner": "app/src/main/kotlin/com/cylonid/nativealpha/fragments/webapplist/WebAppListAdapter.kt",
+        "worst_clone_co_change": 0
+      },
+      "reason": "17% of file duplicated; worst clone shares 36 lines with app/src/main/kotlin/com/cylonid/nativealpha/fragments/webapplist/WebAppListAdapter.kt"
+    },
+    {
+      "biomarker_type": "complex_conditional",
+      "severity": "medium",
+      "file_path": "app/src/main/java/com/cylonid/nativealpha/MainActivity.kt",
+      "function_name": "setUpSearch",
+      "health_impact": 0.931,
+      "details": {
+        "operator_count": 4,
+        "enclosing_construct": "if"
+      },
+      "reason": "if condition combines 4 boolean operators"
+    },
+    {
+      "biomarker_type": "complex_method",
+      "severity": "medium",
+      "file_path": "app/src/main/java/com/cylonid/nativealpha/SandboxActivity.kt",
+      "function_name": "renderCard",
+      "health_impact": 0.847,
+      "details": {
+        "ccn": 12,
+        "cognitive": 13,
+        "nloc": 65
+      },
+      "reason": "renderCard has cyclomatic complexity 12"
+    },
+    {
+      "biomarker_type": "large_method",
+      "severity": "low",
+      "file_path": "app/src/main/java/com/cylonid/nativealpha/SandboxActivity.kt",
+      "function_name": "renderCard",
+      "health_impact": 0.375,
+      "details": {
+        "nloc": 65,
+        "ccn": 12
+      },
+      "reason": "renderCard is 65 lines long"
+    },
+    {
+      "biomarker_type": "dry_violation",
+      "severity": "low",
+      "file_path": "app/src/main/java/com/cylonid/nativealpha/SandboxActivity.kt",
+      "function_name": null,
+      "health_impact": 0.15,
+      "details": {
+        "duplication_pct": 18.08,
+        "clone_pair_count": 18,
+        "worst_clone_lines": 25,
+        "worst_clone_partner": "app/src/main/java/com/cylonid/nativealpha/WebAppSettingsActivity.kt",
+        "worst_clone_co_change": 0
+      },
+      "reason": "18% of file duplicated; worst clone shares 25 lines with app/src/main/java/com/cylonid/nativealpha/WebAppSettingsActivity.kt"
+    },
+    {
+      "biomarker_type": "dry_violation",
+      "severity": "low",
+      "file_path": "app/src/main/java/com/cylonid/nativealpha/SettingsActivity.kt",
+      "function_name": null,
+      "health_impact": 0.15,
+      "details": {
+        "duplication_pct": 17.97,
+        "clone_pair_count": 16,
+        "worst_clone_lines": 25,
+        "worst_clone_partner": "app/src/main/java/com/cylonid/nativealpha/WebAppSettingsActivity.kt",
+        "worst_clone_co_change": 0
+      },
+      "reason": "18% of file duplicated; worst clone shares 25 lines with app/src/main/java/com/cylonid/nativealpha/WebAppSettingsActivity.kt"
+    },
+    {
+      "biomarker_type": "brain_method",
+      "severity": "high",
+      "file_path": "app/src/main/java/com/cylonid/nativealpha/ShortcutDialogFragment.java",
+      "function_name": "fetchWebappData",
+      "health_impact": 0.6,
+      "details": {
+        "ccn": 16,
+        "nloc": 78,
+        "max_nesting": 4,
+        "dependents_count": 6,
+        "centrality_floor": 6
+      },
+      "reason": "Brain Method: fetchWebappData is 78 lines, CCN 16, in a file imported by 6 others"
+    },
+    {
+      "biomarker_type": "god_class",
+      "severity": "medium",
+      "file_path": "app/src/main/java/com/cylonid/nativealpha/ShortcutDialogFragment.java",
+      "function_name": "ShortcutDialogFragment",
+      "health_impact": 0.791,
+      "details": {
+        "class_name": "ShortcutDialogFragment",
+        "total_nloc": 278,
+        "method_count": 15,
+        "max_method_ccn": 16,
+        "brain_method_ccn": 16,
+        "brain_method_name": "fetchWebappData"
+      },
+      "reason": "ShortcutDialogFragment is a god class: 278 lines across 15 methods, including a brain method (fetchWebappData, CCN 16)"
+    },
+    {
+      "biomarker_type": "nested_complexity",
+      "severity": "medium",
+      "file_path": "app/src/main/java/com/cylonid/nativealpha/ShortcutDialogFragment.java",
+      "function_name": "fetchWebappData",
+      "health_impact": 0.938,
+      "details": {
+        "max_nesting": 4,
+        "ccn": 16,
+        "cognitive": 51
+      },
+      "reason": "fetchWebappData nests 4 levels deep"
+    },
+    {
+      "biomarker_type": "complex_method",
+      "severity": "high",
+      "file_path": "app/src/main/java/com/cylonid/nativealpha/ShortcutDialogFragment.java",
+      "function_name": "fetchWebappData",
+      "health_impact": 0.815,
+      "details": {
+        "ccn": 16,
+        "cognitive": 51,
+        "nloc": 78
+      },
+      "reason": "fetchWebappData has cyclomatic complexity 16"
+    },
+    {
+      "biomarker_type": "complex_method",
+      "severity": "medium",
+      "file_path": "app/src/main/java/com/cylonid/nativealpha/ShortcutDialogFragment.java",
+      "function_name": "buildIconMap",
+      "health_impact": 0.475,
+      "details": {
+        "ccn": 9,
+        "cognitive": 8,
+        "nloc": 18
+      },
+      "reason": "buildIconMap has cyclomatic complexity 9"
+    },
+    {
+      "biomarker_type": "large_method",
+      "severity": "low",
+      "file_path": "app/src/main/java/com/cylonid/nativealpha/ShortcutDialogFragment.java",
+      "function_name": "fetchWebappData",
+      "health_impact": 0.21,
+      "details": {
+        "nloc": 78,
+        "ccn": 16
+      },
+      "reason": "fetchWebappData is 78 lines long"
+    },
+    {
+      "biomarker_type": "dry_violation",
+      "severity": "low",
+      "file_path": "app/src/main/java/com/cylonid/nativealpha/ShortcutDialogFragment.java",
+      "function_name": null,
+      "health_impact": 0.15,
+      "details": {
+        "duplication_pct": 23.19,
+        "clone_pair_count": 24,
+        "worst_clone_lines": 52,
+        "worst_clone_partner": "app/src/main/java/com/cylonid/nativealpha/model/DataManager.java",
+        "worst_clone_co_change": 0
+      },
+      "reason": "23% of file duplicated; worst clone shares 52 lines with app/src/main/java/com/cylonid/nativealpha/model/DataManager.java"
+    },
+    {
+      "biomarker_type": "dry_violation",
+      "severity": "low",
+      "file_path": "app/src/main/java/com/cylonid/nativealpha/WebAppSettingsActivity.kt",
+      "function_name": null,
+      "health_impact": 0.15,
+      "details": {
+        "duplication_pct": 14.73,
+        "clone_pair_count": 19,
+        "worst_clone_lines": 25,
+        "worst_clone_partner": "app/src/main/java/com/cylonid/nativealpha/SandboxActivity.kt",
+        "worst_clone_co_change": 0
+      },
+      "reason": "15% of file duplicated; worst clone shares 25 lines with app/src/main/java/com/cylonid/nativealpha/SandboxActivity.kt"
+    },
+    {
+      "biomarker_type": "low_cohesion",
+      "severity": "critical",
+      "file_path": "app/src/main/java/com/cylonid/nativealpha/WebViewActivity.java",
+      "function_name": "WebViewActivity",
+      "health_impact": 0.242,
+      "details": {
+        "class_name": "WebViewActivity",
+        "lcom4": 51,
+        "method_count": 57,
+        "field_count": 2
+      },
+      "reason": "WebViewActivity has low cohesion (LCOM4=51): its 57 methods split into 51 groups that share no fields or calls"
+    },
+    {
+      "biomarker_type": "low_cohesion",
+      "severity": "high",
+      "file_path": "app/src/main/java/com/cylonid/nativealpha/WebViewActivity.java",
+      "function_name": "CustomWebChromeClient",
+      "health_impact": 0.145,
+      "details": {
+        "class_name": "CustomWebChromeClient",
+        "lcom4": 8,
+        "method_count": 11,
+        "field_count": 4
+      },
+      "reason": "CustomWebChromeClient has low cohesion (LCOM4=8): its 11 methods split into 8 groups that share no fields or calls"
+    },
+    {
+      "biomarker_type": "god_class",
+      "severity": "critical",
+      "file_path": "app/src/main/java/com/cylonid/nativealpha/WebViewActivity.java",
+      "function_name": "WebViewActivity",
+      "health_impact": 0.547,
+      "details": {
+        "class_name": "WebViewActivity",
+        "total_nloc": 1569,
+        "method_count": 57,
+        "max_method_ccn": 34,
+        "brain_method_ccn": 34,
+        "brain_method_name": "setupWebView"
+      },
+      "reason": "WebViewActivity is a god class: 1569 lines across 57 methods, including a brain method (setupWebView, CCN 34)"
+    },
+    {
+      "biomarker_type": "nested_complexity",
+      "severity": "high",
+      "file_path": "app/src/main/java/com/cylonid/nativealpha/WebViewActivity.java",
+      "function_name": "onActivityResult",
+      "health_impact": 0.389,
+      "details": {
+        "max_nesting": 5,
+        "ccn": 12,
+        "cognitive": 26
+      },
+      "reason": "onActivityResult nests 5 levels deep"
+    },
+    {
+      "biomarker_type": "nested_complexity",
+      "severity": "high",
+      "file_path": "app/src/main/java/com/cylonid/nativealpha/WebViewActivity.java",
+      "function_name": "styleActiveCard",
+      "health_impact": 0.389,
+      "details": {
+        "max_nesting": 5,
+        "ccn": 9,
+        "cognitive": 22
+      },
+      "reason": "styleActiveCard nests 5 levels deep"
+    },
+    {
+      "biomarker_type": "nested_complexity",
+      "severity": "high",
+      "file_path": "app/src/main/java/com/cylonid/nativealpha/WebViewActivity.java",
+      "function_name": "setupWebView",
+      "health_impact": 0.389,
+      "details": {
+        "max_nesting": 5,
+        "ccn": 34,
+        "cognitive": 71
+      },
+      "reason": "setupWebView nests 5 levels deep"
+    },
+    {
+      "biomarker_type": "complex_method",
+      "severity": "medium",
+      "file_path": "app/src/main/java/com/cylonid/nativealpha/WebViewActivity.java",
+      "function_name": "shouldOverrideUrlLoading",
+      "health_impact": 0.094,
+      "details": {
+        "ccn": 13,
+        "cognitive": 21,
+        "nloc": 51
+      },
+      "reason": "shouldOverrideUrlLoading has cyclomatic complexity 13"
+    },
+    {
+      "biomarker_type": "complex_method",
+      "severity": "medium",
+      "file_path": "app/src/main/java/com/cylonid/nativealpha/WebViewActivity.java",
+      "function_name": "onActivityResult",
+      "health_impact": 0.094,
+      "details": {
+        "ccn": 12,
+        "cognitive": 26,
+        "nloc": 23
+      },
+      "reason": "onActivityResult has cyclomatic complexity 12"
+    },
+    {
+      "biomarker_type": "complex_method",
+      "severity": "high",
+      "file_path": "app/src/main/java/com/cylonid/nativealpha/WebViewActivity.java",
+      "function_name": "onResume",
+      "health_impact": 0.161,
+      "details": {
+        "ccn": 24,
+        "cognitive": 27,
+        "nloc": 71
+      },
+      "reason": "onResume has cyclomatic complexity 24"
+    },
+    {
+      "biomarker_type": "complex_method",
+      "severity": "high",
+      "file_path": "app/src/main/java/com/cylonid/nativealpha/WebViewActivity.java",
+      "function_name": "showWebViewPopupMenu",
+      "health_impact": 0.161,
+      "details": {
+        "ccn": 17,
+        "cognitive": 30,
+        "nloc": 73
+      },
+      "reason": "showWebViewPopupMenu has cyclomatic complexity 17"
+    },
+    {
+      "biomarker_type": "complex_method",
+      "severity": "medium",
+      "file_path": "app/src/main/java/com/cylonid/nativealpha/WebViewActivity.java",
+      "function_name": "setDarkModeIfNeeded",
+      "health_impact": 0.094,
+      "details": {
+        "ccn": 13,
+        "cognitive": 25,
+        "nloc": 39
+      },
+      "reason": "setDarkModeIfNeeded has cyclomatic complexity 13"
+    },
+    {
+      "biomarker_type": "complex_method",
+      "severity": "medium",
+      "file_path": "app/src/main/java/com/cylonid/nativealpha/WebViewActivity.java",
+      "function_name": "styleActiveCard",
+      "health_impact": 0.094,
+      "details": {
+        "ccn": 9,
+        "cognitive": 22,
+        "nloc": 23
+      },
+      "reason": "styleActiveCard has cyclomatic complexity 9"
+    },
+    {
+      "biomarker_type": "complex_method",
+      "severity": "medium",
+      "file_path": "app/src/main/java/com/cylonid/nativealpha/WebViewActivity.java",
+      "function_name": "setupQuickSettingsSwitches",
+      "health_impact": 0.094,
+      "details": {
+        "ccn": 11,
+        "cognitive": 10,
+        "nloc": 67
+      },
+      "reason": "setupQuickSettingsSwitches has cyclomatic complexity 11"
+    },
+    {
+      "biomarker_type": "complex_method",
+      "severity": "critical",
+      "file_path": "app/src/main/java/com/cylonid/nativealpha/WebViewActivity.java",
+      "function_name": "setupWebView",
+      "health_impact": 0.268,
+      "details": {
+        "ccn": 34,
+        "cognitive": 71,
+        "nloc": 237
+      },
+      "reason": "setupWebView has cyclomatic complexity 34"
+    },
+    {
+      "biomarker_type": "bumpy_road",
+      "severity": "low",
+      "file_path": "app/src/main/java/com/cylonid/nativealpha/WebViewActivity.java",
+      "function_name": "shouldOverrideUrlLoading",
+      "health_impact": 0.036,
+      "details": {
+        "bumps": 3,
+        "ccn": 13,
+        "max_nesting": 3
+      },
+      "reason": "shouldOverrideUrlLoading has 3 nested blocks at the same level (bumpy road)"
+    },
+    {
+      "biomarker_type": "bumpy_road",
+      "severity": "medium",
+      "file_path": "app/src/main/java/com/cylonid/nativealpha/WebViewActivity.java",
+      "function_name": "onResume",
+      "health_impact": 0.085,
+      "details": {
+        "bumps": 4,
+        "ccn": 24,
+        "max_nesting": 2
+      },
+      "reason": "onResume has 4 nested blocks at the same level (bumpy road)"
+    },
+    {
+      "biomarker_type": "bumpy_road",
+      "severity": "medium",
+      "file_path": "app/src/main/java/com/cylonid/nativealpha/WebViewActivity.java",
+      "function_name": "setupWebView",
+      "health_impact": 0.085,
+      "details": {
+        "bumps": 4,
+        "ccn": 34,
+        "max_nesting": 5
+      },
+      "reason": "setupWebView has 4 nested blocks at the same level (bumpy road)"
+    },
+    {
+      "biomarker_type": "large_method",
+      "severity": "low",
+      "file_path": "app/src/main/java/com/cylonid/nativealpha/WebViewActivity.java",
+      "function_name": "onResume",
+      "health_impact": 0.042,
+      "details": {
+        "nloc": 71,
+        "ccn": 24
+      },
+      "reason": "onResume is 71 lines long"
+    },
+    {
+      "biomarker_type": "large_method",
+      "severity": "low",
+      "file_path": "app/src/main/java/com/cylonid/nativealpha/WebViewActivity.java",
+      "function_name": "showWebViewPopupMenu",
+      "health_impact": 0.042,
+      "details": {
+        "nloc": 73,
+        "ccn": 17
+      },
+      "reason": "showWebViewPopupMenu is 73 lines long"
+    },
+    {
+      "biomarker_type": "large_method",
+      "severity": "low",
+      "file_path": "app/src/main/java/com/cylonid/nativealpha/WebViewActivity.java",
+      "function_name": "setupQuickSettingsSwitches",
+      "health_impact": 0.042,
+      "details": {
+        "nloc": 67,
+        "ccn": 11
+      },
+      "reason": "setupQuickSettingsSwitches is 67 lines long"
+    },
+    {
+      "biomarker_type": "large_method",
+      "severity": "critical",
+      "file_path": "app/src/main/java/com/cylonid/nativealpha/WebViewActivity.java",
+      "function_name": "setupWebView",
+      "health_impact": 0.277,
+      "details": {
+        "nloc": 237,
+        "ccn": 34
+      },
+      "reason": "setupWebView is 237 lines long"
+    },
+    {
+      "biomarker_type": "primitive_obsession",
+      "severity": "medium",
+      "file_path": "app/src/main/java/com/cylonid/nativealpha/WebViewActivity.java",
+      "function_name": "handlePermissionRequest",
+      "health_impact": 0.039,
+      "details": {
+        "param_count": 7
+      },
+      "reason": "handlePermissionRequest takes 7 parameters"
+    },
+    {
+      "biomarker_type": "dry_violation",
+      "severity": "low",
+      "file_path": "app/src/main/java/com/cylonid/nativealpha/WebViewActivity.java",
+      "function_name": null,
+      "health_impact": 0.15,
+      "details": {
+        "duplication_pct": 15.31,
+        "clone_pair_count": 44,
+        "worst_clone_lines": 87,
+        "worst_clone_partner": "app/src/main/java/com/cylonid/nativealpha/model/DataManager.java",
+        "worst_clone_co_change": 0
+      },
+      "reason": "15% of file duplicated; worst clone shares 87 lines with app/src/main/java/com/cylonid/nativealpha/model/DataManager.java"
+    },
+    {
+      "biomarker_type": "complex_conditional",
+      "severity": "low",
+      "file_path": "app/src/main/java/com/cylonid/nativealpha/WebViewActivity.java",
+      "function_name": "onReceivedTitle",
+      "health_impact": 0.097,
+      "details": {
+        "operator_count": 3,
+        "enclosing_construct": "if"
+      },
+      "reason": "if condition combines 3 boolean operators"
+    },
+    {
+      "biomarker_type": "complex_conditional",
+      "severity": "low",
+      "file_path": "app/src/main/java/com/cylonid/nativealpha/WebViewActivity.java",
+      "function_name": "updateImmersiveGestureAccess",
+      "health_impact": 0.097,
+      "details": {
+        "operator_count": 3,
+        "enclosing_construct": "if"
+      },
+      "reason": "if condition combines 3 boolean operators"
+    },
+    {
+      "biomarker_type": "low_cohesion",
+      "severity": "critical",
+      "file_path": "app/src/main/java/com/cylonid/nativealpha/model/DataManager.java",
+      "function_name": "DataManager",
+      "health_impact": 0.513,
+      "details": {
+        "class_name": "DataManager",
+        "lcom4": 32,
+        "method_count": 36,
+        "field_count": 1
+      },
+      "reason": "DataManager has low cohesion (LCOM4=32): its 36 methods split into 32 groups that share no fields or calls"
+    },
+    {
+      "biomarker_type": "nested_complexity",
+      "severity": "high",
+      "file_path": "app/src/main/java/com/cylonid/nativealpha/model/DataManager.java",
+      "function_name": "loadSharedPreferencesFromJson",
+      "health_impact": 0.826,
+      "details": {
+        "max_nesting": 5,
+        "ccn": 13,
+        "cognitive": 26
+      },
+      "reason": "loadSharedPreferencesFromJson nests 5 levels deep"
+    },
+    {
+      "biomarker_type": "complex_method",
+      "severity": "medium",
+      "file_path": "app/src/main/java/com/cylonid/nativealpha/model/DataManager.java",
+      "function_name": "writeSharedPreferences",
+      "health_impact": 0.3,
+      "details": {
+        "ccn": 11,
+        "cognitive": 12,
+        "nloc": 47
+      },
+      "reason": "writeSharedPreferences has cyclomatic complexity 11"
+    },
+    {
+      "biomarker_type": "complex_method",
+      "severity": "medium",
+      "file_path": "app/src/main/java/com/cylonid/nativealpha/model/DataManager.java",
+      "function_name": "loadSharedPreferencesFromJson",
+      "health_impact": 0.3,
+      "details": {
+        "ccn": 13,
+        "cognitive": 26,
+        "nloc": 42
+      },
+      "reason": "loadSharedPreferencesFromJson has cyclomatic complexity 13"
+    },
+    {
+      "biomarker_type": "complex_method",
+      "severity": "medium",
+      "file_path": "app/src/main/java/com/cylonid/nativealpha/model/DataManager.java",
+      "function_name": "saveSharedPreferencesToJsonFile",
+      "health_impact": 0.3,
+      "details": {
+        "ccn": 10,
+        "cognitive": 15,
+        "nloc": 40
+      },
+      "reason": "saveSharedPreferencesToJsonFile has cyclomatic complexity 10"
+    },
+    {
+      "biomarker_type": "complex_method",
+      "severity": "medium",
+      "file_path": "app/src/main/java/com/cylonid/nativealpha/model/DataManager.java",
+      "function_name": "replaceWebApp",
+      "health_impact": 0.3,
+      "details": {
+        "ccn": 9,
+        "cognitive": 11,
+        "nloc": 20
+      },
+      "reason": "replaceWebApp has cyclomatic complexity 9"
+    },
+    {
+      "biomarker_type": "complex_method",
+      "severity": "medium",
+      "file_path": "app/src/main/java/com/cylonid/nativealpha/model/DataManager.java",
+      "function_name": "getWebAppIgnoringGlobalOverride",
+      "health_impact": 0.3,
+      "details": {
+        "ccn": 11,
+        "cognitive": 12,
+        "nloc": 24
+      },
+      "reason": "getWebAppIgnoringGlobalOverride has cyclomatic complexity 11"
+    },
+    {
+      "biomarker_type": "dry_violation",
+      "severity": "low",
+      "file_path": "app/src/main/java/com/cylonid/nativealpha/model/DataManager.java",
+      "function_name": null,
+      "health_impact": 0.15,
+      "details": {
+        "duplication_pct": 24.65,
+        "clone_pair_count": 27,
+        "worst_clone_lines": 87,
+        "worst_clone_partner": "app/src/main/java/com/cylonid/nativealpha/WebViewActivity.java",
+        "worst_clone_co_change": 0
+      },
+      "reason": "25% of file duplicated; worst clone shares 87 lines with app/src/main/java/com/cylonid/nativealpha/WebViewActivity.java"
+    },
+    {
+      "biomarker_type": "complex_conditional",
+      "severity": "medium",
+      "file_path": "app/src/main/java/com/cylonid/nativealpha/model/DataManager.java",
+      "function_name": "loadSharedPreferencesFromJson",
+      "health_impact": 0.478,
+      "details": {
+        "operator_count": 4,
+        "enclosing_construct": "if"
+      },
+      "reason": "if condition combines 4 boolean operators"
+    },
+    {
+      "biomarker_type": "complex_conditional",
+      "severity": "medium",
+      "file_path": "app/src/main/java/com/cylonid/nativealpha/model/DataManager.java",
+      "function_name": "saveSharedPreferencesToJsonFile",
+      "health_impact": 0.478,
+      "details": {
+        "operator_count": 4,
+        "enclosing_construct": "if"
+      },
+      "reason": "if condition combines 4 boolean operators"
+    },
+    {
+      "biomarker_type": "complex_conditional",
+      "severity": "low",
+      "file_path": "app/src/main/java/com/cylonid/nativealpha/model/DataManager.java",
+      "function_name": "replaceWebApp",
+      "health_impact": 0.205,
+      "details": {
+        "operator_count": 3,
+        "enclosing_construct": "if"
+      },
+      "reason": "if condition combines 3 boolean operators"
+    },
+    {
+      "biomarker_type": "dry_violation",
+      "severity": "medium",
+      "file_path": "app/src/main/java/com/cylonid/nativealpha/model/DataVersionConverter.java",
+      "function_name": null,
+      "health_impact": 0.35,
+      "details": {
+        "duplication_pct": 60.34,
+        "clone_pair_count": 1,
+        "worst_clone_lines": 34,
+        "worst_clone_partner": "app/src/main/java/com/cylonid/nativealpha/model/DataVersionConverter.java",
+        "worst_clone_co_change": 0
+      },
+      "reason": "60% of file duplicated; worst clone shares 34 lines with app/src/main/java/com/cylonid/nativealpha/model/DataVersionConverter.java"
+    },
+    {
+      "biomarker_type": "low_cohesion",
+      "severity": "high",
+      "file_path": "app/src/main/java/com/cylonid/nativealpha/model/Sandbox.java",
+      "function_name": "Sandbox",
+      "health_impact": 0.6,
+      "details": {
+        "class_name": "Sandbox",
+        "lcom4": 3,
+        "method_count": 6,
+        "field_count": 3
+      },
+      "reason": "Sandbox has low cohesion (LCOM4=3): its 6 methods split into 3 groups that share no fields or calls"
+    },
+    {
+      "biomarker_type": "low_cohesion",
+      "severity": "high",
+      "file_path": "app/src/main/java/com/cylonid/nativealpha/model/SandboxManager.java",
+      "function_name": "SandboxManager",
+      "health_impact": 0.6,
+      "details": {
+        "class_name": "SandboxManager",
+        "lcom4": 11,
+        "method_count": 11,
+        "field_count": 1
+      },
+      "reason": "SandboxManager has low cohesion (LCOM4=11): its 11 methods split into 11 groups that share no fields or calls"
+    },
+    {
+      "biomarker_type": "dry_violation",
+      "severity": "medium",
+      "file_path": "app/src/main/java/com/cylonid/nativealpha/util/Const.java",
+      "function_name": null,
+      "health_impact": 0.35,
+      "details": {
+        "duplication_pct": 56.52,
+        "clone_pair_count": 1,
+        "worst_clone_lines": 11,
+        "worst_clone_partner": "app/src/main/java/com/cylonid/nativealpha/util/Const.java",
+        "worst_clone_co_change": 0
+      },
+      "reason": "57% of file duplicated; worst clone shares 11 lines with app/src/main/java/com/cylonid/nativealpha/util/Const.java"
+    },
+    {
+      "biomarker_type": "complex_method",
+      "severity": "high",
+      "file_path": "app/src/main/java/com/cylonid/nativealpha/util/SearchEngineUrl.kt",
+      "function_name": "isValidHost",
+      "health_impact": 0.947,
+      "details": {
+        "ccn": 15,
+        "cognitive": 14,
+        "nloc": 16
+      },
+      "reason": "isValidHost has cyclomatic complexity 15"
+    },
+    {
+      "biomarker_type": "complex_method",
+      "severity": "medium",
+      "file_path": "app/src/main/java/com/cylonid/nativealpha/util/SearchEngineUrl.kt",
+      "function_name": "isValidTemplate",
+      "health_impact": 0.553,
+      "details": {
+        "ccn": 14,
+        "cognitive": 13,
+        "nloc": 26
+      },
+      "reason": "isValidTemplate has cyclomatic complexity 14"
+    },
+    {
+      "biomarker_type": "dry_violation",
+      "severity": "medium",
+      "file_path": "app/src/main/kotlin/com/cylonid/nativealpha/activities/AdblockConfigActivity.kt",
+      "function_name": null,
+      "health_impact": 0.35,
+      "details": {
+        "duplication_pct": 39.74,
+        "clone_pair_count": 21,
+        "worst_clone_lines": 27,
+        "worst_clone_partner": "app/src/main/kotlin/com/cylonid/nativealpha/fragments/webapplist/WebAppListAdapter.kt",
+        "worst_clone_co_change": 0
+      },
+      "reason": "40% of file duplicated; worst clone shares 27 lines with app/src/main/kotlin/com/cylonid/nativealpha/fragments/webapplist/WebAppListAdapter.kt"
+    },
+    {
+      "biomarker_type": "dry_violation",
+      "severity": "medium",
+      "file_path": "app/src/main/kotlin/com/cylonid/nativealpha/activities/NewsActivity.kt",
+      "function_name": null,
+      "health_impact": 0.35,
+      "details": {
+        "duplication_pct": 26.19,
+        "clone_pair_count": 8,
+        "worst_clone_lines": 11,
+        "worst_clone_partner": "app/src/main/kotlin/com/cylonid/nativealpha/fragments/adblocklist/AdblockListFragment.kt",
+        "worst_clone_co_change": 0
+      },
+      "reason": "26% of file duplicated; worst clone shares 11 lines with app/src/main/kotlin/com/cylonid/nativealpha/fragments/adblocklist/AdblockListFragment.kt"
+    },
+    {
+      "biomarker_type": "dry_violation",
+      "severity": "medium",
+      "file_path": "app/src/main/kotlin/com/cylonid/nativealpha/fragments/adblocklist/AdblockListAdapter.kt",
+      "function_name": null,
+      "health_impact": 0.35,
+      "details": {
+        "duplication_pct": 64.29,
+        "clone_pair_count": 5,
+        "worst_clone_lines": 11,
+        "worst_clone_partner": "app/src/main/java/com/cylonid/nativealpha/SandboxActivity.kt",
+        "worst_clone_co_change": 0
+      },
+      "reason": "64% of file duplicated; worst clone shares 11 lines with app/src/main/java/com/cylonid/nativealpha/SandboxActivity.kt"
+    },
+    {
+      "biomarker_type": "dry_violation",
+      "severity": "low",
+      "file_path": "app/src/main/kotlin/com/cylonid/nativealpha/fragments/adblocklist/AdblockListFragment.kt",
+      "function_name": null,
+      "health_impact": 0.15,
+      "details": {
+        "duplication_pct": 18.31,
+        "clone_pair_count": 7,
+        "worst_clone_lines": 13,
+        "worst_clone_partner": "app/src/main/kotlin/com/cylonid/nativealpha/fragments/webapplist/WebAppListFragment.kt",
+        "worst_clone_co_change": 0
+      },
+      "reason": "18% of file duplicated; worst clone shares 13 lines with app/src/main/kotlin/com/cylonid/nativealpha/fragments/webapplist/WebAppListFragment.kt"
+    },
+    {
+      "biomarker_type": "dry_violation",
+      "severity": "low",
+      "file_path": "app/src/main/kotlin/com/cylonid/nativealpha/fragments/webapplist/WebAppListAdapter.kt",
+      "function_name": null,
+      "health_impact": 0.15,
+      "details": {
+        "duplication_pct": 24.26,
+        "clone_pair_count": 21,
+        "worst_clone_lines": 36,
+        "worst_clone_partner": "app/src/main/java/com/cylonid/nativealpha/MainActivity.kt",
+        "worst_clone_co_change": 0
+      },
+      "reason": "24% of file duplicated; worst clone shares 36 lines with app/src/main/java/com/cylonid/nativealpha/MainActivity.kt"
+    },
+    {
+      "biomarker_type": "dry_violation",
+      "severity": "low",
+      "file_path": "app/src/main/kotlin/com/cylonid/nativealpha/fragments/webapplist/WebAppListFragment.kt",
+      "function_name": null,
+      "health_impact": 0.15,
+      "details": {
+        "duplication_pct": 15.42,
+        "clone_pair_count": 14,
+        "worst_clone_lines": 16,
+        "worst_clone_partner": "app/src/main/java/com/cylonid/nativealpha/SandboxActivity.kt",
+        "worst_clone_co_change": 0
+      },
+      "reason": "15% of file duplicated; worst clone shares 16 lines with app/src/main/java/com/cylonid/nativealpha/SandboxActivity.kt"
+    },
+    {
+      "biomarker_type": "dry_violation",
+      "severity": "low",
+      "file_path": "app/src/main/kotlin/com/cylonid/nativealpha/helper/BiometricPromptHelper.kt",
+      "function_name": null,
+      "health_impact": 0.15,
+      "details": {
+        "duplication_pct": 20.34,
+        "clone_pair_count": 8,
+        "worst_clone_lines": 11,
+        "worst_clone_partner": "app/src/main/java/com/cylonid/nativealpha/MainActivity.kt",
+        "worst_clone_co_change": 0
+      },
+      "reason": "20% of file duplicated; worst clone shares 11 lines with app/src/main/java/com/cylonid/nativealpha/MainActivity.kt"
+    },
+    {
+      "biomarker_type": "dry_violation",
+      "severity": "medium",
+      "file_path": "app/src/main/kotlin/com/cylonid/nativealpha/model/WebApp.kt",
+      "function_name": null,
+      "health_impact": 0.35,
+      "details": {
+        "duplication_pct": 43.49,
+        "clone_pair_count": 19,
+        "worst_clone_lines": 42,
+        "worst_clone_partner": "app/src/main/kotlin/com/cylonid/nativealpha/model/WebApp.kt",
+        "worst_clone_co_change": 0
+      },
+      "reason": "43% of file duplicated; worst clone shares 42 lines with app/src/main/kotlin/com/cylonid/nativealpha/model/WebApp.kt"
+    },
+    {
+      "biomarker_type": "dry_violation",
+      "severity": "medium",
+      "file_path": "app/src/main/kotlin/com/cylonid/nativealpha/model/deserializer/GlobalSettingsDeserializer.kt",
+      "function_name": null,
+      "health_impact": 0.35,
+      "details": {
+        "duplication_pct": 25.0,
+        "clone_pair_count": 2,
+        "worst_clone_lines": 10,
+        "worst_clone_partner": "app/src/main/kotlin/com/cylonid/nativealpha/model/deserializer/WebAppDeserializer.kt",
+        "worst_clone_co_change": 0
+      },
+      "reason": "25% of file duplicated; worst clone shares 10 lines with app/src/main/kotlin/com/cylonid/nativealpha/model/deserializer/WebAppDeserializer.kt"
+    },
+    {
+      "biomarker_type": "dry_violation",
+      "severity": "low",
+      "file_path": "app/src/main/kotlin/com/cylonid/nativealpha/model/deserializer/WebAppDeserializer.kt",
+      "function_name": null,
+      "health_impact": 0.15,
+      "details": {
+        "duplication_pct": 15.28,
+        "clone_pair_count": 6,
+        "worst_clone_lines": 10,
+        "worst_clone_partner": "app/src/main/kotlin/com/cylonid/nativealpha/model/deserializer/GlobalSettingsDeserializer.kt",
+        "worst_clone_co_change": 0
+      },
+      "reason": "15% of file duplicated; worst clone shares 10 lines with app/src/main/kotlin/com/cylonid/nativealpha/model/deserializer/GlobalSettingsDeserializer.kt"
+    },
+    {
+      "biomarker_type": "dry_violation",
+      "severity": "low",
+      "file_path": "app/src/main/kotlin/com/cylonid/nativealpha/monitors/WebMonitorWorker.kt",
+      "function_name": null,
+      "health_impact": 0.15,
+      "details": {
+        "duplication_pct": 19.81,
+        "clone_pair_count": 18,
+        "worst_clone_lines": 25,
+        "worst_clone_partner": "app/src/main/java/com/cylonid/nativealpha/SandboxActivity.kt",
+        "worst_clone_co_change": 0
+      },
+      "reason": "20% of file duplicated; worst clone shares 25 lines with app/src/main/java/com/cylonid/nativealpha/SandboxActivity.kt"
+    },
+    {
+      "biomarker_type": "error_handling",
+      "severity": "low",
+      "file_path": "app/src/main/kotlin/com/cylonid/nativealpha/monitors/WebMonitorWorker.kt",
+      "function_name": null,
+      "health_impact": 0.15,
+      "details": {
+        "kind": "swallowed_catch"
+      },
+      "reason": "caught exception is swallowed without any handling"
+    },
+    {
+      "biomarker_type": "nested_complexity",
+      "severity": "critical",
+      "file_path": "app/src/main/kotlin/com/cylonid/nativealpha/util/FaviconFetcher.kt",
+      "function_name": "fetchAndSaveFaviconAsync",
+      "health_impact": 1.855,
+      "details": {
+        "max_nesting": 7,
+        "ccn": 49,
+        "cognitive": 111
+      },
+      "reason": "fetchAndSaveFaviconAsync nests 7 levels deep"
+    },
+    {
+      "biomarker_type": "complex_method",
+      "severity": "critical",
+      "file_path": "app/src/main/kotlin/com/cylonid/nativealpha/util/FaviconFetcher.kt",
+      "function_name": "fetchAndSaveFaviconAsync",
+      "health_impact": 0.926,
+      "details": {
+        "ccn": 49,
+        "cognitive": 111,
+        "nloc": 142
+      },
+      "reason": "fetchAndSaveFaviconAsync has cyclomatic complexity 49"
+    },
+    {
+      "biomarker_type": "large_method",
+      "severity": "high",
+      "file_path": "app/src/main/kotlin/com/cylonid/nativealpha/util/FaviconFetcher.kt",
+      "function_name": "fetchAndSaveFaviconAsync",
+      "health_impact": 0.574,
+      "details": {
+        "nloc": 142,
+        "ccn": 49
+      },
+      "reason": "fetchAndSaveFaviconAsync is 142 lines long"
+    },
+    {
+      "biomarker_type": "dry_violation",
+      "severity": "low",
+      "file_path": "app/src/main/kotlin/com/cylonid/nativealpha/util/FaviconFetcher.kt",
+      "function_name": null,
+      "health_impact": 0.15,
+      "details": {
+        "duplication_pct": 13.16,
+        "clone_pair_count": 3,
+        "worst_clone_lines": 11,
+        "worst_clone_partner": "app/src/main/java/com/cylonid/nativealpha/WebAppSettingsActivity.kt",
+        "worst_clone_co_change": 0
+      },
+      "reason": "13% of file duplicated; worst clone shares 11 lines with app/src/main/java/com/cylonid/nativealpha/WebAppSettingsActivity.kt"
+    },
+    {
+      "biomarker_type": "complex_conditional",
+      "severity": "medium",
+      "file_path": "app/src/main/kotlin/com/cylonid/nativealpha/util/FaviconFetcher.kt",
+      "function_name": "fetchAndSaveFaviconAsync",
+      "health_impact": 0.645,
+      "details": {
+        "operator_count": 4,
+        "enclosing_construct": "if"
+      },
+      "reason": "if condition combines 4 boolean operators"
+    },
+    {
+      "biomarker_type": "error_handling",
+      "severity": "low",
+      "file_path": "app/src/main/kotlin/com/cylonid/nativealpha/util/FaviconFetcher.kt",
+      "function_name": null,
+      "health_impact": 0.15,
+      "details": {
+        "kind": "swallowed_catch"
+      },
+      "reason": "caught exception is swallowed without any handling"
+    },
+    {
+      "biomarker_type": "error_handling",
+      "severity": "low",
+      "file_path": "app/src/main/kotlin/com/cylonid/nativealpha/util/FaviconFetcher.kt",
+      "function_name": null,
+      "health_impact": 0.15,
+      "details": {
+        "kind": "swallowed_catch"
+      },
+      "reason": "caught exception is swallowed without any handling"
+    },
+    {
+      "biomarker_type": "dry_violation",
+      "severity": "low",
+      "file_path": "app/src/main/kotlin/com/cylonid/nativealpha/util/ShortcutIconUtils.kt",
+      "function_name": null,
+      "health_impact": 0.15,
+      "details": {
+        "duplication_pct": 10.71,
+        "clone_pair_count": 1,
+        "worst_clone_lines": 9,
+        "worst_clone_partner": "app/src/main/java/com/cylonid/nativealpha/WebAppSettingsActivity.kt",
+        "worst_clone_co_change": 0
+      },
+      "reason": "11% of file duplicated; worst clone shares 9 lines with app/src/main/java/com/cylonid/nativealpha/WebAppSettingsActivity.kt"
+    },
+    {
+      "biomarker_type": "hot_path_sync_io",
+      "severity": "low",
+      "file_path": "app/src/main/kotlin/com/cylonid/nativealpha/util/ShortcutIconUtils.kt",
+      "function_name": "saveFavicon",
+      "health_impact": 0.0,
+      "details": {
+        "boundary_kind": "filesystem",
+        "opportunity_id": "perf2_04744ed5ca964a40f324"
+      },
+      "reason": "a blocking filesystem call runs on a hot, request-reachable path; its latency is paid on every call through this function"
+    },
+    {
+      "biomarker_type": "complex_method",
+      "severity": "medium",
+      "file_path": "app/src/main/kotlin/com/cylonid/nativealpha/util/UrlSanitizer.kt",
+      "function_name": "sanitizeTrackingParameters",
+      "health_impact": 0.847,
+      "details": {
+        "ccn": 11,
+        "cognitive": 10,
+        "nloc": 42
+      },
+      "reason": "sanitizeTrackingParameters has cyclomatic complexity 11"
+    },
+    {
+      "biomarker_type": "dry_violation",
+      "severity": "medium",
+      "file_path": "app/src/test/java/com/cylonid/nativealpha/DateUtilsTest.kt",
+      "function_name": null,
+      "health_impact": 0.35,
+      "details": {
+        "duplication_pct": 40.26,
+        "clone_pair_count": 1,
+        "worst_clone_lines": 20,
+        "worst_clone_partner": "app/src/test/java/com/cylonid/nativealpha/DateUtilsTest.kt",
+        "worst_clone_co_change": 0
+      },
+      "reason": "40% of file duplicated; worst clone shares 20 lines with app/src/test/java/com/cylonid/nativealpha/DateUtilsTest.kt"
+    },
+    {
+      "biomarker_type": "dry_violation",
+      "severity": "medium",
+      "file_path": "app/src/test/java/com/cylonid/nativealpha/HomeNavigationTest.java",
+      "function_name": null,
+      "health_impact": 0.35,
+      "details": {
+        "duplication_pct": 86.05,
+        "clone_pair_count": 27,
+        "worst_clone_lines": 30,
+        "worst_clone_partner": "app/src/test/java/com/cylonid/nativealpha/HomeNavigationTest.java",
+        "worst_clone_co_change": 0
+      },
+      "reason": "86% of file duplicated; worst clone shares 30 lines with app/src/test/java/com/cylonid/nativealpha/HomeNavigationTest.java"
+    },
+    {
+      "biomarker_type": "duplicated_assertion_block",
+      "severity": "medium",
+      "file_path": "app/src/test/java/com/cylonid/nativealpha/HomeNavigationTest.java",
+      "function_name": null,
+      "health_impact": 0.125,
+      "details": {
+        "assertion_lines": [
+          53,
+          54
+        ],
+        "partner_file": "app/src/test/java/com/cylonid/nativealpha/HomeNavigationTest.java"
+      },
+      "reason": "assertion block at lines 53-54 is duplicated in app/src/test/java/com/cylonid/nativealpha/HomeNavigationTest.java"
+    },
+    {
+      "biomarker_type": "duplicated_assertion_block",
+      "severity": "medium",
+      "file_path": "app/src/test/java/com/cylonid/nativealpha/HomeNavigationTest.java",
+      "function_name": null,
+      "health_impact": 0.125,
+      "details": {
+        "assertion_lines": [
+          106,
+          107
+        ],
+        "partner_file": "app/src/test/java/com/cylonid/nativealpha/HomeNavigationTest.java"
+      },
+      "reason": "assertion block at lines 106-107 is duplicated in app/src/test/java/com/cylonid/nativealpha/HomeNavigationTest.java"
+    },
+    {
+      "biomarker_type": "duplicated_assertion_block",
+      "severity": "medium",
+      "file_path": "app/src/test/java/com/cylonid/nativealpha/HomeNavigationTest.java",
+      "function_name": null,
+      "health_impact": 0.125,
+      "details": {
+        "assertion_lines": [
+          81,
+          84
+        ],
+        "partner_file": "app/src/test/java/com/cylonid/nativealpha/HomeNavigationTest.java"
+      },
+      "reason": "assertion block at lines 81-84 is duplicated in app/src/test/java/com/cylonid/nativealpha/HomeNavigationTest.java"
+    },
+    {
+      "biomarker_type": "duplicated_assertion_block",
+      "severity": "medium",
+      "file_path": "app/src/test/java/com/cylonid/nativealpha/HomeNavigationTest.java",
+      "function_name": null,
+      "health_impact": 0.125,
+      "details": {
+        "assertion_lines": [
+          129,
+          130
+        ],
+        "partner_file": "app/src/test/java/com/cylonid/nativealpha/HomeNavigationTest.java"
+      },
+      "reason": "assertion block at lines 129-130 is duplicated in app/src/test/java/com/cylonid/nativealpha/HomeNavigationTest.java"
+    },
+    {
+      "biomarker_type": "large_method",
+      "severity": "low",
+      "file_path": "app/src/test/java/com/cylonid/nativealpha/ImmersiveBrowserTest.java",
+      "function_name": "checkBrowser",
+      "health_impact": 0.375,
+      "details": {
+        "nloc": 60,
+        "ccn": 4
+      },
+      "reason": "checkBrowser is 60 lines long"
+    },
+    {
+      "biomarker_type": "primitive_obsession",
+      "severity": "low",
+      "file_path": "app/src/test/java/com/cylonid/nativealpha/ImmersiveBrowserTest.java",
+      "function_name": "sendTouch",
+      "health_impact": 0.15,
+      "details": {
+        "param_count": 5
+      },
+      "reason": "sendTouch takes 5 parameters"
+    },
+    {
+      "biomarker_type": "dry_violation",
+      "severity": "low",
+      "file_path": "app/src/test/java/com/cylonid/nativealpha/ImmersiveBrowserTest.java",
+      "function_name": null,
+      "health_impact": 0.15,
+      "details": {
+        "duplication_pct": 22.92,
+        "clone_pair_count": 16,
+        "worst_clone_lines": 16,
+        "worst_clone_partner": "app/src/main/java/com/cylonid/nativealpha/WebViewActivity.java",
+        "worst_clone_co_change": 0
+      },
+      "reason": "23% of file duplicated; worst clone shares 16 lines with app/src/main/java/com/cylonid/nativealpha/WebViewActivity.java"
+    },
+    {
+      "biomarker_type": "dry_violation",
+      "severity": "medium",
+      "file_path": "app/src/test/java/com/cylonid/nativealpha/PresetLiteAppTest.java",
+      "function_name": null,
+      "health_impact": 0.35,
+      "details": {
+        "duplication_pct": 31.67,
+        "clone_pair_count": 17,
+        "worst_clone_lines": 26,
+        "worst_clone_partner": "app/src/main/java/com/cylonid/nativealpha/model/DataManager.java",
+        "worst_clone_co_change": 0
+      },
+      "reason": "32% of file duplicated; worst clone shares 26 lines with app/src/main/java/com/cylonid/nativealpha/model/DataManager.java"
+    },
+    {
+      "biomarker_type": "dry_violation",
+      "severity": "medium",
+      "file_path": "app/src/test/java/com/cylonid/nativealpha/SandboxUiTest.java",
+      "function_name": null,
+      "health_impact": 0.35,
+      "details": {
+        "duplication_pct": 59.51,
+        "clone_pair_count": 27,
+        "worst_clone_lines": 26,
+        "worst_clone_partner": "app/src/test/java/com/cylonid/nativealpha/SettingsLayoutTest.java",
+        "worst_clone_co_change": 0
+      },
+      "reason": "60% of file duplicated; worst clone shares 26 lines with app/src/test/java/com/cylonid/nativealpha/SettingsLayoutTest.java"
+    },
+    {
+      "biomarker_type": "duplicated_assertion_block",
+      "severity": "medium",
+      "file_path": "app/src/test/java/com/cylonid/nativealpha/SandboxUiTest.java",
+      "function_name": null,
+      "health_impact": 0.1,
+      "details": {
+        "assertion_lines": [
+          85,
+          86
+        ],
+        "partner_file": "app/src/test/java/com/cylonid/nativealpha/SandboxUiTest.java"
+      },
+      "reason": "assertion block at lines 85-86 is duplicated in app/src/test/java/com/cylonid/nativealpha/SandboxUiTest.java"
+    },
+    {
+      "biomarker_type": "duplicated_assertion_block",
+      "severity": "medium",
+      "file_path": "app/src/test/java/com/cylonid/nativealpha/SandboxUiTest.java",
+      "function_name": null,
+      "health_impact": 0.1,
+      "details": {
+        "assertion_lines": [
+          102,
+          106
+        ],
+        "partner_file": "app/src/test/java/com/cylonid/nativealpha/SandboxUiTest.java"
+      },
+      "reason": "assertion block at lines 102-106 is duplicated in app/src/test/java/com/cylonid/nativealpha/SandboxUiTest.java"
+    },
+    {
+      "biomarker_type": "duplicated_assertion_block",
+      "severity": "medium",
+      "file_path": "app/src/test/java/com/cylonid/nativealpha/SandboxUiTest.java",
+      "function_name": null,
+      "health_impact": 0.1,
+      "details": {
+        "assertion_lines": [
+          140,
+          148
+        ],
+        "partner_file": "app/src/test/java/com/cylonid/nativealpha/SandboxUiTest.java"
+      },
+      "reason": "assertion block at lines 140-148 is duplicated in app/src/test/java/com/cylonid/nativealpha/SandboxUiTest.java"
+    },
+    {
+      "biomarker_type": "duplicated_assertion_block",
+      "severity": "medium",
+      "file_path": "app/src/test/java/com/cylonid/nativealpha/SandboxUiTest.java",
+      "function_name": null,
+      "health_impact": 0.1,
+      "details": {
+        "assertion_lines": [
+          205,
+          208
+        ],
+        "partner_file": "app/src/test/java/com/cylonid/nativealpha/SandboxUiTest.java"
+      },
+      "reason": "assertion block at lines 205-208 is duplicated in app/src/test/java/com/cylonid/nativealpha/SandboxUiTest.java"
+    },
+    {
+      "biomarker_type": "duplicated_assertion_block",
+      "severity": "medium",
+      "file_path": "app/src/test/java/com/cylonid/nativealpha/SandboxUiTest.java",
+      "function_name": null,
+      "health_impact": 0.1,
+      "details": {
+        "assertion_lines": [
+          215,
+          218
+        ],
+        "partner_file": "app/src/test/java/com/cylonid/nativealpha/SandboxUiTest.java"
+      },
+      "reason": "assertion block at lines 215-218 is duplicated in app/src/test/java/com/cylonid/nativealpha/SandboxUiTest.java"
+    },
+    {
+      "biomarker_type": "dry_violation",
+      "severity": "medium",
+      "file_path": "app/src/test/java/com/cylonid/nativealpha/SettingsLayoutTest.java",
+      "function_name": null,
+      "health_impact": 0.35,
+      "details": {
+        "duplication_pct": 35.54,
+        "clone_pair_count": 19,
+        "worst_clone_lines": 32,
+        "worst_clone_partner": "app/src/main/java/com/cylonid/nativealpha/WebViewActivity.java",
+        "worst_clone_co_change": 0
+      },
+      "reason": "36% of file duplicated; worst clone shares 32 lines with app/src/main/java/com/cylonid/nativealpha/WebViewActivity.java"
+    },
+    {
+      "biomarker_type": "duplicated_assertion_block",
+      "severity": "medium",
+      "file_path": "app/src/test/java/com/cylonid/nativealpha/SettingsLayoutTest.java",
+      "function_name": null,
+      "health_impact": 0.25,
+      "details": {
+        "assertion_lines": [
+          99,
+          100
+        ],
+        "partner_file": "app/src/test/java/com/cylonid/nativealpha/SettingsLayoutTest.java"
+      },
+      "reason": "assertion block at lines 99-100 is duplicated in app/src/test/java/com/cylonid/nativealpha/SettingsLayoutTest.java"
+    },
+    {
+      "biomarker_type": "duplicated_assertion_block",
+      "severity": "medium",
+      "file_path": "app/src/test/java/com/cylonid/nativealpha/SettingsLayoutTest.java",
+      "function_name": null,
+      "health_impact": 0.25,
+      "details": {
+        "assertion_lines": [
+          103,
+          104
+        ],
+        "partner_file": "app/src/test/java/com/cylonid/nativealpha/SettingsLayoutTest.java"
+      },
+      "reason": "assertion block at lines 103-104 is duplicated in app/src/test/java/com/cylonid/nativealpha/SettingsLayoutTest.java"
+    },
+    {
+      "biomarker_type": "dry_violation",
+      "severity": "medium",
+      "file_path": "app/src/test/java/com/cylonid/nativealpha/UtilUnitTests.java",
+      "function_name": null,
+      "health_impact": 0.35,
+      "details": {
+        "duplication_pct": 54.35,
+        "clone_pair_count": 1,
+        "worst_clone_lines": 13,
+        "worst_clone_partner": "app/src/test/java/com/cylonid/nativealpha/UtilUnitTests.java",
+        "worst_clone_co_change": 0
+      },
+      "reason": "54% of file duplicated; worst clone shares 13 lines with app/src/test/java/com/cylonid/nativealpha/UtilUnitTests.java"
+    },
+    {
+      "biomarker_type": "dry_violation",
+      "severity": "low",
+      "file_path": "app/src/test/kotlin/com/cylonid/nativealpha/OnboardingTest.kt",
+      "function_name": null,
+      "health_impact": 0.15,
+      "details": {
+        "duplication_pct": 14.75,
+        "clone_pair_count": 12,
+        "worst_clone_lines": 21,
+        "worst_clone_partner": "app/src/main/kotlin/com/cylonid/nativealpha/fragments/webapplist/WebAppListAdapter.kt",
+        "worst_clone_co_change": 0
+      },
+      "reason": "15% of file duplicated; worst clone shares 21 lines with app/src/main/kotlin/com/cylonid/nativealpha/fragments/webapplist/WebAppListAdapter.kt"
+    }
+  ]
+}

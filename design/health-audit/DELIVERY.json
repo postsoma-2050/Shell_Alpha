@@ -1,0 +1,15 @@
+{
+  "artifact": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/dist/ShellAlpha-1.5.2-hermit-media-debug.apk",
+  "source": "/Users/grangerfdad/Desktop/NativeAlphaForAndroid-dev/app/build/outputs/apk/standard/debug/ShellAlpha-standard-universal-debug.apk",
+  "bytes": 25475153,
+  "sha256": "558a378de0a345e58936c5ec7ebba8e561d731e3eaef14a0b64500d25d346956",
+  "package": "com.cylonid.nativealpha.debug",
+  "version": "1.5.2",
+  "min_sdk": 28,
+  "target_sdk": 35,
+  "resource_locales": [
+    "default English",
+    "zh-CN"
+  ],
+  "media_service_components": 9
+}

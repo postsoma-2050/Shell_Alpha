@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="home_mode_switch_to_grid">Switch to four-column icon grid</string>
+    <string name="home_mode_switch_to_list">Switch to list view</string>
+    <string name="home_mode_grid_active">Four-column icon grid</string>
+    <string name="home_mode_list_active">List view</string>
+    <string name="home_item_more_actions">More actions</string>
+    <string name="home_item_overflow">More actions for %1$s</string>
+</resources>

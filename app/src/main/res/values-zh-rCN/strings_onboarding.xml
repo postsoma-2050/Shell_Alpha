@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="onboarding_brand_name" translatable="false">ShellAlpha</string>
+    <string name="onboarding_version">版本 %1$s</string>
+    <string name="onboarding_headline">欢迎使用 ShellAlpha</string>
+    <string name="onboarding_intro">把网站变成专注的轻应用，在清晰的隐私边界下使用所需工具。</string>
+
+    <string name="onboarding_lite_apps_title">轻应用，触手可及</string>
+    <string name="onboarding_lite_apps_body">在 ShellAlpha 首页打开、搜索和整理轻应用。</string>
+
+    <string name="onboarding_postsoma_title">从 PostSoma 开始</string>
+    <string name="onboarding_postsoma_body">全新安装会预置一个 PostSoma 轻应用；之后可以随时添加其他网站。</string>
+
+    <string name="onboarding_sandbox_title">了解沙箱边界</string>
+    <string name="onboarding_sandbox_body">分配到沙箱的轻应用可以使用彼此独立的 WebView 数据。网站权限与第三方网络请求仍由具体网站和你作出的选择决定。</string>
+
+    <string name="onboarding_language_glyph" translatable="false">文</string>
+    <string name="onboarding_language_title">英文与简体中文</string>
+    <string name="onboarding_language_body">界面会跟随系统语言显示。</string>
+
+    <string name="onboarding_data_title">本地数据与网络访问</string>
+    <string name="onboarding_data_body">ShellAlpha 的应用数据保存在此设备上。打开网站时，请求会发送到该网站及其加载的服务。</string>
+
+    <string name="onboarding_attribution">ShellAlpha 基于 cylonid 的 NativeAlpha。软件依据 GNU GPL v3 授权。</string>
+    <string name="onboarding_agree_and_continue">了解并继续</string>
+    <string name="onboarding_continue">继续</string>
+</resources>

@@ -1,0 +1,7 @@
+<resources>
+    <string name="navigation_open_drawer">打开导航</string>
+    <string name="navigation_close_drawer">关闭导航</string>
+    <string name="navigation_section_browse">浏览</string>
+    <string name="navigation_section_app">应用</string>
+    <string name="navigation_current_lite_apps">轻应用，当前页面</string>
+</resources>

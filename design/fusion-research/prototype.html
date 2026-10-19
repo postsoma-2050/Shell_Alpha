@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Native Alpha 融合設計稿（互動設計稿｜非 Android 實機）</title>
+<style>
+  :root{
+    /* 暖白底 / 深灰文字 / #eb5757 品牌點綴 */
+    --bg:#FBF8F4;
+    --surface:#FFFFFF;
+    --surface-2:#F4EFE9;
+    --text:#26221F;
+    --muted:#6B625C;
+    --border:#E7E0D8;
+    --brand:#eb5757;          /* 品牌點綴：僅小面積（圓點、徽章邊、focus 提示線） */
+    --brand-strong:#B03A2E;   /* 操作色（深紅，白字對比足夠）：按鈕/主要動作 */
+    --brand-soft:#FBE9E7;
+    --danger:#8E2A20;
+    --ok:#2F6B46;
+    --focus:#1E1B19;
+    --radius:12px;
+    --radius-sm:8px;
+    --s1:8px; --s2:16px; --s3:24px; --s4:32px; --s5:40px;
+    --tap:48px;               /* Android 48dp 觸控 */
+  }
+  *{box-sizing:border-box}
+  html,body{max-width:100%;overflow-x:hidden}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--text);
+    font-family:system-ui,"-apple-system","Segoe UI","Noto Sans TC","PingFang TC","Microsoft JhengHei",sans-serif;
+    font-size:16px;
+    line-height:1.5;
+    -webkit-text-size-adjust:100%;
+  }
+  h1,h2,h3,p,ul{margin:0}
+  ul{padding:0;list-style:none}
+  button{font:inherit}
+  :focus-visible{outline:3px solid var(--focus);outline-offset:2px;border-radius:6px}
+  .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+
+  /* ---------- 頁首：清楚標註非實機 ---------- */
+  .banner{
+    background:#2A2420;color:#F6EFE9;
+    padding:var(--s1) var(--s2);
+    font-size:14px;letter-spacing:.02em;text-align:center;
+  }
+  .banner b{color:#FFD9C9}
+  .wrap{max-width:560px;margin:0 auto;padding:var(--s2) var(--s2) var(--s5)}
+  .doc-title{font-size:18px;font-weight:700;margin-bottom:4px}
+  .doc-sub{color:var(--muted);font-size:14px}
+
+  /* ---------- 螢幕切換（主導覽） ---------- */
+  .tabs{display:flex;gap:var(--s1);margin:var(--s2) 0}
+  .tab{
+    flex:1;min-height:var(--tap);
+    display:flex;align-items:center;justify-content:center;gap:6px;
+    background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);
+    color:var(--text);cursor:pointer;padding:0 var(--s1);text-align:center;font-size:14px
+  }
+  .tab[aria-selected="true"]{background:var(--brand-soft);border-color:var(--brand);font-weight:700}
+  .tab .dot{width:8px;height:8px;border-radius:50%;background:var(--brand);flex:none}
+
+  /* ---------- 畫布（手機 + 桌面舒適閱讀） ---------- */
+  .screen{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden}
+  .appbar{
+    display:flex;align-items:center;gap:var(--s1);
+    padding:var(--s1);border-bottom:1px solid var(--border);background:var(--surface)
+  }
+  .appbar h2{font-size:16px;font-weight:700;flex:1;min-width:0;overflow-wrap:anywhere}
+  .iconbtn{
+    min-width:var(--tap);min-height:var(--tap);
+    display:inline-flex;align-items:center;justify-content:center;
+    background:transparent;border:1px solid transparent;border-radius:var(--radius-sm);
+    color:var(--text);cursor:pointer;font-size:20px;line-height:1
+  }
+  .iconbtn:hover{background:var(--surface-2)}
+  .body{padding:var(--s2)}
+  .section-title{
+    font-size:13px;font-weight:700;color:var(--muted);
+    text-transform:uppercase;letter-spacing:.06em;margin:var(--s2) 0 var(--s1)
+  }
+  .section-title:first-child{margin-top:0}
+
+  /* ---------- 表單 / 列表 ---------- */
+  .field{display:block;margin-bottom:var(--s1)}
+  .field label{display:block;font-size:13px;color:var(--muted);margin-bottom:4px}
+  input[type=text],input[type=url],input[type=search]{
+    width:100%;min-height:var(--tap);padding:0 var(--s1);
+    border:1px solid var(--border);border-radius:var(--radius-sm);
+    background:var(--surface);color:var(--text);font-size:16px
+  }
+  input:disabled{background:var(--surface-2);color:var(--muted)}
+  .hint{font-size:13px;color:var(--muted)}
+  .error{font-size:13px;color:var(--danger);margin-top:4px}
+  .searchrow{display:flex;gap:var(--s1);margin-bottom:var(--s1)}
+  .searchrow input{flex:1}
+
+  .list{margin-top:var(--s1)}
+  .row{
+    display:flex;align-items:center;gap:var(--s1);
+    border:1px solid var(--border);border-radius:var(--radius-sm);
+    padding:var(--s1);background:var(--surface);margin-bottom:var(--s1)
+  }
+  .row .meta{flex:1;min-width:0}
+  .row .name{font-weight:700;overflow-wrap:anywhere}
+  .row .host{font-size:13px;color:var(--muted);overflow-wrap:anywhere}
+  .row .actions{display:flex;gap:4px;flex:none}
+
+  .badge{
+    display:inline-flex;align-items:center;gap:4px;
+    font-size:12px;font-weight:600;padding:2px 8px;border-radius:999px;
+    border:1px solid var(--border);background:var(--surface-2);color:var(--muted)
+  }
+  .badge .dot{width:6px;height:6px;border-radius:50%;background:var(--muted)}
+  .badge.custom{background:var(--brand-soft);border-color:var(--brand);color:#7A1F1A}
+  .badge.custom .dot{background:var(--brand)}
+
+  .btn{
+    min-height:var(--tap);padding:0 var(--s2);border-radius:var(--radius-sm);
+    border:1px solid var(--border);background:var(--surface);color:var(--text);
+    cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:6px
+  }
+  .btn:hover{background:var(--surface-2)}
+  .btn.primary{background:var(--brand-strong);border-color:var(--brand-strong);color:#fff;font-weight:700}
+  .btn.primary:hover{background:#97301F}
+  .btn.danger{background:var(--danger);border-color:var(--danger);color:#fff;font-weight:700}
+  .btn[disabled],.btn:disabled{opacity:.5;cursor:not-allowed}
+  .btnrow{display:flex;gap:var(--s1);flex-wrap:wrap;margin-top:var(--s1)}
+
+  .empty{
+    text-align:center;color:var(--muted);padding:var(--s4) var(--s2);
+    border:1px dashed var(--border);border-radius:var(--radius-sm);background:var(--surface)
+  }
+  .empty .big{font-size:15px;color:var(--text);font-weight:700;margin-bottom:4px}
+
+  /* ---------- 設定列 ---------- */
+  .srow{display:flex;align-items:flex-start;gap:var(--s1);padding:var(--s1) 0;border-bottom:1px solid var(--border)}
+  .srow:last-child{border-bottom:0}
+  .srow .txt{flex:1;min-width:0}
+  .srow .txt .t{font-weight:600;overflow-wrap:anywhere}
+  .srow .txt .d{font-size:13px;color:var(--muted)}
+  .seg{display:flex;gap:0;border:1px solid var(--border);border-radius:var(--radius-sm);overflow:hidden}
+  .seg button{
+    flex:1;min-height:var(--tap);border:0;background:var(--surface);color:var(--text);cursor:pointer;padding:0 var(--s1)
+  }
+  .seg button[aria-pressed="true"]{background:var(--brand-soft);font-weight:700;color:#7A1F1A}
+  .seg button:not(:last-child){border-right:1px solid var(--border)}
+
+  /* Android 風格開關（純視覺） */
+  .switch{position:relative;width:48px;height:28px;flex:none;margin-top:6px}
+  .switch input{position:absolute;inset:0;opacity:0;width:100%;height:100%;margin:0;cursor:pointer}
+  .switch .track{position:absolute;inset:0;border-radius:999px;background:var(--border);transition:background .15s}
+  .switch .knob{position:absolute;top:3px;left:3px;width:22px;height:22px;border-radius:50%;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.25);transition:transform .15s}
+  .switch input:checked ~ .track{background:var(--brand-strong)}
+  .switch input:checked ~ .knob{transform:translateX(20px)}
+  .switch input:disabled ~ .track{background:var(--surface-2)}
+  .switch input:focus-visible ~ .track{outline:3px solid var(--focus);outline-offset:2px}
+
+  .callout{background:var(--surface-2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:var(--s1);font-size:13px;color:var(--muted)}
+  .callout.warn{border-color:var(--brand);background:var(--brand-soft);color:#7A1F1A}
+
+  code{background:var(--surface-2);border:1px solid var(--border);border-radius:6px;padding:1px 6px;font-size:13px;overflow-wrap:anywhere}
+
+  .preview .line{font-size:13px;color:var(--muted);margin-top:4px}
+  .preview .val{overflow-wrap:anywhere}
+  .removed{text-decoration:line-through;color:var(--danger)}
+  .kept{color:var(--ok)}
+
+  /* ---------- 對話框 ---------- */
+  dialog{border:1px solid var(--border);border-radius:var(--radius);padding:0;max-width:calc(100% - 32px);width:420px;background:var(--surface);color:var(--text)}
+  dialog::backdrop{background:rgba(20,16,14,.5)}
+  .dlg-body{padding:var(--s2)}
+  .dlg-body h3{font-size:16px;margin-bottom:var(--s1)}
+  .dlg-foot{display:flex;gap:var(--s1);justify-content:flex-end;padding:var(--s1) var(--s2);border-top:1px solid var(--border)}
+
+  /* ---------- Snackbar（Undo） ---------- */
+  #snackbar{
+    position:fixed;left:50%;bottom:var(--s2);transform:translateX(-50%) translateY(140%);
+    background:#2A2420;color:#F6EFE9;border-radius:var(--radius-sm);
+    padding:var(--s1);display:flex;align-items:center;gap:var(--s1);
+    min-width:min(92vw,420px);max-width:92vw;transition:transform .2s
+  }
+  #snackbar.show{transform:translateX(-50%) translateY(0)}
+  #snackbar button{
+    margin-left:auto;background:transparent;border:0;color:#FFD9C9;font-weight:700;
+    min-height:44px;min-width:64px;cursor:pointer
+  }
+
+  .footer-note{color:var(--muted);font-size:13px;margin-top:var(--s2)}
+  .footer-note li{margin-bottom:4px;padding-left:1em;position:relative}
+  .footer-note li::before{content:"–";position:absolute;left:0}
+
+  @media (prefers-reduced-motion: reduce){
+    *{transition:none !important;animation:none !important;scroll-behavior:auto !important}
+  }
+</style>
+</head>
+<body>
+
+<p class="banner" role="note">互動設計稿｜<b>非 Android 實機</b>：本頁為純靜態設計示意，不會載入真實網站、不連線網路、不新增資料</p>
+
+<div class="wrap">
+  <header>
+    <h1 class="doc-title">Native Alpha 融合設計稿</h1>
+    <p class="doc-sub">三屏可切換：主列表 → 單 App 設定 → 全域設定。暖白底、系統字體、克制工具介面。</p>
+  </header>
+
+  <nav class="tabs" role="tablist" aria-label="切換三屏">
+    <button class="tab" role="tab" id="tabA" aria-selected="true" aria-controls="screenA" data-view="A"><span class="dot" aria-hidden="true"></span>主列表</button>
+    <button class="tab" role="tab" id="tabB" aria-selected="false" aria-controls="screenB" data-view="B">單 App 設定</button>
+    <button class="tab" role="tab" id="tabC" aria-selected="false" aria-controls="screenC" data-view="C">全域設定</button>
+  </nav>
+
+  <main>
+    <!-- ================= Screen A：主列表 ================= -->
+    <section class="screen" id="screenA" role="tabpanel" aria-labelledby="tabA">
+      <div class="appbar">
+        <h2>網站工具箱</h2>
+        <button class="btn primary" id="btnAdd">＋ 新增</button>
+      </div>
+      <div class="body">
+        <div class="searchrow">
+          <label class="sr-only" for="searchInput">搜尋名稱或網域</label>
+          <input type="search" id="searchInput" placeholder="搜尋名稱或網域…" autocomplete="off">
+        </div>
+
+        <ul class="list" id="appList" aria-label="網站清單"></ul>
+        <div id="listEmpty"></div>
+
+        <p class="callout" style="margin-top:var(--s2)">
+          「模擬開啟」在此為<strong>停用</strong>項目：設計稿不載入真實網站，故不提供假動作。點名稱旁的齒輪可進入單 App 設定。
+        </p>
+      </div>
+    </section>
+
+    <!-- ================= Screen B：單 App 設定 ================= -->
+    <section class="screen" id="screenB" role="tabpanel" aria-labelledby="tabB" hidden>
+      <div class="appbar">
+        <button class="iconbtn" id="backB" aria-label="返回主列表">←</button>
+        <h2 id="bTitle">App 設定</h2>
+      </div>
+      <div class="body" id="bBody"></div>
+    </section>
+
+    <!-- ================= Screen C：全域設定 ================= -->
+    <section class="screen" id="screenC" role="tabpanel" aria-labelledby="tabC" hidden>
+      <div class="appbar">
+        <button class="iconbtn" id="backC" aria-label="返回主列表">←</button>
+        <h2>全域設定</h2>
+      </div>
+      <div class="body" id="cBody"></div>
+    </section>
+  </main>
+
+  <footer class="footer-note">
+    <ul>
+      <li>8dp 節奏、48dp 觸控、可鍵盤操作（Tab/Enter/Space、Esc 關閉對話框）、可見 focus。</li>
+      <li>尊重 <code>prefers-reduced-motion</code>；不做裝飾性動態。</li>
+      <li>品牌點綴 <code>#eb5757</code> 只用於小面積；操作色採深紅 <code>#B03A2E</code>（白字對比足夠）。</li>
+    </ul>
+  </footer>
+</div>
+
+<!-- 新增 URL -->
+<dialog id="dlgAdd" aria-labelledby="dlgAddTitle">
+  <div class="dlg-body">
+    <h3 id="dlgAddTitle">新增網站</h3>
+    <label class="field">
+      <span>網址</span>
+      <input type="url" id="addUrl" placeholder="example.com 或 https://example.com" autocomplete="off">
+    </label>
+    <p class="hint">未帶協定時會自動補 <code>https://</code>。新網站預設「跟隨全域」。</p>
+    <p class="error" id="addErr" role="alert" hidden></p>
+  </div>
+  <div class="dlg-foot">
+    <button class="btn" id="addCancel" type="button">取消</button>
+    <button class="btn primary" id="addOk" type="button">新增</button>
+  </div>
+</dialog>
+
+<!-- 確認刪除（示範資料） -->
+<dialog id="dlgConfirm" aria-labelledby="dlgConfirmTitle">
+  <div class="dlg-body">
+    <h3 id="dlgConfirmTitle">刪除網站？</h3>
+    <p id="confirmText">這是示範資料，刪除後可用 Undo 還原。</p>
+    <p class="callout" style="margin-top:var(--s1)">實際 App 的刪除是「軟刪除」（保留資料、停用捷徑），可由備份/Undo 恢復。</p>
+  </div>
+  <div class="dlg-foot">
+    <button class="btn" id="confirmCancel" type="button">取消</button>
+    <button class="btn danger" id="confirmOk" type="button">刪除</button>
+  </div>
+</dialog>
+
+<div id="snackbar" role="status" aria-live="polite">
+  <span id="snackText">已刪除</span>
+  <button id="snackUndo" type="button">UNDO</button>
+</div>
+
+<script>
+"use strict";
+
+/* ================= 狀態（純前端示範，不是真實資料） ================= */
+const ALLOWLIST = ["utm_source","utm_medium","utm_campaign","utm_term","utm_content","fbclid","gclid"];
+const SKIP_KEYS = ["sig","signature","token","expires","x-amz-signature","x-amz-credential","x-amz-algorithm","googleaccessid","state","code","redirect_uri","access_token","id_token","oauth_token"];
+
+const state = {
+  view: "A",
+  activeAppId: null,
+  query: "",
+  // 全域（網站預設）
+  global: { cleanTracking: false, block3p: false, desktop: false, lang: "zh-Hant" },
+  // 介面與操作
+  globalUI: { twoFinger: true, threeFinger: false, progressbar: true, reduceMotion: false },
+  apps: [
+    { id:1, name:"Hacker News", host:"news.ycombinator.com", custom:false, cleanTracking:false, behavior:{ js:true, desktop:false, images:true }, privacy:{ cleanTracking:false, block3p:false }, appearance:{ dark:false } },
+    { id:2, name:"MDN Web Docs", host:"developer.mozilla.org", custom:true,  cleanTracking:true,  behavior:{ js:true, desktop:true,  images:true }, privacy:{ cleanTracking:true,  block3p:false }, appearance:{ dark:false } },
+    { id:3, name:"部落格", host:"blog.example.tw", custom:false, cleanTracking:false, behavior:{ js:true, desktop:false, images:false }, privacy:{ cleanTracking:false, block3p:true  }, appearance:{ dark:true  } }
+  ],
+  lastDeleted: null
+};
+
+/* ================= URL 清理（純函式，保留原始編碼/順序/fragment） ================= */
+function cleanUrl(raw){
+  // 回傳 { cleaned, removed[], skipped, skipKey }
+  const hashIdx = raw.indexOf("#");
+  const hash = hashIdx >= 0 ? raw.slice(hashIdx) : "";
+  const beforeHash = hashIdx >= 0 ? raw.slice(0, hashIdx) : raw;
+  const qIdx = beforeHash.indexOf("?");
+  if (qIdx < 0) return { cleaned: raw, removed: [], skipped: false };
+  const path = beforeHash.slice(0, qIdx);
+  const query = beforeHash.slice(qIdx + 1);
+  const pairs = query.length ? query.split("&") : [];
+
+  // 先檢查是否含簽名/OAuth 風險鍵 → 直接略過
+  for (const p of pairs){
+    const rawKey = p.split("=")[0];
+    let k; try { k = decodeURIComponent(rawKey); } catch(_) { k = rawKey; }
+    if (SKIP_KEYS.includes(k.toLowerCase())) {
+      return { cleaned: raw, removed: [], skipped: true, skipKey: k };
+    }
+  }
+
+  const removed = [];
+  const kept = pairs.filter(p => {
+    const rawKey = p.split("=")[0];
+    let k; try { k = decodeURIComponent(rawKey); } catch(_) { k = rawKey; }
+    if (ALLOWLIST.includes(k.toLowerCase())) { removed.push(k); return false; }
+    return true;
+  });
+  const newQuery = kept.join("&");
+  const cleaned = path + (newQuery ? "?" + newQuery : "") + hash;
+  return { cleaned, removed, skipped:false };
+}
+
+/* ================= 工具 ================= */
+const $  = (s, r=document) => r.querySelector(s);
+const $$ = (s, r=document) => Array.from(r.querySelectorAll(s));
+const esc = s => String(s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+function activeApp(){ return state.apps.find(a => a.id === state.activeAppId) || null; }
+function effectiveClean(app){ return app.custom ? app.privacy.cleanTracking : state.global.cleanTracking; }
+function effectiveBehavior(app){ return app.custom ? app.behavior : { js:true, desktop:state.global.desktop, images:true }; }
+
+/* ================= 螢幕切換 ================= */
+function switchView(v){
+  state.view = v;
+  ["A","B","C"].forEach(k => {
+    $("#screen"+k).hidden = (k !== v);
+    $("#tab"+k).setAttribute("aria-selected", k === v ? "true" : "false");
+  });
+  if (v === "A") renderList();
+  if (v === "B") renderApp();
+  if (v === "C") renderGlobal();
+}
+$$(".tab").forEach(t => t.addEventListener("click", () => switchView(t.dataset.view)));
+$("#backB").addEventListener("click", () => switchView("A"));
+$("#backC").addEventListener("click", () => switchView("A"));
+
+/* ================= Screen A：清單 ================= */
+function renderList(){
+  const q = state.query.trim().toLowerCase();
+  const rows = state.apps.filter(a => !q || a.name.toLowerCase().includes(q) || a.host.toLowerCase().includes(q));
+  const ul = $("#appList");
+  ul.innerHTML = rows.map(a => {
+    const custom = a.custom;
+    const badge = custom
+      ? '<span class="badge custom"><span class="dot" aria-hidden="true"></span>此 App 自訂</span>'
+      : '<span class="badge"><span class="dot" aria-hidden="true"></span>跟隨全域</span>';
+    const clean = effectiveClean(a);
+    const cleanNote = clean ? ' · 清理追蹤參數：開' : '';
+    return `
+      <li class="row">
+        <div class="meta">
+          <div class="name">${esc(a.name)}</div>
+          <div class="host">${esc(a.host)}${cleanNote}</div>
+          <div style="margin-top:6px">${badge}</div>
+        </div>
+        <div class="actions">
+          <button class="iconbtn" data-gear="${a.id}" aria-label="編輯 ${esc(a.name)} 的設定" title="進設定">⚙️</button>
+          <button class="iconbtn" data-del="${a.id}" aria-label="刪除 ${esc(a.name)}" title="刪除">🗑️</button>
+        </div>
+      </li>`;
+  }).join("");
+
+  // 圖示是文字字形（emoji 僅作示意，正式實作改用向量圖示）
+  const empty = $("#listEmpty");
+  if (state.apps.length === 0){
+    empty.innerHTML = `<div class="empty"><div class="big">還沒有網站</div><p>用「＋ 新增」加入第一個網站，或匯入備份。</p></div>`;
+  } else if (rows.length === 0){
+    empty.innerHTML = `<div class="empty"><div class="big">找不到「${esc(state.query)}」</div><p>換個名稱或網域關鍵字試試。</p></div>`;
+  } else { empty.innerHTML = ""; }
+
+  $$("[data-gear]", ul).forEach(b => b.addEventListener("click", () => { state.activeAppId = Number(b.dataset.gear); switchView("B"); }));
+  $$("[data-del]", ul).forEach(b => b.addEventListener("click", () => openConfirm(Number(b.dataset.del))));
+}
+
+$("#searchInput").addEventListener("input", e => { state.query = e.target.value; renderList(); });
+
+/* ================= 新增 URL ================= */
+const dlgAdd = $("#dlgAdd");
+$("#btnAdd").addEventListener("click", () => { $("#addUrl").value=""; $("#addErr").hidden=true; dlgAdd.showModal(); $("#addUrl").focus(); });
+$("#addCancel").addEventListener("click", () => dlgAdd.close());
+$("#addOk").addEventListener("click", () => {
+  const raw = $("#addUrl").value.trim();
+  const err = $("#addErr");
+  if (!raw){ err.textContent = "請輸入網址。"; err.hidden=false; $("#addUrl").focus(); return; }
+  const withProto = /^https?:\/\//i.test(raw) ? raw : "https://" + raw;
+  let host = "";
+  try { const u = new URL(withProto); host = u.host; } catch(_){
+    err.textContent = "看起來不是有效的網址，請確認後再試。"; err.hidden=false; $("#addUrl").focus(); return;
+  }
+  if (!host || !host.includes(".")){ err.textContent = "網域格式不完整，請輸入例如 example.com。"; err.hidden=false; $("#addUrl").focus(); return; }
+  const id = Math.max(0, ...state.apps.map(a => a.id)) + 1;
+  state.apps.push({ id, name: host, host, custom:false, cleanTracking:false,
+    behavior:{ js:true, desktop:false, images:true }, privacy:{ cleanTracking:false, block3p:false }, appearance:{ dark:false } });
+  dlgAdd.close();
+  renderList();
+  showSnack(`已新增 ${host}（跟隨全域）`, null);
+});
+$("#addUrl").addEventListener("keydown", e => { if (e.key === "Enter"){ e.preventDefault(); $("#addOk").click(); } });
+
+/* ================= 刪除 + Undo ================= */
+const dlgConfirm = $("#dlgConfirm");
+let pendingDelete = null;
+function openConfirm(id){
+  const a = state.apps.find(x => x.id === id); if (!a) return;
+  pendingDelete = id;
+  $("#confirmText").textContent = `「${a.name}」將從清單移除（示範資料，可用 Undo 還原）。`;
+  dlgConfirm.showModal();
+}
+$("#confirmCancel").addEventListener("click", () => dlgConfirm.close());
+$("#confirmOk").addEventListener("click", () => {
+  const idx = state.apps.findIndex(a => a.id === pendingDelete);
+  if (idx >= 0){
+    state.lastDeleted = { app: state.apps[idx], idx };
+    const name = state.apps[idx].name;
+    state.apps.splice(idx, 1);
+    renderList();
+    showSnack(`已刪除 ${name}`, () => {
+      const { app, idx: at } = state.lastDeleted;
+      state.apps.splice(at, 0, app); state.lastDeleted = null; renderList();
+    });
+  }
+  dlgConfirm.close();
+});
+
+let snackTimer = null;
+function showSnack(text, undo){
+  $("#snackText").textContent = text;
+  const undoBtn = $("#snackUndo");
+  undoBtn.hidden = !undo;
+  undoBtn.onclick = () => { if (undo) undo(); $("#snackbar").classList.remove("show"); };
+  $("#snackbar").classList.add("show");
+  clearTimeout(snackTimer);
+  snackTimer = setTimeout(() => $("#snackbar").classList.remove("show"), 5000);
+}
+
+/* ================= Screen B：單 App 設定 ================= */
+function renderApp(){
+  const a = activeApp();
+  const box = $("#bBody");
+  if (!a){ box.innerHTML = `<div class="empty"><div class="big">尚未選擇 App</div><p>請由主列表的齒輪進入。</p></div>`; $("#bTitle").textContent="App 設定"; return; }
+  $("#bTitle").textContent = a.name;
+
+  const custom = a.custom;
+  const eff = effectiveBehavior(a);
+  const cleanOn = effectiveClean(a);
+  const disabled = custom ? "" : "disabled";
+  const cleanDisabled = custom ? "" : "disabled";
+
+  const before = "https://news.example.com/article?utm_source=newsletter&utm_medium=email&id=42&fbclid=abc123#comments";
+  const res = cleanUrl(a._previewUrl || before);
+  const sample = a._previewUrl || before;
+
+  box.innerHTML = `
+    <p class="hint" style="margin-bottom:var(--s1)">網址：<code>https://${esc(a.host)}</code></p>
+
+    <div class="srow">
+      <div class="txt">
+        <div class="t">設定來源</div>
+        <div class="d">${custom ? "此 App 自訂：以下控制項可編輯。" : "跟隨全域：以下顯示全域的實際生效值，控制項停用。"}</div>
+      </div>
+    </div>
+    <div class="seg" role="group" aria-label="設定來源">
+      <button type="button" data-follow="1" aria-pressed="${!custom}">跟隨全域</button>
+      <button type="button" data-follow="0" aria-pressed="${custom}">此 App 自訂</button>
+    </div>
+
+    <h3 class="section-title">行為</h3>
+    <div class="srow">
+      <div class="txt"><div class="t">允許 JavaScript</div><div class="d">跟隨全域時顯示全域值</div></div>
+      <span class="switch"><input type="checkbox" id="bJs" ${eff.js?"checked":""} ${disabled} aria-label="允許 JavaScript"><span class="track"></span><span class="knob"></span></span>
+    </div>
+    <div class="srow">
+      <div class="txt"><div class="t">桌面版網站</div><div class="d">${custom?"":"目前來自全域設定"}</div></div>
+      <span class="switch"><input type="checkbox" id="bDesktop" ${eff.desktop?"checked":""} ${disabled} aria-label="桌面版網站"><span class="track"></span><span class="knob"></span></span>
+    </div>
+    <div class="srow">
+      <div class="txt"><div class="t">載入圖片</div><div class="d">關閉可省流量</div></div>
+      <span class="switch"><input type="checkbox" id="bImages" ${eff.images?"checked":""} ${disabled} aria-label="載入圖片"><span class="track"></span><span class="knob"></span></span>
+    </div>
+
+    <h3 class="section-title">隱私</h3>
+    <div class="srow">
+      <div class="txt">
+        <div class="t">URL 追蹤參數清理（MVP）</div>
+        <div class="d">預設關閉。僅移除白名單：${ALLOWLIST.map(esc).join("、")}。保留未知參數、fragment、重複鍵順序與原始編碼。</div>
+      </div>
+      <span class="switch"><input type="checkbox" id="bClean" ${cleanOn?"checked":""} ${cleanDisabled} aria-label="URL 追蹤參數清理"><span class="track"></span><span class="knob"></span></span>
+    </div>
+    <div class="callout ${cleanOn?"":"warn"}" style="margin-top:var(--s1)">
+      ${cleanOn ? "此 App 目前會清理上述追蹤參數。" : "目前不會清理追蹤參數（預設關閉）。"}
+      ${custom ? "" : `（跟隨全域：${state.global.cleanTracking?"全域已開":"全域關閉"}）`}
+    </div>
+
+    <h3 class="section-title">清理預覽（不連線）</h3>
+    <div class="preview">
+      <label class="field"><span>輸入一個示範 URL</span>
+        <input type="text" id="prevInput" value="${esc(sample)}" autocomplete="off">
+      </label>
+      <div class="btnrow">
+        <button class="btn" id="prevSigned" type="button">載入簽名 URL 範例</button>
+      </div>
+      <div class="line">原始：<span class="val">${esc(sample)}</span></div>
+      <div class="line">清理後：<span class="val">${res.skipped ? esc(res.cleaned) : highlight(sample, res)}</span></div>
+      <div class="line">${res.skipped
+        ? `已略過（偵測到 <code>${esc(res.skipKey)}</code>）：簽名／登入類 URL 不清理，採原網址回退。`
+        : (res.removed.length ? `將移除：<span class="removed">${res.removed.map(esc).join("、")}</span>；其餘參數與 <code>#fragment</code> 保留。`
+                              : `沒有可移除的白名單參數；維持原網址。`)}</div>
+      <input type="hidden" id="cleanedVal" value="${esc(res.cleaned)}">
+      <div class="btnrow">
+        <button class="btn primary" id="applyClean" type="button" ${(!cleanOn || res.skipped) ? "disabled" : ""}>套用清理後的網址</button>
+        <button class="btn" id="skipClean" type="button">略過（用原網址）</button>
+      </div>
+      <div class="line" id="finalLine">最終「載入用」網址（示範，不會真的載入）：<span class="val"><code>${esc(sample)}</code></span></div>
+      <p class="hint" style="margin-top:6px">不篡改已儲存的 baseUrl；清理只作用於導航層，且不保證覆蓋所有 POST／跳轉。</p>
+    </div>
+
+    <h3 class="section-title">外觀</h3>
+    <div class="srow">
+      <div class="txt"><div class="t">深色模式</div><div class="d">${custom?"":"跟隨全域時停用（示範）"}</div></div>
+      <span class="switch"><input type="checkbox" id="bDark" ${a.appearance.dark?"checked":""} ${disabled} aria-label="深色模式"><span class="track"></span><span class="knob"></span></span>
+    </div>
+  `;
+
+  $$("[data-follow]", box).forEach(b => b.addEventListener("click", () => {
+    const follow = b.dataset.follow === "1";
+    if (follow){
+      // 回到跟隨：放棄自訂
+      a.custom = false;
+      a.behavior = { js:true, desktop:state.global.desktop, images:true };
+      a.privacy.cleanTracking = state.global.cleanTracking;
+      showSnack("已改為跟隨全域（自訂值已放棄）", null);
+    } else {
+      // 變自訂：複製目前生效值
+      a.custom = true;
+      a.behavior = { js:true, desktop:state.global.desktop, images:true };
+      a.privacy.cleanTracking = state.global.cleanTracking;
+      showSnack("已改為此 App 自訂（複製目前生效值）", null);
+    }
+    renderApp();
+  }));
+  $$("#bJs,#bDesktop,#bImages", box).forEach(input => input.addEventListener("change", () => {
+    if (!a.custom) return;
+    a.behavior.js = $("#bJs").checked;
+    a.behavior.desktop = $("#bDesktop").checked;
+    a.behavior.images = $("#bImages").checked;
+  }));
+  $("#bClean").addEventListener("change", e => { if (!a.custom) return; a.privacy.cleanTracking = e.target.checked; renderApp(); });
+  $("#bDark").addEventListener("change", e => { if (!a.custom) return; a.appearance.dark = e.target.checked; });
+
+  const re = () => { a._previewUrl = $("#prevInput").value; renderApp(); };
+  $("#prevInput").addEventListener("change", re);
+  $("#prevSigned").addEventListener("click", () => { a._previewUrl = "https://cdn.example.com/file.zip?X-Amz-Signature=abc123&X-Amz-Credential=k&expires=1700000000"; renderApp(); });
+  const apply = $("#applyClean");
+  if (apply) apply.addEventListener("click", () => setFinal(sample, res));
+  $("#skipClean").addEventListener("click", () => setFinal(sample, { skipped:true, cleaned:sample }, true));
+}
+function highlight(orig, res){
+  try {
+    const cleaned = res.cleaned;
+    // 以清理後字串為準，僅在視覺上標記被移除者：直接顯示清理後字串
+    return esc(cleaned);
+  } catch(_) { return esc(res.cleaned); }
+}
+function setFinal(sample, res, forceSkip){
+  const val = (res.skipped || forceSkip) ? sample : res.cleaned;
+  $("#finalLine").innerHTML = `最終「載入用」網址（示範，不會真的載入）：<span class="val"><code>${esc(val)}</code></span>`;
+  showSnack((res.skipped || forceSkip) ? "已選擇原網址（略過清理）" : "已套用清理後的網址", null);
+}
+
+/* ================= Screen C：全域設定 ================= */
+function renderGlobal(){
+  const c = state.global, u = state.globalUI;
+  $("#cBody").innerHTML = `
+    <h3 class="section-title">網站預設（給「跟隨全域」的 App）</h3>
+    <div class="srow">
+      <div class="txt"><div class="t">URL 追蹤參數清理</div>
+        <div class="d">預設關閉。開啟後，<strong>跟隨全域</strong>的 App 會即時反映；<strong>自訂</strong>的 App 不受影響。</div></div>
+      <span class="switch"><input type="checkbox" id="gClean" ${c.cleanTracking?"checked":""} aria-label="全域 URL 追蹤參數清理"><span class="track"></span><span class="knob"></span></span>
+    </div>
+    <div class="srow">
+      <div class="txt"><div class="t">預設桌面版網站</div><div class="d">新網站與跟隨全域者適用</div></div>
+      <span class="switch"><input type="checkbox" id="gDesktop" ${c.desktop?"checked":""} aria-label="預設桌面版網站"><span class="track"></span><span class="knob"></span></span>
+    </div>
+    <div class="callout" style="margin-top:var(--s1)">
+      傳播示意：跟隨全域 <span id="countFollow"></span>；自訂 <span id="countCustom"></span>。
+    </div>
+
+    <h3 class="section-title">介面與操作</h3>
+    <div class="srow">
+      <div class="txt"><div class="t">兩指左右滑：前進/後退</div><div class="d">與現有全域設定一致</div></div>
+      <span class="switch"><input type="checkbox" id="g2f" ${u.twoFinger?"checked":""} aria-label="兩指滑動導覽"><span class="track"></span><span class="knob"></span></span>
+    </div>
+    <div class="srow">
+      <div class="txt"><div class="t">三指左右滑：切換 Web App</div><div class="d">實驗性</div></div>
+      <span class="switch"><input type="checkbox" id="g3f" ${u.threeFinger?"checked":""} aria-label="三指滑動切換"><span class="track"></span><span class="knob"></span></span>
+    </div>
+    <div class="srow">
+      <div class="txt"><div class="t">顯示載入進度條</div><div class="d"></div></div>
+      <span class="switch"><input type="checkbox" id="gbBar" ${u.progressbar?"checked":""} aria-label="顯示進度條"><span class="track"></span><span class="knob"></span></span>
+    </div>
+
+    <h3 class="section-title">資料與備份</h3>
+    <div class="srow">
+      <div class="txt"><div class="t">匯出設定</div><div class="d">產生備份檔</div></div>
+      <button class="btn" type="button" disabled aria-describedby="bkNote">匯出</button>
+    </div>
+    <div class="srow">
+      <div class="txt"><div class="t">匯入設定</div><div class="d">還原備份</div></div>
+      <button class="btn" type="button" disabled aria-describedby="bkNote">匯入</button>
+    </div>
+    <p class="callout" id="bkNote">匯出／匯入在此為<strong>停用</strong>：設計稿不存取檔案、不讀寫資料。實際 App 的備份還原有已知的驗證不足風險（見報告第 8.5 節）。</p>
+
+    <div class="btnrow" style="margin-top:var(--s2)">
+      <button class="btn primary" id="cBack" type="button">返回主列表</button>
+    </div>
+  `;
+  $("#gClean").addEventListener("change", e => {
+    state.global.cleanTracking = e.target.checked;
+    // 傳播：跟隨全域的 App 立即反映
+    state.apps.forEach(a => { if (!a.custom) a.privacy.cleanTracking = state.global.cleanTracking; });
+    renderGlobal();
+    showSnack(e.target.checked ? "全域已開啟清理：跟隨全域的 App 已反映" : "全域已關閉清理：跟隨全域的 App 已反映", null);
+  });
+  $("#gDesktop").addEventListener("change", e => {
+    state.global.desktop = e.target.checked;
+    state.apps.forEach(a => { if (!a.custom) a.behavior.desktop = state.global.desktop; });
+    showSnack("已更新預設桌面版", null);
+  });
+  $("#g2f").addEventListener("change", e => { state.globalUI.twoFinger = e.target.checked; });
+  $("#g3f").addEventListener("change", e => { state.globalUI.threeFinger = e.target.checked; });
+  $("#gbBar").addEventListener("change", e => { state.globalUI.progressbar = e.target.checked; });
+  $("#cBack").addEventListener("click", () => switchView("A"));
+
+  const follow = state.apps.filter(a => !a.custom).length;
+  const custom = state.apps.length - follow;
+  $("#countFollow").textContent = follow + " 個";
+  $("#countCustom").textContent = custom + " 個";
+}
+
+/* ================= 啟動 ================= */
+renderList();
+</script>
+</body>
+</html>

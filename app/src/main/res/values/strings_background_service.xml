@@ -1,0 +1,10 @@
+<resources>
+    <string name="background_media_channel">Background media</string>
+    <string name="background_media_notification">Media can keep playing when you leave this Lite App.</string>
+    <plurals name="background_media_multiple">
+        <item quantity="one">%1$d Lite App playing media</item>
+        <item quantity="other">%1$d Lite Apps playing media</item>
+    </plurals>
+    <string name="background_media_stop">Stop playback</string>
+    <string name="background_media_stopped">Playback stopped</string>
+</resources>

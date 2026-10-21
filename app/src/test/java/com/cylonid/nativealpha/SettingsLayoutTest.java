@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridLayout;
+import android.widget.CompoundButton;
 import android.widget.ScrollView;
 import android.content.Intent;
 
@@ -68,6 +69,58 @@ public class SettingsLayoutTest {
         checkAppSettingsActivity(app.getID());
     }
 
+    @Test public void identitySettingsRemainEnabledWhenGlobalOverrideIsFalse() {
+        DataManager.getInstance().loadAppData();
+        WebApp app = new WebApp("https://example.org", DataManager.getInstance().getIncrementedID());
+        app.setOverrideGlobalSettings(false);
+        DataManager.getInstance().addWebsite(app);
+
+        Intent intent = new Intent(RuntimeEnvironment.getApplication(), WebAppSettingsActivity.class)
+                .putExtra(Const.INTENT_WEBAPPID, app.getID());
+        try (ActivityController<WebAppSettingsActivity> controller =
+                     Robolectric.buildActivity(WebAppSettingsActivity.class, intent).setup()) {
+            WebAppSettingsActivity activity = controller.get();
+            View txtName = activity.findViewById(R.id.txtWebAppName);
+            View btnShortcut = activity.findViewById(R.id.btnRecreateShortcut);
+            View sandboxCard = activity.findViewById(R.id.cardSettingsSandbox);
+            View colorGrid = activity.findViewById(R.id.settingsColorGrid);
+            View behaviorContainer = activity.findViewById(R.id.tabContainerBehavior);
+
+            assertTrue("App name must remain editable", txtName.isEnabled());
+            assertTrue("Shortcut button must remain clickable", btnShortcut.isEnabled());
+            assertTrue("Sandbox card must remain clickable", sandboxCard.isEnabled());
+            assertTrue("Theme color grid must remain enabled", colorGrid.isEnabled());
+            assertFalse("Behavior container must be disabled when override is false", behaviorContainer.isEnabled());
+        }
+    }
+
+    @Test public void sandboxEntryAndCookiePolicyUseButtonsWithTouchTargets() {
+        WebappSettingsBinding binding = WebappSettingsBinding.inflate(inflater());
+        measure(binding.getRoot());
+        int touchSize = (int) (48 * binding.getRoot().getResources().getDisplayMetrics().density);
+        int[] entries = {R.id.txtSettingsSandbox, R.id.switchCookies};
+        for (int id : entries) {
+            View entry = binding.getRoot().findViewById(id);
+            assertTrue(entry instanceof com.google.android.material.button.MaterialButton);
+            assertFalse(entry instanceof CompoundButton);
+            assertTrue(entry.getMinimumHeight() >= touchSize);
+        }
+    }
+
+    @Test
+    @Config(qualifiers = "zh-rCN-w320dp-h640dp")
+    public void chineseSandboxManagementAndRecoveryLayoutMeasures() {
+        View root = inflater().inflate(R.layout.activity_sandbox, null);
+        checkScrollChildren(root);
+        measure(root);
+        View card = inflater().inflate(R.layout.item_sandbox_card, null);
+        card.findViewById(R.id.sandboxExpandedContent).setVisibility(View.VISIBLE);
+        card.findViewById(R.id.sandboxLegacyRecovery).setVisibility(View.VISIBLE);
+        measure(card);
+        assertNotNull(card.findViewById(R.id.spinnerSandboxLegacySession));
+        assertNotNull(card.findViewById(R.id.btnSandboxRecoverSession));
+    }
+
     @Test public void backupImportOnSdk28DoesNotThrowNoSuchMethodError() throws Exception {
         java.io.File temp = java.io.File.createTempFile("backup", ".txt", RuntimeEnvironment.getApplication().getCacheDir());
         java.io.FileOutputStream fos = new java.io.FileOutputStream(temp);
@@ -120,6 +173,33 @@ public class SettingsLayoutTest {
             }
             GridLayout palette = activity.findViewById(R.id.settingsColorGrid);
             assertEquals(com.cylonid.nativealpha.util.ColorPalette.INSTANCE.getHERMIT_COLORS().size(), palette.getChildCount());
+        }
+    }
+
+    @Test public void identityCardQuickEditIsClickableAndDisplaysDialog() {
+        DataManager.getInstance().loadAppData();
+        WebApp app = new WebApp("https://example.org", DataManager.getInstance().getIncrementedID());
+        app.setTitle("Example Lite App");
+        DataManager.getInstance().addWebsite(app);
+
+        Intent intent = new Intent(RuntimeEnvironment.getApplication(), WebAppSettingsActivity.class)
+                .putExtra(Const.INTENT_WEBAPPID, app.getID());
+        try (ActivityController<WebAppSettingsActivity> controller =
+                     Robolectric.buildActivity(WebAppSettingsActivity.class, intent).setup()) {
+            WebAppSettingsActivity activity = controller.get();
+            View identityCard = activity.findViewById(R.id.appIdentityCard);
+            View btnEdit = activity.findViewById(R.id.btnEditIdentity);
+
+            assertNotNull(identityCard);
+            assertNotNull(btnEdit);
+            assertTrue("Identity card must be clickable", identityCard.isClickable());
+            assertTrue("Edit button must be clickable", btnEdit.isClickable());
+            assertEquals(View.VISIBLE, btnEdit.getVisibility());
+
+            btnEdit.performClick();
+            android.app.Dialog dialog = org.robolectric.shadows.ShadowDialog.getLatestDialog();
+            assertNotNull("Edit dialog should appear upon clicking edit button", dialog);
+            assertTrue(dialog.isShowing());
         }
     }
 

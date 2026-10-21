@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="sandbox_ui_title">沙箱</string>
-    <string name="sandbox_ui_description">为此轻应用选择容器，或查看每个沙箱中的轻应用。</string>
-    <string name="sandbox_ui_isolated_note">默认环境中的轻应用共享浏览数据；彩色沙箱中的轻应用使用各自独立的站点数据。</string>
+    <string name="sandbox_ui_title">沙盒</string>
+    <string name="sandbox_ui_description">为此轻应用选择容器，或查看每个沙盒中的轻应用。</string>
+    <string name="sandbox_ui_isolated_note">默认环境中的轻应用共享浏览数据；彩色沙盒中的轻应用使用各自独立的站点数据。</string>
     <string name="sandbox_ui_back">返回</string>
     <string name="sandbox_ui_default_name">默认</string>
     <string name="sandbox_ui_color_blue">蓝色</string>

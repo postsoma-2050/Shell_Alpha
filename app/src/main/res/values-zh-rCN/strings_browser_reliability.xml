@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="browser_restore_controls">浏览器控制</string>
+    <string name="browser_restore_controls_description">打开浏览器控制、导航和设置</string>
+    <string name="browser_site_permission_title">网站权限</string>
+    <string name="browser_site_permission_message">%1$s 请求使用：%2$s。是否在本次浏览会话中允许？</string>
+    <string name="browser_permission_camera">相机</string>
+    <string name="browser_permission_microphone">麦克风</string>
+    <string name="browser_permission_drm">受保护的媒体</string>
+    <string name="browser_permission_location">位置</string>
+    <string name="browser_download_failed">无法开始下载，请检查存储权限后重试。</string>
+    <string name="browser_download_unsupported">此下载使用 Blob 等仅浏览器可访问的地址，请使用网站提供的保存或分享功能。</string>
+    <string name="browser_pdf_download_fallback">没有可用的 PDF 阅读器，将改为下载 PDF。</string>
+    <string name="browser_download_permission_pending">请先完成存储权限请求，再开始另一个下载。</string>
+    <string name="browser_external_internal_fallback">没有可用的外部应用，将在当前窗口打开页面。</string>
+    <string name="browser_popup_blocked">已阻止此弹窗。请点击链接打开；最多支持四层子窗口。</string>
+    <string name="browser_popup_opened">已打开网站子窗口，返回键可回到上一页或父窗口。</string>
+    <string name="browser_js_alert_title">网页提示</string>
+    <string name="browser_js_confirm_title">操作确认</string>
+    <string name="browser_js_prompt_title">请输入</string>
+    <string name="browser_js_leave_page_title">确定要离开此页面吗？</string>
+    <string name="browser_js_leave_page_message">您所做的更改可能无法保存。</string>
+    <string name="browser_js_leave_page_positive">离开</string>
+    <string name="browser_js_leave_page_negative">留下</string>
+    <string name="browser_adblock_unavailable">广告拦截暂时无法启动，网站安全浏览设置保持不变。</string>
+    <string name="browser_print_document">打印 / 导出为 PDF</string>
+    <string name="browser_print_unavailable">此设备不支持系统打印服务。</string>
+    <string name="browser_print_started">正在准备打印文档…</string>
+</resources>

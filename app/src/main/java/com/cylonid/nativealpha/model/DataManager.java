@@ -83,6 +83,7 @@ public class DataManager {
     private ArrayList<WebApp> websites;
     private int max_assigned_ID;
     private SharedPreferences appdata;
+    private String appsBaseline;
 
     private GlobalSettings settings;
 
@@ -106,17 +107,13 @@ public class DataManager {
         saveGlobalSettings();
     }
 
-    public void saveWebAppData() {
+    public synchronized void saveWebAppData() {
         Utility.Assert(App.getAppContext() != null, "App.getAppContext() null before saving sharedpref");
 
-        appdata = App.getAppContext().getSharedPreferences(SHARED_PREF_KEY, MODE_PRIVATE);
-        SharedPreferences.Editor editor = appdata.edit();
-        Gson gson = new Gson();
-        String json = gson.toJson(websites);
-        editor.putString(shared_pref_webappdata, json);
-        editor.putInt(shared_pref_max_id, max_assigned_ID);
-        if (SandboxManager.getInstance() != null) editor.putInt(shared_pref_next_container, SandboxManager.getInstance().getNextContainer());
-        editor.apply();
+        ConfigurationStore.saveApps(appsBaseline, new Gson().toJson(websites), max_assigned_ID,
+                SandboxManager.getInstance().getNextContainer());
+        appdata = ConfigurationStore.preferences(SHARED_PREF_KEY);
+        refreshWebsites(appdata.getString(shared_pref_webappdata, "[]"));
     }
 
 
@@ -143,33 +140,45 @@ public class DataManager {
 
     private SharedPreferences getGeneralInfo() {
         Utility.Assert(App.getAppContext() != null, "App.getAppContext() null before saving sharedpref");
-        return App.getAppContext().getSharedPreferences(GENERAL_INFO, MODE_PRIVATE);
+        return ConfigurationStore.preferences(GENERAL_INFO);
 
     }
 
     private void checkIfWebAppIdsCollide(ArrayList<WebApp> oldWebApps, ArrayList<WebApp> newWebApps) {
-        int end = Math.min(oldWebApps.size(), newWebApps.size());
+        if (oldWebApps == null || newWebApps == null) return;
+        Map<Integer, WebApp> oldMap = new java.util.HashMap<>();
+        for (WebApp oldApp : oldWebApps) {
+            if (oldApp != null) {
+                oldMap.put(oldApp.getID(), oldApp);
+            }
+        }
         ArrayList<Integer> shortcuts_to_be_removed = new ArrayList<>();
-
-        for (int i = 0; i < end; i++) {
-            if (oldWebApps.get(i) != null && newWebApps.get(i) != null) {
-                if (!oldWebApps.get(i).getBaseUrl().equals(newWebApps.get(i).getBaseUrl())) {
-                    shortcuts_to_be_removed.add(newWebApps.get(i).getID());
+        for (WebApp newApp : newWebApps) {
+            if (newApp != null) {
+                WebApp oldApp = oldMap.get(newApp.getID());
+                if (oldApp != null && oldApp.getBaseUrl() != null && newApp.getBaseUrl() != null) {
+                    if (!oldApp.getBaseUrl().equals(newApp.getBaseUrl())) {
+                        shortcuts_to_be_removed.add(newApp.getID());
+                    }
                 }
             }
         }
-
-        ShortcutIconUtils.deleteShortcuts(shortcuts_to_be_removed, App.getAppContext());
-
+        if (!shortcuts_to_be_removed.isEmpty()) {
+            ShortcutIconUtils.deleteShortcuts(shortcuts_to_be_removed, App.getAppContext());
+        }
     }
 
 
 
-    public void loadAppData() {
+    public synchronized void loadAppData() {
         Utility.Assert(App.getAppContext() != null, "App.getAppContext() null before loading sharedpref");
 
-        appdata = App.getAppContext().getSharedPreferences(SHARED_PREF_KEY, MODE_PRIVATE);
+        appdata = ConfigurationStore.preferences(SHARED_PREF_KEY);
         boolean shouldSeedDefaultLiteApp = !appdata.contains(shared_pref_webappdata);
+        if (shouldSeedDefaultLiteApp) {
+            appsBaseline = null;
+            websites = new ArrayList<>();
+        }
         //Webapp data
         if (appdata.contains(shared_pref_webappdata)) {
             GsonBuilder gsonBuilder = new GsonBuilder();
@@ -181,6 +190,10 @@ public class DataManager {
             ArrayList<WebApp> new_websites = gson.fromJson(currentDataFormattedJson, new TypeToken<ArrayList<WebApp>>() {}.getType());
             checkIfWebAppIdsCollide(websites, new_websites);
             websites = new_websites;
+            appsBaseline = json;
+            for (WebApp app : websites) {
+                if (app != null) app.setPersistenceSnapshot(new Gson().toJson(app));
+            }
             if(oldDataFormat != DataVersionConverter.getDataFormat(currentDataFormattedJson)) this.saveWebAppData();
         }
 
@@ -200,6 +213,7 @@ public class DataManager {
             int oldDataFormat = DataVersionConverter.getDataFormat(json);
             String currentDataFormattedJson = this.checkDataFormat(oldDataFormat, json);
             settings = gson.fromJson(currentDataFormattedJson, GlobalSettings.class);
+            settings.setPersistenceSnapshot(json);
             assertGlobalWebappData();
             if(oldDataFormat != DataVersionConverter.getDataFormat(currentDataFormattedJson)) this.saveGlobalSettings();
         }
@@ -231,17 +245,16 @@ public class DataManager {
         settings.setThemeId(appdata.getInt(shared_pref_glob_ui_theme, 0));
     }
 
-    public void saveGlobalSettings() {
+    public synchronized void saveGlobalSettings() {
         Utility.Assert(App.getAppContext() != null, "App.getAppContext() null before saving appdata to sharedpref");
 
-        appdata = App.getAppContext().getSharedPreferences(SHARED_PREF_KEY, MODE_PRIVATE);
-        SharedPreferences.Editor editor = appdata.edit();
-
-        Gson gson = new Gson();
-        String json = gson.toJson(settings);
-        editor.putString(shared_pref_globalsettings, json);
-        editor.putBoolean(shared_pref_global_settings_json, true);
-        editor.apply();
+        ConfigurationStore.saveGlobal(settings.getPersistenceSnapshot(), new Gson().toJson(settings));
+        appdata = ConfigurationStore.preferences(SHARED_PREF_KEY);
+        String stored = appdata.getString(shared_pref_globalsettings, null);
+        settings = new GsonBuilder().registerTypeAdapter(WebApp.class, new WebAppDeserializer())
+                .registerTypeAdapter(GlobalSettings.class, new GlobalSettingsDeserializer())
+                .create().fromJson(stored, GlobalSettings.class);
+        settings.setPersistenceSnapshot(stored);
     }
 
     public void addWebsite(WebApp new_site) {
@@ -249,14 +262,9 @@ public class DataManager {
             saveWebAppData();
     }
 
-    public int getIncrementedID() {
-        int maxId = -1;
-        for (WebApp app : getWebsites()) {
-            if (app != null && app.getID() > maxId) {
-                maxId = app.getID();
-            }
-        }
-        return maxId + 1;
+    public synchronized int getIncrementedID() {
+        max_assigned_ID = ConfigurationStore.reserveId();
+        return max_assigned_ID;
     }
 
     public int indexOfWebAppId(int id) {
@@ -306,12 +314,12 @@ public class DataManager {
                 break;
             }
         }
-        if (target == null && id >= 0 && id < websites.size()) {
-            target = websites.get(id);
-        }
         if (target != null) {
             if (!target.isOverrideGlobalSettings() && !ignoreOverride) {
-                target.copySettings(settings.getGlobalWebApp());
+                WebApp copy = new WebApp(target);
+                copy.copySettings(settings.getGlobalWebApp());
+                copy.setPersistenceSnapshot(new Gson().toJson(copy));
+                return copy;
             }
             return target;
         }
@@ -322,7 +330,7 @@ public class DataManager {
         return null;
     }
 
-    public void replaceWebApp(WebApp webapp) {
+    public synchronized void replaceWebApp(WebApp webapp) {
         int index = webapp.getID();
         if (index < 0 || index >= websites.size()
                 || websites.get(index) == null
@@ -339,8 +347,46 @@ public class DataManager {
         if (index < 0) {
             throw new IllegalArgumentException("WebApp ID " + webapp.getID() + " is not present");
         }
-        websites.set(index, webapp);
-        saveWebAppData();
+        WebApp old = websites.get(index);
+        String baseline = webapp.getPersistenceSnapshot();
+        if (baseline == null) baseline = old.getPersistenceSnapshot();
+        if (baseline == null) baseline = new Gson().toJson(old);
+        String merged = ConfigurationStore.patchApp(webapp, baseline);
+        copyPersistedState(webapp, new Gson().fromJson(merged, WebApp.class));
+        appdata = ConfigurationStore.preferences(SHARED_PREF_KEY);
+        refreshWebsites(appdata.getString(shared_pref_webappdata, "[]"));
+    }
+
+    private void refreshWebsites(String json) {
+        Gson gson = new GsonBuilder().registerTypeAdapter(WebApp.class, new WebAppDeserializer()).create();
+        ArrayList<WebApp> updated = gson.fromJson(json, new TypeToken<ArrayList<WebApp>>() {}.getType());
+        if (updated == null) updated = new ArrayList<>();
+        Map<Integer, WebApp> existing = new java.util.HashMap<>();
+        for (WebApp app : websites) if (app != null) existing.put(app.getID(), app);
+        for (int i = 0; i < updated.size(); i++) {
+            WebApp persisted = updated.get(i);
+            if (persisted == null) continue;
+            WebApp live = existing.get(persisted.getID());
+            if (live != null) {
+                copyPersistedState(live, persisted);
+                updated.set(i, live);
+            } else persisted.setPersistenceSnapshot(new Gson().toJson(persisted));
+        }
+        websites = updated;
+        appsBaseline = json;
+    }
+
+    private static void copyPersistedState(WebApp target, WebApp source) {
+        target.setBaseUrl(source.getBaseUrl());
+        target.setTitle(source.getTitle());
+        target.setContainerId(source.getContainerId());
+        target.setUseContainer(source.isUseContainer());
+        target.setOverrideGlobalSettings(source.isOverrideGlobalSettings());
+        target.setOrder(source.getOrder());
+        target.setActiveEntry(source.isActiveEntry());
+        target.setLastMonitorHash(source.getLastMonitorHash());
+        target.copySettings(source);
+        target.setPersistenceSnapshot(new Gson().toJson(source));
     }
 
     public int getActiveWebsitesCount() {
@@ -358,7 +404,7 @@ public class DataManager {
         try(FileOutputStream fos = (FileOutputStream) App.getAppContext().getContentResolver().openOutputStream(uri);
             Base64OutputStream b64os = new Base64OutputStream(fos, Base64.DEFAULT);
             ObjectOutputStream oos = new ObjectOutputStream(b64os)) {
-            appdata = App.getAppContext().getSharedPreferences(SHARED_PREF_KEY, MODE_PRIVATE);
+            appdata = ConfigurationStore.preferences(SHARED_PREF_KEY);
             TreeMap<String, ?> shared_pref_map = new TreeMap<>(appdata.getAll());
 
             oos.writeObject(Hasher.Companion.hash(shared_pref_map.toString(), HashType.SHA_256));
@@ -383,7 +429,7 @@ public class DataManager {
             if (outputStream == null) {
                 return false;
             }
-            appdata = App.getAppContext().getSharedPreferences(SHARED_PREF_KEY, MODE_PRIVATE);
+            appdata = ConfigurationStore.preferences(SHARED_PREF_KEY);
             Map<String, Object> preferences = new LinkedHashMap<>();
             for (Map.Entry<String, ?> entry : appdata.getAll().entrySet()) {
                 Object value = entry.getValue();
@@ -397,6 +443,8 @@ public class DataManager {
             }
 
             Gson gson = new GsonBuilder().disableHtmlEscaping().create();
+            preferences.put("SANDBOX_SETTINGS_JSON", gson.toJson(
+                    ConfigurationStore.preferences("SANDBOX_SETTINGS").getAll()));
             String payload = gson.toJson(preferences);
             JsonObject backup = new JsonObject();
             backup.addProperty("schema", JSON_BACKUP_SCHEMA);
@@ -506,7 +554,24 @@ public class DataManager {
     }
 
     private boolean writeSharedPreferences(Map<String, ?> preferences) {
-        Set<String> allowedKeys = Set.of(
+        validateImportedConfiguration(preferences);
+        JsonObject sandboxSettings = null;
+        Object sandboxJson = preferences.get("SANDBOX_SETTINGS_JSON");
+        if (sandboxJson != null) {
+            sandboxSettings = JsonParser.parseString((String) sandboxJson).getAsJsonObject();
+            for (Map.Entry<String, JsonElement> entry : sandboxSettings.entrySet()) {
+                String key = entry.getKey();
+                if (!key.matches("(?:name|cookies)_(?:-1|[0-7])")) {
+                    throw new IllegalArgumentException("Unknown sandbox setting");
+                }
+                if (!entry.getValue().isJsonPrimitive()
+                        || (key.startsWith("name_") && !entry.getValue().getAsJsonPrimitive().isString())
+                        || (key.startsWith("cookies_") && !entry.getValue().getAsJsonPrimitive().isBoolean())) {
+                    throw new IllegalArgumentException("Invalid sandbox setting");
+                }
+            }
+        }
+        Set<String> allowedKeys = new java.util.HashSet<>(java.util.Arrays.asList(
                 shared_pref_webappdata,
                 shared_pref_max_id,
                 shared_pref_next_container,
@@ -519,14 +584,14 @@ public class DataManager {
                 shared_pref_glob_3fmultitouch,
                 shared_pref_glob_progressbar,
                 shared_pref_glob_ui_theme
-        );
-        Set<String> knownIntKeys = Set.of(
+        ));
+        Set<String> knownIntKeys = new java.util.HashSet<>(java.util.Arrays.asList(
                 shared_pref_max_id,
                 shared_pref_next_container,
                 shared_pref_glob_ui_theme
-        );
+        ));
         SharedPreferences.Editor prefEdit =
-                App.getAppContext().getSharedPreferences(SHARED_PREF_KEY, MODE_PRIVATE).edit();
+                ConfigurationStore.preferences(SHARED_PREF_KEY).edit();
         prefEdit.clear();
         for (Map.Entry<String, ?> entry : preferences.entrySet()) {
             Object value = entry.getValue();
@@ -550,7 +615,48 @@ public class DataManager {
                 prefEdit.putString(key, (String) value);
             }
         }
-        return prefEdit.commit();
+        if (!prefEdit.commit()) return false;
+        if (sandboxSettings != null) {
+            SharedPreferences.Editor sandboxEdit = ConfigurationStore.preferences("SANDBOX_SETTINGS").edit().clear();
+            for (Map.Entry<String, JsonElement> entry : sandboxSettings.entrySet()) {
+                if (entry.getKey().startsWith("name_")) sandboxEdit.putString(entry.getKey(), entry.getValue().getAsString());
+                else sandboxEdit.putBoolean(entry.getKey(), entry.getValue().getAsBoolean());
+            }
+            return sandboxEdit.commit();
+        }
+        return true;
+    }
+
+    private static void validateImportedConfiguration(Map<String, ?> preferences) {
+        Gson gson = new GsonBuilder().registerTypeAdapter(WebApp.class, new WebAppDeserializer())
+                .registerTypeAdapter(GlobalSettings.class, new GlobalSettingsDeserializer()).create();
+        if (preferences.containsKey(shared_pref_webappdata)) {
+            Object raw = preferences.get(shared_pref_webappdata);
+            if (!(raw instanceof String)) throw new IllegalArgumentException("Invalid Lite App data");
+            JsonElement parsed = JsonParser.parseString((String) raw);
+            if (!parsed.isJsonArray()) throw new IllegalArgumentException("Expected a Lite App list");
+            Set<Integer> ids = new java.util.HashSet<>();
+            for (JsonElement element : parsed.getAsJsonArray()) {
+                if (!element.isJsonObject() || !element.getAsJsonObject().has("ID")
+                        || !element.getAsJsonObject().has("baseUrl")) {
+                    throw new IllegalArgumentException("Invalid Lite App identity");
+                }
+                WebApp app = gson.fromJson(element, WebApp.class);
+                if (app == null || app.getID() < 0 || !ids.add(app.getID())
+                        || com.cylonid.nativealpha.browser.BrowserOriginPolicy.origin(app.getBaseUrl()) == null
+                        || (app.getContainerId() != -1 && !SandboxManager.isValidContainerId(app.getContainerId()))) {
+                    throw new IllegalArgumentException("Invalid or duplicate Lite App");
+                }
+            }
+        }
+        if (preferences.containsKey(shared_pref_globalsettings)) {
+            Object raw = preferences.get(shared_pref_globalsettings);
+            if (!(raw instanceof String)) throw new IllegalArgumentException("Invalid global configuration");
+            GlobalSettings global = gson.fromJson((String) raw, GlobalSettings.class);
+            if (global == null || global.getGlobalWebApp() == null) {
+                throw new IllegalArgumentException("Missing global defaults");
+            }
+        }
     }
 
     private String checkDataFormat(int dataFormat, String jsonInput) {

@@ -25,9 +25,10 @@
         android:clickable="false"
         android:focusable="false"
         app:cardBackgroundColor="?attr/colorSurfaceContainerHigh"
-        app:cardCornerRadius="18dp"
+        app:cardCornerRadius="@dimen/card_corner_radius"
         app:cardElevation="0dp"
-        app:strokeWidth="0dp">
+        app:strokeColor="?attr/colorOutlineVariant"
+        app:strokeWidth="@dimen/hairline_stroke_width">
 
         <!-- Hidden anchor for DragDrop library compatibility -->
         <ImageView
@@ -66,8 +67,8 @@
             android:lines="2"
             android:maxLines="2"
             android:textAlignment="center"
+            android:textAppearance="?attr/textAppearanceLabelMedium"
             android:textColor="?attr/colorOnSurface"
-            android:textSize="13sp"
             android:lineSpacingExtra="2dp" />
 
         <TextView
@@ -76,8 +77,8 @@
             android:layout_height="wrap_content"
             android:ellipsize="end"
             android:maxLines="1"
+            android:textAppearance="?attr/textAppearanceBodySmall"
             android:textColor="?attr/colorOnSurfaceVariant"
-            android:textSize="12sp"
             android:visibility="gone" />
     </LinearLayout>
 

@@ -10,7 +10,7 @@
     <string name="empty_search_title">没有匹配的轻应用</string>
     <string name="empty_search_message">尝试其他名称或 URL，或清除搜索以查看所有轻应用。</string>
     <string name="open_web_app">打开 %1$s</string>
-    <string name="open_web_app_in_sandbox">在沙箱 %2$d 中打开 %1$s</string>
+    <string name="open_web_app_in_sandbox">在沙盒 %2$d 中打开 %1$s</string>
     <string name="open_global_settings">打开全局设置</string>
     <string name="create_web_app">创建</string>
     <!-- Strings used for fragments for navigation -->
@@ -130,10 +130,10 @@
     <string name="backup">备份</string>
     <string name="use_google_safe_browsing">使用 Google 安全浏览</string>
     <string name="block_all_third_party_requests">阻止第三方请求</string>
-    <string name="sandbox">沙箱</string>
-    <string name="no_sandbox">不使用沙箱。</string>
-    <string name="all_sandboxes_used">所有沙箱当前都在使用中。</string>
-    <string name="enable_sandbox">启用沙箱</string>
+    <string name="sandbox">沙盒</string>
+    <string name="no_sandbox">不使用沙盒。</string>
+    <string name="all_sandboxes_used">所有沙盒当前都在使用中。</string>
+    <string name="enable_sandbox">启用沙盒</string>
     <string name="show_fullscreen">全屏（沉浸模式）</string>
     <string name="site_not_found">无法加载页面。</string>
     <string name="icon_not_found">无法加载图标。</string>
@@ -196,7 +196,7 @@
     <string name="webapp_section_appearance">外观</string>
     <string name="theme_color">主题色</string>
     <string name="enable_pull_to_refresh">在页面顶部下拉以刷新</string>
-    <string name="enable_frameless">无边框模式（隐藏系统栏）</string>
+    <string name="enable_frameless">无边框全屏（只显示网站）</string>
     <string name="strip_tracking_params">从链接中移除跟踪参数</string>
     <string name="allow_app_launch">允许链接打开外部应用</string>
     <string name="external_app_launch_blocked">此网页应用已禁用外部应用启动。</string>
@@ -237,7 +237,7 @@
     <string name="open_quick_settings">打开快捷设置</string>
     <string name="lite_app_settings">轻应用设置</string>
     <string name="no_sandbox_badge">默认</string>
-    <string name="sandbox_badge">沙箱 #%1$d</string>
+    <string name="sandbox_badge">沙盒 #%1$d</string>
     <string name="settings_section_website_defaults">网站默认设置</string>
     <string name="settings_section_interface">界面和控制</string>
     <string name="settings_section_data_backup">数据和备份</string>
@@ -261,8 +261,8 @@
     <string name="set_as_default_browser_summary">在轻应用中打开网页链接</string>
     <string name="setting_lite_apps_title">轻应用</string>
     <string name="setting_lite_apps_subtitle">外观、通知、添加到主屏幕、备份与同步</string>
-    <string name="setting_sandboxes_title">沙箱</string>
-    <string name="setting_sandboxes_subtitle">沙箱会将你的网页浏览活动隔离在单独的容器中</string>
+    <string name="setting_sandboxes_title">沙盒</string>
+    <string name="setting_sandboxes_subtitle">沙盒会将你的网页浏览活动隔离在单独的容器中</string>
     <string name="setting_privacy_title">隐私</string>
     <string name="setting_privacy_subtitle">保存密码、清除缓存、清除 Cookie</string>
     <string name="setting_userscripts_title">用户脚本</string>
@@ -276,9 +276,26 @@
     <string name="search_or_type_url">搜索或输入 URL</string>
     <string name="open_or_create_url">打开或创建</string>
     <string name="delete_lite_app">删除</string>
-    <string name="change_sandbox">更改沙箱</string>
+    <string name="change_sandbox">更改沙盒</string>
     <string name="move_app_up">上移</string>
     <string name="move_app_down">下移</string>
     <string name="quick_settings_button_label">设置</string>
-    <string name="immersive_settings_hint">在全屏或无边框模式下，从右下边缘向内滑动可打开快捷设置。你也可以在 ShellAlpha 主屏幕上长按此应用来编辑其设置。</string>
+    <string name="immersive_settings_hint">无边框模式只显示网站。请返回 ShellAlpha 主页面修改此轻应用的设置。</string>
+    <string name="featured_lite_apps">热门精选应用</string>
+    <string name="text_zoom">文字缩放</string>
+    <string name="decrease_text_size">缩小文字</string>
+    <string name="increase_text_size">放大文字</string>
+    <string name="open_in_sandbox">在沙盒中打开…</string>
+    <string name="open_link_in_sandbox">在沙盒中打开链接…</string>
+
+    <!-- App Update Strings -->
+    <string name="check_for_updates">检查更新</string>
+    <string name="checking_for_updates">正在检查更新…</string>
+    <string name="update_available_title">发现新版本</string>
+    <string name="update_available_msg">新版本 %1$s 已发布（当前版本：%2$s）。\n\n更新说明：\n%3$s</string>
+    <string name="update_now">立即更新</string>
+    <string name="update_later">稍后提醒</string>
+    <string name="update_ignore_version">忽略此版本</string>
+    <string name="update_up_to_date">当前已是最新版本 (%1$s)</string>
+    <string name="update_check_failed">检查更新失败，请检查网络连接</string>
 </resources>

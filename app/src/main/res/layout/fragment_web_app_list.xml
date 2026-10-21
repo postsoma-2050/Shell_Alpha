@@ -15,7 +15,6 @@
         app:behind_swiped_item_icon_secondary="@drawable/ic_settings_black_24dp"
         app:behind_swiped_item_icon_margin="@dimen/margin_swipe_icon"
         app:swiped_item_opacity_fades_on_swiping="true"
-        app:divider="@drawable/empty_10dp_vertical"
         android:clipToPadding="false"
         android:paddingStart="12dp"
         android:paddingTop="8dp"

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="entry_choose_sandbox">选择沙盒</string>
+    <string name="entry_sandbox_default">%1$s（共享浏览数据）</string>
+    <string name="entry_sandbox_named">%1$s（沙盒 %2$d）</string>
+    <string name="entry_selected_sandbox">沙盒：%1$s</string>
+    <string name="entry_sandbox_help">同一沙盒中的应用共享 Cookie 和网站数据。创建前可选择默认空间或具体沙盒。</string>
+    <string name="entry_choose_existing_app">使用已有轻应用打开</string>
+    <string name="entry_app_sandbox">%1$s — %2$s</string>
+    <string name="entry_create_another">另建一个轻应用</string>
+    <string name="entry_manage_sandboxes">管理沙盒</string>
+    <string name="entry_privacy_scope">按沙盒管理 Cookie 和网站数据。</string>
+    <string name="entry_userscripts_summary">运行轻应用“集成”设置中输入的 JavaScript。</string>
+    <string name="entry_userscripts_empty">当前没有启用本地 JavaScript 的轻应用。</string>
+    <string name="entry_userscripts_scope">请在各轻应用的“集成”设置中输入 JavaScript。在允许 JavaScript 时，脚本会在页面加载完成后运行。不支持在线安装脚本或用户脚本管理器专用 API。</string>
+    <string name="entry_monitor_summary">在后台检查公开静态网页的文本变化。</string>
+    <string name="entry_monitor_empty">当前没有启用监控。可在轻应用的快捷设置或“集成”设置中启用。</string>
+    <string name="entry_monitor_list_header">已启用的监控：\n</string>
+    <string name="entry_monitor_scope">仅检查公开静态 HTML 文本，不使用沙盒 Cookie、登录会话，也不执行 JavaScript。首次成功检查建立基线，后续文本变化可触发通知。周期检查间隔至少为 15 分钟，可能被 Android 延迟。“立即检查”会独立提交一次检查，等待网络可用后执行。</string>
+    <string name="entry_monitor_queueing">正在提交…</string>
+    <string name="entry_monitor_queued_button">已提交检查</string>
+    <string name="entry_monitor_queued">已提交一次检查；若已有待执行检查，将复用该任务。Android 会在网络及后台条件允许时启动。</string>
+    <string name="entry_monitor_queue_failed">无法提交检查，请重试。</string>
+    <string name="entry_monitor_notification_settings">监控通知</string>
+    <string name="entry_monitor_notifications_enabled">应用通知已开启，同时受 Android 通知渠道设置控制。</string>
+    <string name="entry_monitor_notifications_disabled">应用通知已关闭。请开启监控通知，以接收页面变化提醒。</string>
+    <string name="entry_backup_scope">备份包含设置和轻应用定义，包括已保存的本地脚本及监控设置。不包含 Cookie、登录会话、网站存储、页面缓存或桌面快捷方式。</string>
+    <string name="entry_backup_import_scope">导入会替换已保存的设置和轻应用定义。现有浏览数据仍保留在此设备上；恢复备份不会恢复登录状态。</string>
+    <string name="shortcut_save_failed">无法创建或更新快捷方式，请重试。</string>
+</resources>

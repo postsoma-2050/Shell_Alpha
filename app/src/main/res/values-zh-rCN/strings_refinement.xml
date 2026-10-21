@@ -36,12 +36,16 @@
     <string name="home_menu_about">关于 ShellAlpha</string>
     <string name="privacy_clear_now_action">清除 Cookie 和站点存储…</string>
     <string name="privacy_clear_confirm_title">清除 Cookie 和站点存储？</string>
-    <string name="privacy_clear_confirm_message">此操作会清除轻应用在沙箱外共享的 Cookie 和站点存储，且无法撤销。沙箱数据和 WebView 缓存将保留。</string>
+    <string name="privacy_clear_confirm_message">此操作会清除轻应用在沙盒外共享的 Cookie 和站点存储，且无法撤销。沙盒数据和 WebView 缓存将保留。</string>
     <string name="privacy_clear_confirm_action">清除数据</string>
-    <string name="privacy_cleared_snackbar">沙箱外的 Cookie 和站点存储已清除。沙箱数据和 WebView 缓存未更改。</string>
+    <string name="privacy_cleared_snackbar">沙盒外的 Cookie 和站点存储已清除。沙盒数据和 WebView 缓存未更改。</string>
     <string name="privacy_done">完成</string>
     <string name="search_engine_validation_help">请使用 http:// 或 https:// URL，并在路径或查询中恰好包含一个 %s 占位符。支持现有的百分号编码 URL。</string>
     <string name="search_engine_invalid">请输入有效的 http 或 https 搜索 URL，并在其路径或查询中恰好包含一个 %s 占位符。</string>
     <string name="theme_color_swatch_description">%1$s 颜色</string>
     <string name="theme_color_swatch_selected_description">%1$s 颜色，已选择</string>
+    <string name="edit_lite_app_identity_title">编辑轻应用信息</string>
+    <string name="edit_lite_app_name">轻应用名称</string>
+    <string name="edit_lite_app_url">起始网址</string>
+    <string name="edit_lite_app_identity_hint">点击修改名称与网址</string>
 </resources>

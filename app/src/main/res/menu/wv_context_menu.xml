@@ -36,6 +36,10 @@
             android:iconTint="?attr/colorOnSurface"
             android:icon="@drawable/ic_baseline_home_24" />
 
+        <item android:title="@string/open_in_sandbox"
+            android:id="@+id/cmOpenInSandbox"
+            android:iconTint="?attr/colorOnSurface"
+            android:icon="@drawable/ic_layers_24"/>
         <item android:title="Adblock providers"
             android:id="@+id/cmShowAdblockProviders"
             android:visible="false"
@@ -51,6 +55,14 @@
                     android:id="@+id/cmItemCopyUrl"
                     android:iconTint="?attr/colorOnSurface"
                     android:icon="@drawable/ic_baseline_content_copy_24"/>
+                <item android:title="@string/browser_find_in_page"
+                    android:id="@+id/cmItemFindInPage"
+                    android:iconTint="?attr/colorOnSurface"
+                    android:icon="@drawable/ic_baseline_search_24"/>
+                <item android:title="@string/browser_print_document"
+                    android:id="@+id/cmItemPrint"
+                    android:iconTint="?attr/colorOnSurface"
+                    android:icon="@drawable/ic_baseline_print_24"/>
                 <item android:title="@string/use_standard_context_menu_temporarily"
                     android:id="@+id/cmFallbackContextmenuTemp"
                     android:iconTint="?attr/colorOnSurface"

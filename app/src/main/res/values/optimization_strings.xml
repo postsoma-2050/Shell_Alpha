@@ -3,5 +3,5 @@
     <string name="move_app_up">Move Up</string>
     <string name="move_app_down">Move Down</string>
     <string name="quick_settings_button_label">Settings</string>
-    <string name="immersive_settings_hint">In full-screen or frameless mode, swipe inward from the lower-right edge to open Quick Settings. You can also long-press this app on the ShellAlpha home screen to edit its settings.</string>
+    <string name="immersive_settings_hint">Frameless mode shows only the website. Return to the ShellAlpha home screen to change this app’s settings.</string>
 </resources>

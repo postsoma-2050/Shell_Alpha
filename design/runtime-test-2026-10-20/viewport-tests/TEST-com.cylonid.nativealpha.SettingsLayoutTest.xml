@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.cylonid.nativealpha.SettingsLayoutTest" tests="9" skipped="0" failures="0" errors="0" timestamp="2026-10-20T09:05:30" hostname="Grangers-iMac.local" time="2.382">
+  <properties/>
+  <testcase name="appSettingsInflatesAndMeasuresOnSmallPhone" classname="com.cylonid.nativealpha.SettingsLayoutTest" time="0.277"/>
+  <testcase name="verifyChineseHomeAndSettingsVisibleLabels" classname="com.cylonid.nativealpha.SettingsLayoutTest" time="0.034"/>
+  <testcase name="globalSettingsActivityOpens" classname="com.cylonid.nativealpha.SettingsLayoutTest" time="0.263"/>
+  <testcase name="chineseSandboxManagementAndRecoveryLayoutMeasures" classname="com.cylonid.nativealpha.SettingsLayoutTest" time="0.062"/>
+  <testcase name="globalSettingsInflatesAndMeasuresOnSmallPhone" classname="com.cylonid.nativealpha.SettingsLayoutTest" time="0.034"/>
+  <testcase name="sandboxEntryAndCookiePolicyUseButtonsWithTouchTargets" classname="com.cylonid.nativealpha.SettingsLayoutTest" time="0.132"/>
+  <testcase name="individualAppSettingsOpensAndAllTabsMeasureOnSmallPhone" classname="com.cylonid.nativealpha.SettingsLayoutTest" time="0.829"/>
+  <testcase name="websiteDefaultsOpensAndAllTabsMeasureOnSmallPhone" classname="com.cylonid.nativealpha.SettingsLayoutTest" time="0.705"/>
+  <testcase name="backupImportOnSdk28DoesNotThrowNoSuchMethodError" classname="com.cylonid.nativealpha.SettingsLayoutTest" time="0.044"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[java.io.StreamCorruptedException: invalid stream header: 8A7BDA96
+	at java.base/java.io.ObjectInputStream.readStreamHeader(ObjectInputStream.java:958)
+	at java.base/java.io.ObjectInputStream.<init>(ObjectInputStream.java:392)
+	at com.cylonid.nativealpha.model.DataManager.loadSharedPreferencesFromLegacyBase64(DataManager.java:539)
+	at com.cylonid.nativealpha.model.DataManager.loadSharedPreferencesFromFile(DataManager.java:484)
+	at com.cylonid.nativealpha.SettingsLayoutTest.backupImportOnSdk28DoesNotThrowNoSuchMethodError(SettingsLayoutTest.java:106)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:569)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:59)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:56)
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
+	at org.junit.runners.ParentRunner$3.evaluate(ParentRunner.java:306)
+	at org.robolectric.RobolectricTestRunner$HelperTestRunner$1.evaluate(RobolectricTestRunner.java:502)
+	at org.robolectric.internal.SandboxTestRunner$2.lambda$evaluate$2(SandboxTestRunner.java:285)
+	at org.robolectric.internal.bytecode.Sandbox.lambda$runOnMainThread$0(Sandbox.java:104)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base/java.lang.Thread.run(Thread.java:840)
+]]></system-err>
+</testsuite>

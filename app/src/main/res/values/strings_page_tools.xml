@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="browser_find_in_page">Find in page</string>
+    <string name="browser_find_previous">Previous match</string>
+    <string name="browser_find_next">Next match</string>
+    <string name="browser_find_close">Close find in page</string>
+    <string name="browser_find_count">%1$d/%2$d</string>
+    <string name="browser_find_no_matches">0/0</string>
+    <string name="browser_find_no_matches_description">No matches</string>
+    <string name="browser_url_copied">URL copied to clipboard</string>
+</resources>

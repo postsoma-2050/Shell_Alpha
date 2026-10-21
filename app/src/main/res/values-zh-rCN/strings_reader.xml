@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="browser_reader_mode">阅读模式</string>
+    <string name="browser_reader_close">关闭阅读模式</string>
+    <string name="browser_reader_smaller">缩小字体</string>
+    <string name="browser_reader_larger">放大字体</string>
+    <string name="browser_reader_theme">阅读主题</string>
+    <string name="browser_reader_loading">正在加载阅读模式…</string>
+    <string name="browser_reader_unavailable">阅读模式不可用。最适合包含大段文字的文章。</string>
+    <string name="browser_reader_requires_js">阅读模式需要启用 JavaScript</string>
+    <string name="browser_reader_theme_light">浅色</string>
+    <string name="browser_reader_theme_sepia">怀旧</string>
+    <string name="browser_reader_theme_dark">深色</string>
+    <string name="browser_reader_theme_black">纯黑</string>
+</resources>

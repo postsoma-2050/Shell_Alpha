@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="storage_recovery_title">沙盒存储恢复</string>
+    <string name="storage_recovery_subtitle">检测到沙盒 %1$d 存在历史数据</string>
+    <string name="storage_recovery_conflict_desc">检测到沙盒 %1$d 存在多个历史存储目录。为保证数据安全，系统未自动合并或删除任何目录。请选择此沙盒在下次启动时使用的存储目录。</string>
+    <string name="storage_recovery_current_suffix">当前使用存储：%1$s</string>
+    <string name="storage_recovery_default_option">使用全新沙盒存储（%1$s）</string>
+    <string name="storage_recovery_apply_button">应用选择</string>
+    <string name="storage_recovery_success">存储目录已更新，将在下次启动该沙盒时生效。</string>
+    <string name="storage_recovery_no_legacy_found">该沙盒未发现历史存储目录。</string>
+</resources>

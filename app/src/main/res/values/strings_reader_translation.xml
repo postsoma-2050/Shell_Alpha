@@ -1,0 +1,31 @@
+<resources>
+    <string name="reader_translation_heading">Translation</string>
+    <string name="reader_translation_show_original">Show full original</string>
+    <string name="reader_translation_hide_original">Collapse original</string>
+    <string name="reader_translation_attribution">Google Translate</string>
+    <string name="reader_translation_copy_short">Copy</string>
+    <item name="readerTranslateSelection" type="id" />
+    <string name="reader_translate_selection">Translate selection</string>
+    <string name="reader_translation_enabled">Selection translation: on</string>
+    <string name="reader_translation_disabled">Selection translation: off</string>
+    <string name="reader_translation_selection_hint">Select text in the reader, then tap Translate selection.</string>
+    <string name="reader_translation_title">Google Translate</string>
+    <string name="reader_translation_language">To</string>
+    <string name="reader_translation_copy">Copy translation</string>
+    <string name="reader_translation_close">Close</string>
+    <string name="reader_translation_retry">Retry</string>
+    <string name="reader_translation_copied">Translation copied</string>
+    <string name="reader_translation_invalid">Select between 1 and 2,000 characters to translate.</string>
+    <string name="reader_translation_loading">Translating…</string>
+    <string name="reader_translation_failed">Translation is unavailable. Check your connection and retry.</string>
+    <string name="reader_translation_provider_rejected">Google declined the in-app request or requires verification. Open Google Translate to continue.</string>
+    <string name="reader_translation_timeout">The translation request timed out. Retry or open Google Translate.</string>
+    <string name="reader_translation_bad_response">Google returned an unsupported response. Open Google Translate to continue.</string>
+    <string name="reader_translation_open_google">Open Google Translate</string>
+    <string name="reader_translation_disclosure">Only the selected text is sent to Google Translate.</string>
+    <string-array name="reader_translation_languages">
+        <item>简体中文</item><item>繁體中文</item><item>English</item><item>日本語</item>
+        <item>한국어</item><item>Français</item><item>Русский</item><item>ไทย</item>
+        <item>Tiếng Việt</item><item>Español</item><item>Deutsch</item>
+    </string-array>
+</resources>

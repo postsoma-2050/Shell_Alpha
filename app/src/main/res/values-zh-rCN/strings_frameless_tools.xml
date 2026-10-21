@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="browser_page_tools">页面工具</string>
+    <string name="browser_page_tools_swipe_hint">从右下边缘向内轻扫以打开页面工具。在轻应用中更改应用设置。</string>
+</resources>

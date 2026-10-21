@@ -38,7 +38,7 @@ public class TestUtils {
 
 
     public static void acceptLicense() {
-        onView(withId(R.id.btnNewsConfirm)).perform(click());
+        onView(withId(R.id.btnContinue)).perform(click());
     }
     public static void alertDialogAccept() {
         onView(withId(android.R.id.button1)).perform(click());

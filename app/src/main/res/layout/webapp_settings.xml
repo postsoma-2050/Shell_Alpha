@@ -16,6 +16,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="?attr/colorSurface"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
         tools:context=".WebAppSettingsActivity">
 
         <LinearLayout
@@ -23,156 +25,16 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <!-- Top Identity Card (Hermit style) -->
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/appIdentityCard"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/margin_activity"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="10dp"
-                app:cardBackgroundColor="?attr/colorSurfaceContainer"
-                app:cardCornerRadius="24dp"
-                app:cardElevation="0dp"
-                app:strokeColor="?attr/colorOutlineVariant"
-                app:strokeWidth="1dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal"
-                    android:padding="14dp">
-
-                    <com.google.android.material.card.MaterialCardView
-                        android:layout_width="64dp"
-                        android:layout_height="64dp"
-                        app:cardBackgroundColor="?attr/colorSurfaceContainerHigh"
-                        app:cardCornerRadius="20dp"
-                        app:cardElevation="0dp">
-
-                        <ImageView
-                            android:id="@+id/imgSettingsFavicon"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:contentDescription="@null"
-                            android:padding="10dp"
-                            android:scaleType="fitCenter" />
-                    </com.google.android.material.card.MaterialCardView>
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="12dp"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:id="@+id/labelTitle"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:ellipsize="end"
-                            android:maxLines="1"
-                            android:text="@{webapp.title}"
-                            android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:id="@+id/txtSettingsHost"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:ellipsize="middle"
-                            android:maxLines="1"
-                            android:text="@{webapp.baseUrl}"
-                            android:textAppearance="@style/TextAppearance.Material3.BodySmall"
-                            android:textColor="?attr/colorOnSurfaceVariant" />
-
-                        <TextView
-                            android:id="@+id/txtSettingsSandbox"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="4dp"
-                            android:background="@drawable/sandbox_badge_background"
-                            android:paddingHorizontal="8dp"
-                            android:paddingVertical="2dp"
-                            android:textAppearance="@style/TextAppearance.Material3.LabelSmall" />
-                    </LinearLayout>
-
-                    <com.google.android.material.materialswitch.MaterialSwitch
-                        android:id="@+id/switchOverrideGlobal"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:minHeight="48dp"
-                        android:checked="@={webapp.overrideGlobalSettings}"
-                        android:contentDescription="@string/customize_app_settings"
-                        android:onCheckedChanged="@{(switch, checked) -> webapp.onSwitchOverrideGlobalSettingsChanged(switch, checked)}" />
-                </LinearLayout>
-            </com.google.android.material.card.MaterialCardView>
-
-            <!-- 4 Hermit-style Tabs -->
-            <HorizontalScrollView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:clipToPadding="false"
-                android:paddingHorizontal="@dimen/margin_activity"
-                android:scrollbars="none">
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:paddingBottom="10dp">
-
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/btnTabBehavior"
-                        style="@style/Widget.Material3.Button.TonalButton"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="6dp"
-                        android:minHeight="48dp"
-                        android:text="@string/behavior"
-                        app:cornerRadius="22dp" />
-
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/btnTabPrivacy"
-                        style="@style/Widget.Material3.Button.TonalButton"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="6dp"
-                        android:minHeight="48dp"
-                        android:text="@string/privacy"
-                        app:cornerRadius="22dp" />
-
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/btnTabTheme"
-                        style="@style/Widget.Material3.Button.TonalButton"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="6dp"
-                        android:minHeight="48dp"
-                        android:text="@string/theme"
-                        app:cornerRadius="22dp" />
-
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/btnTabTools"
-                        style="@style/Widget.Material3.Button.TonalButton"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:minHeight="48dp"
-                        android:text="@string/integration"
-                        app:cornerRadius="22dp" />
-                </LinearLayout>
-            </HorizontalScrollView>
-
             <ScrollView
                 android:id="@+id/webAppSettingsScroll"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
+                android:clipToPadding="false"
                 android:fadeScrollbars="false"
                 android:fillViewport="true"
                 android:paddingHorizontal="@dimen/margin_activity"
-                android:paddingBottom="16dp"
+                android:paddingBottom="24dp"
                 android:scrollbarStyle="outsideOverlay">
 
                 <LinearLayout
@@ -180,19 +42,287 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/globalSettingsInfoText"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="12dp"
-                    android:visibility="gone"
-                    android:text="@string/these_settings_are_applied_globally_and_override_app_specific_settings"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+                    <!-- Top Identity Card (Hermit Quick-Edit Style) -->
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/appIdentityCard"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp"
+                        android:layout_marginBottom="6dp"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:foreground="?attr/selectableItemBackground"
+                        android:contentDescription="@string/edit_lite_app_identity_hint"
+                        app:cardBackgroundColor="?attr/colorSurfaceContainer"
+                        app:cardCornerRadius="@dimen/card_corner_radius"
+                        app:cardElevation="0dp"
+                        app:strokeColor="?attr/colorOutlineVariant"
+                        app:strokeWidth="@dimen/hairline_stroke_width">
 
-                <LinearLayout
-                    android:id="@+id/sectionWebAppDetailSettings"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal"
+                            android:padding="12dp">
+
+                            <com.google.android.material.card.MaterialCardView
+                                android:layout_width="48dp"
+                                android:layout_height="48dp"
+                                app:cardBackgroundColor="?attr/colorSurfaceContainerHigh"
+                                app:cardCornerRadius="@dimen/radius_md"
+                                app:cardElevation="0dp"
+                                app:strokeColor="?attr/colorOutlineVariant"
+                                app:strokeWidth="@dimen/hairline_stroke_width">
+
+                                <ImageView
+                                    android:id="@+id/imgSettingsFavicon"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:contentDescription="@null"
+                                    android:padding="6dp"
+                                    android:scaleType="fitCenter" />
+                            </com.google.android.material.card.MaterialCardView>
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="12dp"
+                                android:layout_weight="1"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:id="@+id/labelTitle"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:ellipsize="end"
+                                    android:maxLines="1"
+                                    android:text="@{webapp.title}"
+                                    android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:id="@+id/txtSettingsHost"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="2dp"
+                                    android:ellipsize="middle"
+                                    android:maxLines="1"
+                                    android:text="@{webapp.baseUrl}"
+                                    android:textAppearance="@style/TextAppearance.Material3.BodySmall"
+                                    android:textColor="?attr/colorOnSurfaceVariant" />
+                            </LinearLayout>
+
+                            <ImageView
+                                android:id="@+id/btnEditIdentity"
+                                android:layout_width="36dp"
+                                android:layout_height="36dp"
+                                android:layout_marginStart="8dp"
+                                android:background="?attr/selectableItemBackgroundBorderless"
+                                android:contentDescription="@string/edit_lite_app_identity_title"
+                                android:padding="6dp"
+                                android:src="@drawable/ic_edit_pencil_24"
+                                app:tint="?attr/colorOnSurfaceVariant" />
+                        </LinearLayout>
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <!-- Dedicated Hermit-style Sandbox Selection Card -->
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/cardSettingsSandbox"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="6dp"
+                        android:clickable="true"
+                        android:focusable="true"
+                        app:cardBackgroundColor="?attr/colorSurfaceContainer"
+                        app:cardCornerRadius="@dimen/card_corner_radius"
+                        app:cardElevation="0dp"
+                        app:strokeColor="?attr/colorOutlineVariant"
+                        app:strokeWidth="@dimen/hairline_stroke_width">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal"
+                            android:paddingHorizontal="16dp"
+                            android:paddingVertical="10dp">
+
+                            <View
+                                android:id="@+id/imgSettingsSandboxDot"
+                                android:layout_width="28dp"
+                                android:layout_height="28dp"
+                                android:layout_marginEnd="14dp"
+                                android:background="@drawable/sandbox_color_dot" />
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:id="@+id/txtSettingsSandboxName"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/sandbox"
+                                    android:textAppearance="@style/TextAppearance.Material3.TitleSmall"
+                                    android:textStyle="bold"
+                                    android:textColor="?attr/colorOnSurface" />
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="1dp"
+                                    android:text="@string/sandbox_preference_hint"
+                                    android:textAppearance="@style/TextAppearance.Material3.BodySmall"
+                                    android:textColor="?attr/colorOnSurfaceVariant" />
+                            </LinearLayout>
+
+                            <com.google.android.material.button.MaterialButton
+                                android:id="@+id/txtSettingsSandbox"
+                                style="@style/Widget.Material3.Button.TonalButton"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:minHeight="48dp"
+                                android:clickable="false"
+                                android:focusable="false"
+                                android:textAllCaps="false"
+                                android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
+                                app:cornerRadius="@dimen/radius_pill"
+                                app:icon="@drawable/ic_chevron_down_24"
+                                app:iconGravity="end" />
+                        </LinearLayout>
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <!-- Dedicated Override Global Settings Card -->
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/cardOverrideGlobal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp"
+                        android:clickable="true"
+                        android:focusable="true"
+                        app:cardBackgroundColor="?attr/colorSurfaceContainer"
+                        app:cardCornerRadius="@dimen/card_corner_radius"
+                        app:cardElevation="0dp"
+                        app:strokeColor="?attr/colorOutlineVariant"
+                        app:strokeWidth="@dimen/hairline_stroke_width">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal"
+                            android:paddingHorizontal="16dp"
+                            android:paddingVertical="10dp">
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:id="@+id/txtOverrideGlobalTitle"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/override_global_settings"
+                                    android:textAppearance="@style/TextAppearance.Material3.TitleSmall"
+                                    android:textStyle="bold"
+                                    android:textColor="?attr/colorOnSurface" />
+
+                                <TextView
+                                    android:id="@+id/txtOverrideGlobalStatus"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="2dp"
+                                    android:text="@string/override_global_settings_disabled_hint"
+                                    android:textAppearance="@style/TextAppearance.Material3.BodySmall"
+                                    android:textColor="?attr/colorOnSurfaceVariant" />
+                            </LinearLayout>
+
+                            <com.google.android.material.materialswitch.MaterialSwitch
+                                android:id="@+id/switchOverrideGlobal"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:minHeight="48dp"
+                                android:checked="@={webapp.overrideGlobalSettings}"
+                                android:contentDescription="@string/override_global_settings"
+                                android:onCheckedChanged="@{(switch, checked) -> activity.onOverrideSettingsChanged(switch, checked)}" />
+                        </LinearLayout>
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <!-- 4 Hermit-style Tabs -->
+                    <HorizontalScrollView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:clipToPadding="false"
+                        android:paddingHorizontal="0dp"
+                        android:scrollbars="none">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:paddingBottom="10dp">
+
+                            <com.google.android.material.button.MaterialButton
+                                android:id="@+id/btnTabBehavior"
+                                style="@style/Widget.Material3.Button.TonalButton"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="8dp"
+                                android:minHeight="44dp"
+                                android:text="@string/behavior"
+                                app:cornerRadius="@dimen/radius_pill" />
+
+                            <com.google.android.material.button.MaterialButton
+                                android:id="@+id/btnTabPrivacy"
+                                style="@style/Widget.Material3.Button.TonalButton"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="8dp"
+                                android:minHeight="44dp"
+                                android:text="@string/privacy"
+                                app:cornerRadius="@dimen/radius_pill" />
+
+                            <com.google.android.material.button.MaterialButton
+                                android:id="@+id/btnTabTheme"
+                                style="@style/Widget.Material3.Button.TonalButton"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="8dp"
+                                android:minHeight="44dp"
+                                android:text="@string/theme"
+                                app:cornerRadius="@dimen/radius_pill" />
+
+                            <com.google.android.material.button.MaterialButton
+                                android:id="@+id/btnTabTools"
+                                style="@style/Widget.Material3.Button.TonalButton"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:minHeight="44dp"
+                                android:text="@string/integration"
+                                app:cornerRadius="@dimen/radius_pill" />
+                        </LinearLayout>
+                    </HorizontalScrollView>
+
+                    <TextView
+                        android:id="@+id/globalSettingsInfoText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="12dp"
+                        android:visibility="gone"
+                        android:text="@string/these_settings_are_applied_globally_and_override_app_specific_settings"
+                        android:textAppearance="?attr/textAppearanceBodySmall" />
+
+                    <LinearLayout
+                        android:id="@+id/sectionWebAppDetailSettings"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:focusable="true"
+                        android:focusableInTouchMode="true"
                     android:orientation="vertical"
                     android:paddingEnd="4dp">
 
@@ -217,7 +347,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginBottom="@dimen/remove_divider"
                                 android:text="@string/webapp_section_behavior"
-                                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                                android:textAppearance="?attr/textAppearanceTitleMedium"
                                 android:textStyle="bold" />
 
                             <com.google.android.material.materialswitch.MaterialSwitch
@@ -328,7 +458,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:checked="@={webapp.autoreload}"
-                                android:onCheckedChanged="@{(switch, checked) -> webapp.onSwitchAutoreloadChanged(switch, checked)}"
+                                android:onCheckedChanged="@{(switch, checked) -> activity.onSwitchAutoreloadChanged(switch, checked)}"
                                 android:text="@string/webapp_autoreload_switch" />
 
                             <LinearLayout
@@ -377,7 +507,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginBottom="@dimen/remove_divider"
                                 android:text="@string/webapp_section_privacy"
-                                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                                android:textAppearance="?attr/textAppearanceTitleMedium"
                                 android:textStyle="bold" />
 
                             <com.google.android.material.materialswitch.MaterialSwitch
@@ -402,20 +532,28 @@
                                 android:checked="@={webapp.blockThirdPartyRequests}"
                                 android:text="@string/block_all_third_party_requests" />
 
-                            <com.google.android.material.materialswitch.MaterialSwitch
+                            <com.google.android.material.button.MaterialButton
                                 android:id="@+id/switchCookies"
+                                style="@style/Widget.Material3.Button.TonalButton"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:checked="@={webapp.allowCookies}"
-                                android:onCheckedChanged="@{(switch, checked) -> webapp.onSwitchCookiesChanged(switch, checked)}"
-                                android:text="@string/accept_cookies" />
+                                android:gravity="start|center_vertical"
+                                android:minHeight="48dp"
+                                android:text="@string/sandbox_interaction_cookie_manage"
+                                android:textAllCaps="false" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="@string/sandbox_interaction_cookie_scope"
+                                android:textAppearance="@style/TextAppearance.Material3.BodySmall"
+                                android:textColor="?attr/colorOnSurfaceVariant" />
 
                             <com.google.android.material.materialswitch.MaterialSwitch
                                 android:id="@+id/switch3PCookies"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:checked="@={webapp.allowThirdPartyCookies}"
-                                android:enabled="@{webapp.allowCookies}"
                                 android:text="@string/accept_third_party_cookies" />
 
                             <com.google.android.material.materialswitch.MaterialSwitch
@@ -447,7 +585,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginBottom="@dimen/remove_divider"
                                 android:text="@string/webapp_section_datasaving"
-                                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                                android:textAppearance="?attr/textAppearanceBodySmall"
                                 android:textStyle="bold" />
 
                             <com.google.android.material.materialswitch.MaterialSwitch
@@ -479,7 +617,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginBottom="@dimen/remove_divider"
                                 android:text="@string/webapp_section_access_restriction"
-                                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                                android:textAppearance="?attr/textAppearanceBodySmall"
                                 android:textStyle="bold" />
 
                             <com.google.android.material.materialswitch.MaterialSwitch
@@ -487,7 +625,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:checked="@={webapp.biometricProtection}"
-                                android:onCheckedChanged="@{(switch, checked) -> webapp.onSwitchBiometricAccessChanged(switch, checked, activity)}"
+                                android:onCheckedChanged="@{(switch, checked) -> activity.onSwitchBiometricAccessChanged(switch, checked)}"
                                 android:text="@string/enable_access_restriction" />
                         </LinearLayout>
 
@@ -505,7 +643,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginBottom="@dimen/remove_divider"
                                 android:text="@string/webapp_section_security"
-                                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                                android:textAppearance="?attr/textAppearanceBodySmall"
                                 android:textStyle="bold" />
 
                             <com.google.android.material.materialswitch.MaterialSwitch
@@ -513,7 +651,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:checked="@={webapp.allowJs}"
-                                android:onCheckedChanged="@{(switch, checked) -> webapp.onSwitchJsChanged(switch, checked)}"
+                                android:onCheckedChanged="@{(switch, checked) -> activity.onSwitchJsChanged(switch, checked)}"
                                 android:text="@string/allow_javascript" />
 
                             <com.google.android.material.materialswitch.MaterialSwitch
@@ -575,14 +713,14 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginBottom="@dimen/remove_divider"
                                 android:text="@string/webapp_section_appearance"
-                                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                                android:textAppearance="?attr/textAppearanceTitleMedium"
                                 android:textStyle="bold" />
 
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:text="@string/theme_color"
-                                android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+                                android:textAppearance="?attr/textAppearanceBodySmall" />
 
                             <Spinner
                                 android:id="@+id/spinnerThemeColor"
@@ -614,7 +752,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginBottom="@dimen/remove_divider"
                                 android:text="@string/dark_mode"
-                                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                                android:textAppearance="?attr/textAppearanceBodySmall"
                                 android:textStyle="bold" />
 
                             <com.google.android.material.materialswitch.MaterialSwitch
@@ -622,7 +760,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:checked="@={webapp.forceDarkMode}"
-                                android:onCheckedChanged="@{(switch, checked) -> webapp.onSwitchForceDarkChanged(switch, checked)}"
+                                android:onCheckedChanged="@{(switch, checked) -> activity.onSwitchForceDarkChanged(switch, checked)}"
                                 android:text="@string/force_dark_mode" />
 
                             <com.google.android.material.materialswitch.MaterialSwitch
@@ -631,7 +769,7 @@
                                 android:layout_height="wrap_content"
                                 android:checked="@={webapp.useTimespanDarkMode}"
                                 android:enabled="@{webapp.forceDarkMode}"
-                                android:onCheckedChanged="@{(switch, checked) -> webapp.onSwitchTimeSpanDarkChanged(switch, checked)}"
+                                android:onCheckedChanged="@{(switch, checked) -> activity.onSwitchTimeSpanDarkChanged(switch, checked)}"
                                 android:text="@string/limit_dark_mode_to_time_span" />
 
                             <LinearLayout
@@ -716,7 +854,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginBottom="@dimen/remove_divider"
                                 android:text="@string/integration"
-                                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                                android:textAppearance="?attr/textAppearanceTitleMedium"
                                 android:textStyle="bold" />
 
                             <TextView
@@ -724,7 +862,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:text="@string/label"
-                                android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+                                android:textAppearance="?attr/textAppearanceBodySmall" />
 
                             <EditText
                                 android:id="@+id/txtWebAppName"
@@ -744,32 +882,6 @@
                                 app:icon="@drawable/ic_baseline_home_24" />
                         </LinearLayout>
 
-                        <!-- Sandbox Container -->
-                        <LinearLayout
-                            android:id="@+id/sectionSandbox"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="@dimen/settings_bottom"
-                            android:divider="@drawable/empty_10dp_vertical"
-                            android:orientation="vertical"
-                            android:showDividers="middle">
-
-                            <TextView
-                                android:id="@+id/labelSandbox"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:text="@string/sandbox"
-                                android:textAppearance="@style/TextAppearance.AppCompat.Small" />
-
-                            <com.google.android.material.materialswitch.MaterialSwitch
-                                android:id="@+id/switchSandbox"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:checked="@={webapp.useContainer}"
-                                android:onCheckedChanged="@{(switch, checked) -> webapp.onSwitchSandboxChanged(switch, checked)}"
-                                android:text="@string/enable_sandbox" />
-                        </LinearLayout>
-
                         <!-- Web Monitors (Hermit killer feature) -->
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -784,7 +896,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginBottom="@dimen/remove_divider"
                                 android:text="@string/setting_webmonitors_title"
-                                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                                android:textAppearance="?attr/textAppearanceBodySmall"
                                 android:textStyle="bold" />
 
                             <com.google.android.material.materialswitch.MaterialSwitch
@@ -799,7 +911,7 @@
                                 android:layout_height="wrap_content"
                                 android:enabled="@{webapp.monitorEnabled}"
                                 android:text="@string/monitor_css_selector"
-                                android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+                                android:textAppearance="?attr/textAppearanceBodySmall" />
 
                             <EditText
                                 android:id="@+id/textMonitorSelector"
@@ -826,7 +938,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginBottom="@dimen/remove_divider"
                                 android:text="@string/setting_userscripts_title"
-                                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                                android:textAppearance="?attr/textAppearanceBodySmall"
                                 android:textStyle="bold" />
 
                             <com.google.android.material.materialswitch.MaterialSwitch
@@ -841,7 +953,7 @@
                                 android:layout_height="wrap_content"
                                 android:enabled="@{webapp.userscriptEnabled}"
                                 android:text="@string/userscript_code"
-                                android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+                                android:textAppearance="?attr/textAppearanceBodySmall" />
 
                             <EditText
                                 android:id="@+id/textUserscriptCode"
@@ -862,7 +974,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="@dimen/settings_bottom_innersection"
                             android:checked="@={webapp.showExpertSettings}"
-                            android:onCheckedChanged="@{(switch, checked) -> webapp.onSwitchExpertSettingsChanged(switch, checked)}"
+                            android:onCheckedChanged="@{(switch, checked) -> activity.onSwitchExpertSettingsChanged(switch, checked)}"
                             android:text="@string/show_expert_settings" />
 
                         <LinearLayout
@@ -881,7 +993,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginBottom="@dimen/remove_divider"
                                 android:text="@string/start_url"
-                                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                                android:textAppearance="?attr/textAppearanceBodySmall"
                                 android:textStyle="bold" />
 
                             <EditText
@@ -898,7 +1010,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginBottom="@dimen/remove_divider"
                                 android:text="@string/user_agent"
-                                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                                android:textAppearance="?attr/textAppearanceBodySmall"
                                 android:textStyle="bold" />
 
                             <com.google.android.material.materialswitch.MaterialSwitch
@@ -906,7 +1018,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:checked="@={webapp.useCustomUserAgent}"
-                                android:onCheckedChanged="@{(switch, checked) -> webapp.onSwitchUserAgentChanged(switch, checked)}"
+                                android:onCheckedChanged="@{(switch, checked) -> activity.onSwitchUserAgentChanged(switch, checked)}"
                                 android:text="@string/use_custom_user_agent" />
 
                             <TextView
@@ -934,7 +1046,7 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:text="@string/ssl_errors"
-                                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                                    android:textAppearance="?attr/textAppearanceBodySmall"
                                     android:textStyle="bold" />
 
                                 <com.google.android.material.materialswitch.MaterialSwitch
@@ -950,36 +1062,45 @@
                 </LinearLayout>
             </ScrollView>
 
-            <!-- Bottom Cancel & Save Buttons -->
-            <LinearLayout
-                style="?android:attr/buttonBarStyle"
+            <!-- Bottom Cancel & Save Buttons with Divider -->
+            <com.google.android.material.divider.MaterialDivider
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="end"
+                app:dividerColor="?attr/colorOutlineVariant" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:background="?attr/colorSurface"
-                android:gravity="end"
+                android:gravity="center_vertical"
                 android:orientation="horizontal"
-                android:paddingBottom="8dp"
                 android:paddingHorizontal="@dimen/margin_activity"
-                android:paddingTop="8dp">
+                android:paddingTop="12dp"
+                android:paddingBottom="12dp">
 
-                <Button
+                <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnCancel"
-                    style="?android:attr/buttonBarButtonStyle"
+                    style="@style/Widget.Material3.Button.OutlinedButton"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
                     android:layout_weight="1"
                     android:minHeight="48dp"
-                    android:text="@string/cancel" />
+                    android:text="@string/cancel"
+                    app:cornerRadius="@dimen/button_corner_radius"
+                    app:strokeColor="?attr/colorOutlineVariant"
+                    app:strokeWidth="@dimen/hairline_stroke_width" />
 
-                <Button
+                <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnSave"
-                    style="?android:attr/buttonBarButtonStyle"
+                    style="@style/Widget.Material3.Button.TonalButton"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
                     android:layout_weight="1"
                     android:minHeight="48dp"
-                    android:text="@string/save" />
+                    android:text="@string/save"
+                    app:cornerRadius="@dimen/button_corner_radius" />
             </LinearLayout>
         </LinearLayout>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/framelessPageTools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/browser_page_tools"
+            android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
+            android:textColor="?attr/colorOnSurface" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnPageToolsClose"
+            style="@style/Widget.Material3.Button.IconButton"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:minWidth="48dp"
+            android:minHeight="48dp"
+            android:contentDescription="@string/close"
+            app:icon="@drawable/ic_baseline_close_24"
+            app:iconTint="?attr/colorOnSurfaceVariant" />
+    </LinearLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnPageToolsReader"
+        style="@style/Widget.Material3.Button.TonalButton"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_marginTop="16dp"
+        android:minHeight="48dp"
+        android:gravity="center_vertical|start"
+        android:text="@string/browser_reader_mode"
+        android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
+        app:icon="@drawable/ic_reader_mode"
+        app:iconGravity="textStart"
+        app:iconPadding="12dp" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnPageToolsFind"
+        style="@style/Widget.Material3.Button.TonalButton"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_marginTop="8dp"
+        android:minHeight="48dp"
+        android:gravity="center_vertical|start"
+        android:text="@string/browser_find_in_page"
+        android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
+        app:icon="@drawable/ic_baseline_search_24"
+        app:iconGravity="textStart"
+        app:iconPadding="12dp" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnPageToolsCopy"
+        style="@style/Widget.Material3.Button.TonalButton"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_marginTop="8dp"
+        android:minHeight="48dp"
+        android:gravity="center_vertical|start"
+        android:text="@string/copy_url"
+        android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
+        app:icon="@drawable/ic_baseline_content_copy_24"
+        app:iconGravity="textStart"
+        app:iconPadding="12dp" />
+
+    <TextView
+        android:id="@+id/txtPageToolsSwipeHint"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/browser_page_tools_swipe_hint"
+        android:textAppearance="@style/TextAppearance.Material3.BodySmall"
+        android:textColor="?attr/colorOnSurfaceVariant" />
+
+</LinearLayout>

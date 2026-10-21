@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.Application;
 import android.content.Context;
 import android.webkit.WebView;
+import com.cylonid.nativealpha.model.SandboxManager;
 
 import androidx.work.Configuration;
 import androidx.work.WorkManager;
@@ -29,13 +30,23 @@ public class App extends Application {
             Matcher matcher = SANDBOX_PROCESS_PATTERN.matcher(processName);
             if (matcher.find()) {
                 // All Lite Apps launched in this process share the same container data.
-                WebView.setDataDirectorySuffix("sandbox_" + matcher.group(1));
+                int containerId = Integer.parseInt(matcher.group(1));
+                if (SandboxManager.isValidContainerId(containerId)) {
+                    WebView.setDataDirectorySuffix(LegacySandboxStorage.resolveSuffix(this, containerId));
+                }
             }
         }
 
         App.context = getApplicationContext();
         if (!WorkManager.isInitialized()) {
-            WorkManager.initialize(this, new Configuration.Builder().build());
+            Configuration config = new Configuration.Builder()
+                    .setDefaultProcessName(getPackageName())
+                    .build();
+            try {
+                WorkManager.initialize(this, config);
+            } catch (IllegalStateException e) {
+                // Ignore if initialized concurrently
+            }
         }
     }
 

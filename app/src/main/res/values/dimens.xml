@@ -1,13 +1,38 @@
 <resources>
+    <!-- DESIGN.md Standard Radii Ladder -->
+    <dimen name="radius_xs">4dp</dimen>
+    <dimen name="radius_sm">8dp</dimen>
+    <dimen name="radius_md">12dp</dimen>
+    <dimen name="radius_lg">16dp</dimen>
+    <dimen name="radius_xl">24dp</dimen>
+    <dimen name="radius_pill">9999dp</dimen>
+
+    <!-- DESIGN.md Component Standards -->
+    <dimen name="card_corner_radius">16dp</dimen>
+    <dimen name="dialog_corner_radius">20dp</dimen>
+    <dimen name="button_corner_radius">12dp</dimen>
+    <dimen name="input_corner_radius">12dp</dimen>
+    <dimen name="hairline_stroke_width">1dp</dimen>
+    <dimen name="active_stroke_width">2dp</dimen>
+
+    <!-- 8dp Rhythm Spacing Grid -->
+    <dimen name="spacing_xxs">2dp</dimen>
+    <dimen name="spacing_xs">4dp</dimen>
+    <dimen name="spacing_sm">8dp</dimen>
+    <dimen name="spacing_md">16dp</dimen>
+    <dimen name="spacing_lg">24dp</dimen>
+    <dimen name="spacing_xl">32dp</dimen>
+
+    <!-- Standard Application Dimensions -->
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="line_height">60dp</dimen>
-    <dimen name="margin_dialog">15dp</dimen>
-    <dimen name="margin_activity">25dp</dimen>
-    <dimen name="settings_bottom">20dp</dimen>
-    <dimen name="settings_bottom_innersection">10dp</dimen>
-    <dimen name="remove_divider">-10dp</dimen>
+    <dimen name="margin_dialog">16dp</dimen>
+    <dimen name="margin_activity">16dp</dimen>
+    <dimen name="settings_bottom">16dp</dimen>
+    <dimen name="settings_bottom_innersection">8dp</dimen>
+    <dimen name="remove_divider">0dp</dimen>
     <dimen name="margin_swipe_icon">20dp</dimen>
-    <dimen name="material_button_gap_space">10dp</dimen>
+    <dimen name="material_button_gap_space">8dp</dimen>
     <dimen name="toolbar_search_height">48dp</dimen>
     <dimen name="toolbar_touch_target">48dp</dimen>
     <dimen name="main_toolbar_height">64dp</dimen>

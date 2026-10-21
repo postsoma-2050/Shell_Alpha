@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.cylonid.nativealpha.R
 import com.cylonid.nativealpha.model.DataManager
 import com.cylonid.nativealpha.model.WebApp
+import com.cylonid.nativealpha.util.ShortcutIconUtils
 import com.ernestoyaquello.dragdropswiperecyclerview.DragDropSwipeRecyclerView
 import com.ernestoyaquello.dragdropswiperecyclerview.listener.OnItemDragListener
 import com.google.android.material.snackbar.Snackbar
@@ -48,6 +49,7 @@ class WebAppListFragment : Fragment(R.layout.fragment_web_app_list) {
         homePreferences =
             requiredActivity().getSharedPreferences(HOME_PREFERENCES, android.content.Context.MODE_PRIVATE)
         homeViewMode = savedHomeViewMode()
+        list.dividerDrawableId = null
         list.adapter = adapter
         list.longPressToStartDragging = false
         list.orientation =
@@ -173,7 +175,11 @@ class WebAppListFragment : Fragment(R.layout.fragment_web_app_list) {
                 val currentWebApp = DataManager.getInstance().websites
                     .firstOrNull { it.ID == webapp.ID }
                     ?: return@setPositiveButton
-                currentWebApp.markInactive(requiredActivity())
+                currentWebApp.markInactive()
+                ShortcutIconUtils.deleteShortcuts(
+                    listOf(currentWebApp.ID),
+                    requiredActivity()
+                )
                 DataManager.getInstance().saveWebAppData()
                 updateWebAppList()
 

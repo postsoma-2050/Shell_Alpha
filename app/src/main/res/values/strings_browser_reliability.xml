@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="browser_restore_controls">Browser controls</string>
+    <string name="browser_restore_controls_description">Open browser controls, navigation and settings</string>
+    <string name="browser_site_permission_title">Website permission</string>
+    <string name="browser_site_permission_message">%1$s wants to use: %2$s. Allow for this browsing session?</string>
+    <string name="browser_permission_camera">camera</string>
+    <string name="browser_permission_microphone">microphone</string>
+    <string name="browser_permission_drm">protected media</string>
+    <string name="browser_permission_location">location</string>
+    <string name="browser_download_failed">The download could not start. Check storage access and try again.</string>
+    <string name="browser_download_unsupported">This download uses a browser-only address, such as Blob. Use the website’s save or share option instead.</string>
+    <string name="browser_pdf_download_fallback">No PDF viewer is available. Downloading the PDF instead.</string>
+    <string name="browser_download_permission_pending">Finish the storage permission request before starting another download.</string>
+    <string name="browser_external_internal_fallback">No external app is available. Opening this page here.</string>
+    <string name="browser_popup_blocked">This popup was blocked. Open it by tapping a link; up to four child windows are supported.</string>
+    <string name="browser_popup_opened">Opened a website window. Back returns to the previous page or parent window.</string>
+    <string name="browser_js_alert_title">Message</string>
+    <string name="browser_js_confirm_title">Confirm</string>
+    <string name="browser_js_prompt_title">Prompt</string>
+    <string name="browser_js_leave_page_title">Leave this page?</string>
+    <string name="browser_js_leave_page_message">Changes that you made may not be saved.</string>
+    <string name="browser_js_leave_page_positive">Leave</string>
+    <string name="browser_js_leave_page_negative">Stay</string>
+    <string name="browser_adblock_unavailable">Ad blocking could not start. Website security remains enabled.</string>
+    <string name="browser_print_document">Print / Export PDF</string>
+    <string name="browser_print_unavailable">Printing service is not available on this device.</string>
+    <string name="browser_print_started">Preparing print document…</string>
+</resources>

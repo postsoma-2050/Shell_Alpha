@@ -5,6 +5,8 @@
     android:id="@+id/homeDrawerLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
     android:fitsSystemWindows="true"
     tools:context=".MainActivity"
     tools:openDrawer="start">
@@ -13,6 +15,8 @@
         android:id="@+id/homeMainContent"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
         android:background="?attr/colorSurface">
 
         <com.google.android.material.appbar.AppBarLayout
@@ -198,18 +202,34 @@
                     android:layout_width="48dp"
                     android:layout_height="48dp"
                     android:contentDescription="@string/app_name"
+                    android:scaleType="fitCenter"
                     android:src="@mipmap/ic_shellalpha_fg" />
 
-                <TextView
-                    android:id="@+id/navigationBrandName"
+                <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_weight="1"
-                    android:text="@string/app_name"
-                    android:textColor="?attr/colorOnSurface"
-                    android:textSize="22sp"
-                    android:textStyle="bold" />
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/navigationBrandName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/app_name"
+                        android:textColor="?attr/colorOnSurface"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/navigationBrandSubtitle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:text="@string/navigation_brand_subtitle"
+                        android:textColor="?attr/colorOnSurfaceVariant"
+                        android:textSize="13sp" />
+                </LinearLayout>
             </LinearLayout>
 
             <TextView

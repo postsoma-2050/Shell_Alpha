@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/sandboxRoot"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="?attr/colorSurface">
@@ -68,6 +69,18 @@
                     android:textColor="?attr/colorOnSurfaceVariant"
                     android:textSize="15sp" />
 
+                <TextView
+                    android:id="@+id/txtSandboxCurrent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="24dp"
+                    android:paddingEnd="24dp"
+                    android:paddingBottom="16dp"
+                    android:accessibilityLiveRegion="polite"
+                    android:textAppearance="@style/TextAppearance.Material3.TitleSmall"
+                    android:textColor="?attr/colorOnSurface"
+                    android:visibility="gone" />
+
                 <LinearLayout
                     android:id="@+id/sandboxCardList"
                     android:layout_width="match_parent"
@@ -77,17 +90,33 @@
                     android:paddingEnd="16dp" />
 
                 <TextView
+                    android:id="@+id/txtSandboxStorageNote"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="24dp"
                     android:layout_marginTop="20dp"
                     android:layout_marginEnd="24dp"
+                    android:drawableStart="@drawable/ic_info_outline_24"
+                    android:drawablePadding="12dp"
+                    android:gravity="center_vertical"
                     android:lineSpacingExtra="2dp"
-                    android:text="@string/sandbox_ui_isolated_note"
+                    android:text="@string/sandbox_interaction_storage_note"
                     android:textColor="?attr/colorOnSurfaceVariant"
-                    android:textSize="14sp" />
+                    android:textSize="13sp"
+                    app:drawableTint="?attr/colorOnSurfaceVariant" />
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnSandboxApply"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="24dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="16dp"
+            android:minHeight="48dp"
+            android:text="@string/sandbox_interaction_apply"
+            android:visibility="gone" />
     </LinearLayout>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

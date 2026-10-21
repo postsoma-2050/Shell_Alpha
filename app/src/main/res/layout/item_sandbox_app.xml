@@ -33,7 +33,8 @@
     <ImageView
         android:layout_width="48dp"
         android:layout_height="48dp"
-        android:contentDescription="@string/sandbox_ui_open_app_settings"
+        android:contentDescription="@null"
+        android:importantForAccessibility="no"
         android:padding="12dp"
         android:src="@drawable/ic_settings_gear_24"
         app:tint="?attr/colorOnSurfaceVariant" />

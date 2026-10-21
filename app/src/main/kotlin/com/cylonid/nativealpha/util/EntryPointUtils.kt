@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import com.cylonid.nativealpha.activities.NewsActivity
 import com.cylonid.nativealpha.model.DataManager
+import com.cylonid.nativealpha.model.ConfigurationStore
 
 object EntryPointUtils {
     private const val GENERAL_INFO_PREFERENCES = "com.cylonid.nativealpha.GENERAL_INFO"
@@ -24,20 +25,14 @@ object EntryPointUtils {
 
     @JvmStatic
     fun shouldShowOnboarding(context: Context): Boolean {
-        val generalInfo = context.getSharedPreferences(
-            GENERAL_INFO_PREFERENCES,
-            Context.MODE_PRIVATE
-        )
+        val generalInfo = ConfigurationStore.preferences(GENERAL_INFO_PREFERENCES)
         return !DataManager.getInstance().eulaData ||
             generalInfo.getInt(ONBOARDING_REVISION_KEY, 0) < CURRENT_ONBOARDING_REVISION
     }
 
     @JvmStatic
     fun markOnboardingCompleted(context: Context) {
-        context.getSharedPreferences(
-            GENERAL_INFO_PREFERENCES,
-            Context.MODE_PRIVATE
-        ).edit()
+        ConfigurationStore.preferences(GENERAL_INFO_PREFERENCES).edit()
             .putInt(ONBOARDING_REVISION_KEY, CURRENT_ONBOARDING_REVISION)
             .apply()
     }

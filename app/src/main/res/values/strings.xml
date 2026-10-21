@@ -199,7 +199,7 @@
     <string name="webapp_section_appearance">Appearance</string>
     <string name="theme_color">Theme color</string>
     <string name="enable_pull_to_refresh">Pull down at the top to refresh</string>
-    <string name="enable_frameless">Frameless mode (hide system bars)</string>
+    <string name="enable_frameless">Frameless full screen (website only)</string>
     <string name="strip_tracking_params">Remove tracking parameters from links</string>
     <string name="allow_app_launch">Allow links to open external apps</string>
     <string name="external_app_launch_blocked">External app launch is disabled for this Web App.</string>
@@ -280,4 +280,21 @@
     <string name="open_or_create_url">Open or create</string>
     <string name="delete_lite_app">Delete</string>
     <string name="change_sandbox">Change Sandbox</string>
+    <string name="featured_lite_apps">Popular Lite Apps</string>
+    <string name="text_zoom">Text Zoom</string>
+    <string name="decrease_text_size">Decrease text size</string>
+    <string name="increase_text_size">Increase text size</string>
+    <string name="open_in_sandbox">Open in Sandbox…</string>
+    <string name="open_link_in_sandbox">Open link in Sandbox…</string>
+
+    <!-- App Update Strings -->
+    <string name="check_for_updates">Check for updates</string>
+    <string name="checking_for_updates">Checking for updates…</string>
+    <string name="update_available_title">New Version Available</string>
+    <string name="update_available_msg">Version %1$s is available (current: %2$s).\n\nWhat\'s New:\n%3$s</string>
+    <string name="update_now">Update Now</string>
+    <string name="update_later">Later</string>
+    <string name="update_ignore_version">Ignore this version</string>
+    <string name="update_up_to_date">You are using the latest version (%1$s)</string>
+    <string name="update_check_failed">Unable to check for updates. Please check your network connection.</string>
 </resources>

@@ -24,14 +24,35 @@ class WebAppDeserializer : JsonDeserializer<WebApp> {
         ) {
             webapp.themeColor = "Red"
         }
-        patchBatchBDefaults(webapp, obj)
         patchDataVersion1500(webapp, obj)
+        patchBatchBDefaults(webapp, obj)
         return webapp
     }
 
     private fun patchBatchBDefaults(webapp: WebApp, obj: JsonObject) {
         if (!obj.has("isAllowAppLaunch")) {
             webapp.isAllowAppLaunch = true
+        }
+        if (!obj.has("isAllowThirdPartyCookies")) {
+            webapp.isAllowThirdPartyCookies = true
+        }
+        if (!obj.has("isUseAdblock")) {
+            webapp.isUseAdblock = true
+        }
+        if (!obj.has("isSafeBrowsing")) {
+            webapp.isSafeBrowsing = true
+        }
+        if (!obj.has("isAllowMediaPlaybackInBackground")) {
+            webapp.isAllowMediaPlaybackInBackground = true
+        }
+        if (!obj.has("isStripTrackingParams")) {
+            webapp.isStripTrackingParams = true
+        }
+        if (!obj.has("isPullToRefresh")) {
+            webapp.isPullToRefresh = true
+        }
+        if (!obj.has("isEnableZooming")) {
+            webapp.isEnableZooming = true
         }
         if (!obj.has("monitorSelector") || obj.get("monitorSelector").isJsonNull) {
             webapp.monitorSelector = "body"
@@ -41,6 +62,9 @@ class WebAppDeserializer : JsonDeserializer<WebApp> {
         }
         if (!obj.has("userscriptCode") || obj.get("userscriptCode").isJsonNull) {
             webapp.userscriptCode = ""
+        }
+        if (!obj.has("textZoom")) {
+            webapp.textZoom = 100
         }
     }
 
@@ -69,8 +93,9 @@ class WebAppDeserializer : JsonDeserializer<WebApp> {
                 emptyList()
             }
 
-        webapp.adBlockSettings = parsedAdblockSettings.toMutableList()
-        if (webapp.ID == Int.MAX_VALUE && !adblockKeyPresent) {
+        if (adblockKeyPresent) {
+            webapp.adBlockSettings = parsedAdblockSettings.toMutableList()
+        } else {
             webapp.adBlockSettings = Const.getDefaultAdBlockConfig()
         }
         webapp.adBlockSettings = webapp.adBlockSettings.take(8).toMutableList()

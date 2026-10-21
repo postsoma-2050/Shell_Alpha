@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:minHeight="48dp"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:paddingStart="16dp"
+    android:paddingEnd="16dp"
+    android:paddingTop="8dp"
+    android:paddingBottom="8dp"
+    android:background="?attr/selectableItemBackground">
+
+    <ImageView
+        android:id="@+id/dialogSandboxColorDot"
+        android:layout_width="18dp"
+        android:layout_height="18dp"
+        android:layout_marginEnd="12dp"
+        android:src="@drawable/sandbox_color_dot"
+        android:importantForAccessibility="no" />
+
+    <TextView
+        android:id="@+id/dialogSandboxName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
+        android:textColor="?attr/colorOnSurface" />
+
+    <com.google.android.material.radiobutton.MaterialRadioButton
+        android:id="@+id/dialogSandboxRadioButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="false"
+        android:focusable="false" />
+</LinearLayout>

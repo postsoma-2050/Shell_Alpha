@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/browserFindBar"
+    android:layout_width="match_parent"
+    android:layout_height="56dp"
+    android:minHeight="56dp"
+    android:background="@drawable/browser_toolbar_background"
+    android:clickable="true"
+    android:elevation="8dp"
+    android:focusable="true"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:paddingHorizontal="4dp"
+    android:paddingVertical="4dp">
+
+    <EditText
+        android:id="@+id/findPageQuery"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_weight="1"
+        android:background="@null"
+        android:contentDescription="@string/browser_find_in_page"
+        android:hint="@string/browser_find_in_page"
+        android:imeOptions="actionSearch"
+        android:inputType="textNoSuggestions|text"
+        android:maxLines="1"
+        android:paddingHorizontal="12dp"
+        android:singleLine="true"
+        android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
+        android:textColor="?attr/colorOnSurface"
+        android:textColorHint="?attr/colorOnSurfaceVariant" />
+
+    <TextView
+        android:id="@+id/findPageCount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:accessibilityLiveRegion="polite"
+        android:gravity="center"
+        android:maxWidth="56dp"
+        android:paddingHorizontal="4dp"
+        android:singleLine="true"
+        android:textAppearance="@style/TextAppearance.Material3.LabelMedium"
+        android:textColor="?attr/colorOnSurfaceVariant" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnFindPrevious"
+        style="@style/Widget.Material3.Button.IconButton"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:contentDescription="@string/browser_find_previous"
+        app:icon="@drawable/ic_chevron_up_24"
+        app:iconTint="?attr/colorOnSurfaceVariant" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnFindNext"
+        style="@style/Widget.Material3.Button.IconButton"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:contentDescription="@string/browser_find_next"
+        app:icon="@drawable/ic_chevron_down_24"
+        app:iconTint="?attr/colorOnSurfaceVariant" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnFindClose"
+        style="@style/Widget.Material3.Button.IconButton"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:contentDescription="@string/browser_find_close"
+        app:icon="@drawable/ic_baseline_close_24"
+        app:iconTint="?attr/colorOnSurfaceVariant" />
+</LinearLayout>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="entry_choose_sandbox">Choose sandbox</string>
+    <string name="entry_sandbox_default">%1$s (shared browsing data)</string>
+    <string name="entry_sandbox_named">%1$s (sandbox %2$d)</string>
+    <string name="entry_selected_sandbox">Sandbox: %1$s</string>
+    <string name="entry_sandbox_help">Apps in the same sandbox share cookies and site data. Choose Default or a specific sandbox before creating this app.</string>
+    <string name="entry_choose_existing_app">Open with an existing Lite App</string>
+    <string name="entry_app_sandbox">%1$s — %2$s</string>
+    <string name="entry_create_another">Create another Lite App</string>
+    <string name="entry_manage_sandboxes">Manage sandboxes</string>
+    <string name="entry_privacy_scope">Manage cookies and site data for each sandbox.</string>
+    <string name="entry_userscripts_summary">Run JavaScript entered in a Lite App’s Integration settings.</string>
+    <string name="entry_userscripts_empty">No active Lite Apps have local JavaScript enabled.</string>
+    <string name="entry_userscripts_scope">Enter JavaScript in each Lite App’s Integration settings. It runs after a page loads when JavaScript is allowed. Online script installation and userscript-manager APIs are not supported.</string>
+    <string name="entry_monitor_summary">Check text on public static pages in the background.</string>
+    <string name="entry_monitor_empty">No active monitors. Enable monitoring in a Lite App’s Quick Settings or Integration settings.</string>
+    <string name="entry_monitor_list_header">Enabled monitors:\n</string>
+    <string name="entry_monitor_scope">Checks public, static HTML text without sandbox cookies, login sessions, or JavaScript. The first successful check sets a baseline. Later text changes can trigger notifications. Periodic checks run at intervals of at least 15 minutes and may be delayed by Android. Check Now submits a separate check that waits for a network connection.</string>
+    <string name="entry_monitor_queueing">Submitting…</string>
+    <string name="entry_monitor_queued_button">Check submitted</string>
+    <string name="entry_monitor_queued">Immediate check submitted. An existing pending check is reused. Android starts it when network and background conditions allow.</string>
+    <string name="entry_monitor_queue_failed">Could not submit the check. Please try again.</string>
+    <string name="entry_monitor_notification_settings">Monitor notifications</string>
+    <string name="entry_monitor_notifications_enabled">App notifications are enabled. Android notification channel settings also apply.</string>
+    <string name="entry_monitor_notifications_disabled">App notifications are disabled. Enable monitor notifications to receive page-change alerts.</string>
+    <string name="entry_backup_scope">This backup contains settings and Lite App definitions, including saved local scripts and monitor settings. It does not back up cookies, login sessions, site storage, cached pages, or launcher shortcuts.</string>
+    <string name="entry_backup_import_scope">Import replaces saved settings and Lite App definitions. Existing browsing data stays on this device; restoring a backup does not restore a signed-in session.</string>
+    <string name="shortcut_save_failed">Could not create or update the shortcut. Please try again.</string>
+</resources>

@@ -7,6 +7,7 @@ import android.view.View
 import androidx.activity.addCallback
 import androidx.appcompat.app.AppCompatActivity
 import com.cylonid.nativealpha.databinding.ActivityToolbarBaseBinding
+import com.cylonid.nativealpha.util.AppUpdateChecker
 import com.cylonid.nativealpha.util.ColorUtils.getColorResFromThemeAttr
 import com.mikepenz.aboutlibraries.LibsBuilder
 import mehdi.sakout.aboutpage.AboutPage
@@ -46,7 +47,28 @@ class AboutActivity : AppCompatActivity() {
                 """.trimIndent()
             )
             setImage(R.mipmap.ic_shellalpha_fg)
-            addItem(Element().setTitle("Version " + BuildConfig.VERSION_NAME))
+            addItem(
+                Element().setTitle("Version " + BuildConfig.VERSION_NAME)
+                    .setValue(getString(R.string.check_for_updates))
+                    .setOnClickListener {
+                        AppUpdateChecker.checkManually(this@AboutActivity)
+                    }
+            )
+            addItem(
+                Element().setTitle(getString(R.string.check_for_updates))
+                    .setIconDrawable(R.drawable.ic_system_update_24)
+                    .setIconTint(
+                        getColorResFromThemeAttr(
+                            this@AboutActivity,
+                            com.google.android.material.R.attr.colorOnSurface,
+                            R.color.about_github_color
+                        )
+                    )
+                    .setIconNightTint(R.color.about_item_dark_text_color)
+                    .setOnClickListener {
+                        AppUpdateChecker.checkManually(this@AboutActivity)
+                    }
+            )
             addItem(addGitHubCustom("postsoma-2050/Shell_Alpha", "GitHub"))
             addWebsite(
                 "https://github.com/postsoma-2050/Shell_Alpha/blob/main/privacy_policy.md",

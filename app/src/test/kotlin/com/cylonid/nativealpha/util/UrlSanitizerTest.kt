@@ -17,6 +17,17 @@ class UrlSanitizerTest {
     }
 
     @Test
+    fun removesExpandedHermitTrackingParameters() {
+        val input =
+            "https://example.com/page?keep=important&msclkid=123&twclid=456&igshid=789&mc_cid=abc&wbraid=def&gbraid=ghi"
+
+        assertEquals(
+            "https://example.com/page?keep=important",
+            UrlSanitizer.sanitizeTrackingParameters(input)
+        )
+    }
+
+    @Test
     fun leavesSignedAndOauthUrlsUntouched() {
         val input =
             "https://example.com/callback?utm_source=mail&access_token=secret&state=signed#code"

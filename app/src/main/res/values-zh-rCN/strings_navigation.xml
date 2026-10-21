@@ -4,4 +4,5 @@
     <string name="navigation_section_browse">浏览</string>
     <string name="navigation_section_app">应用</string>
     <string name="navigation_current_lite_apps">轻应用，当前页面</string>
+    <string name="navigation_brand_subtitle">轻应用与多沙盒浏览器</string>
 </resources>

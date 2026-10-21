@@ -10,4 +10,8 @@
     <string name="search_engine_invalid">Enter a valid http or https search URL with exactly one %s placeholder in its path or query.</string>
     <string name="theme_color_swatch_description">%1$s color</string>
     <string name="theme_color_swatch_selected_description">%1$s color, selected</string>
+    <string name="edit_lite_app_identity_title">Edit Lite App Information</string>
+    <string name="edit_lite_app_name">Lite App Name</string>
+    <string name="edit_lite_app_url">Start URL</string>
+    <string name="edit_lite_app_identity_hint">Tap to edit name and URL</string>
 </resources>

@@ -56,7 +56,7 @@
     </style>
 
     <style name="AppTheme.WebView">
-        <item name="android:statusBarColor">#373737</item>
+        <item name="android:statusBarColor">?attr/colorSurface</item>
     </style>
 
 

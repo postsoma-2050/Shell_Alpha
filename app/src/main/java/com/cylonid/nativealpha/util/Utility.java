@@ -12,6 +12,7 @@ public final class Utility {
     public static void setViewAndChildrenEnabled(View view, boolean enabled) {
         if (view == null) return;
 
+        view.setEnabled(enabled);
         view.setClickable(enabled);
         if (enabled) {
             view.setAlpha(1.0f);

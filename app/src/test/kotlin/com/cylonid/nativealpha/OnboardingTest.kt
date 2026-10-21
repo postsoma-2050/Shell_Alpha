@@ -114,7 +114,7 @@ class OnboardingTest {
                 activity.findViewById<MaterialButton>(R.id.btnContinue).text.toString()
             )
             assertEquals(
-                "了解沙箱边界",
+                "了解沙盒边界",
                 activity.findViewById<TextView>(R.id.onboardingSandboxTitle).text.toString()
             )
         }

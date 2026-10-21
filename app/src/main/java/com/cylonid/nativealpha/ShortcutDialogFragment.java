@@ -1,7 +1,10 @@
 package com.cylonid.nativealpha;
 
 import android.app.Dialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.ShortcutInfo;
 import android.content.pm.ShortcutManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -23,10 +26,10 @@ import androidx.core.content.pm.ShortcutInfoCompat;
 import androidx.core.content.pm.ShortcutManagerCompat;
 import androidx.core.graphics.drawable.IconCompat;
 import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.FragmentActivity;
 
 import com.cylonid.nativealpha.model.DataManager;
 import com.cylonid.nativealpha.model.WebApp;
-import com.cylonid.nativealpha.util.App;
 import com.cylonid.nativealpha.util.Const;
 import com.cylonid.nativealpha.util.NotificationUtils;
 import com.cylonid.nativealpha.util.ShortcutIconUtils;
@@ -46,6 +49,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.Collections;
 import java.util.Map;
 import java.util.TreeMap;
 import java.util.regex.Matcher;
@@ -68,6 +72,9 @@ enum IconFetchResult {
 
 public class ShortcutDialogFragment extends DialogFragment  {
 
+    private static final String ARG_WEBAPP_ID = "webapp_id";
+    private static final String STATE_TITLE = "shortcut_title";
+
     private WebApp webapp;
     private String base_url;
     private Bitmap bitmap;
@@ -75,11 +82,16 @@ public class ShortcutDialogFragment extends DialogFragment  {
     private CircularProgressBar uiProgressBar;
     private EditText uiTitle;
     private Thread faviconFetcherThread;
+    private CountDownTimer faviconFetchTimer;
+    private String restoredTitle;
 
     public ShortcutDialogFragment() {}
 
     public static ShortcutDialogFragment newInstance(WebApp webapp) {
         ShortcutDialogFragment frag = new ShortcutDialogFragment();
+        Bundle args = new Bundle();
+        args.putInt(ARG_WEBAPP_ID, webapp.getID());
+        frag.setArguments(args);
         frag.webapp = webapp;
         frag.base_url = webapp.getBaseUrl();
         frag.bitmap = null;
@@ -88,27 +100,80 @@ public class ShortcutDialogFragment extends DialogFragment  {
     }
 
     @Override
-    public void onDestroy() {
-        super.onDestroy();
-        if (faviconFetcherThread != null && faviconFetcherThread.isAlive()) {
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (webapp == null && getArguments() != null
+                && getArguments().containsKey(ARG_WEBAPP_ID)) {
+            int appId = getArguments().getInt(ARG_WEBAPP_ID);
+            DataManager manager = DataManager.getInstance();
+            manager.loadAppData();
+            // Resolve by identity: a deleted app must never fall back to a list position.
+            for (WebApp candidate : manager.getWebsites()) {
+                if (candidate != null && candidate.getID() == appId) {
+                    webapp = candidate;
+                    break;
+                }
+            }
+        }
+        if (webapp != null) {
+            base_url = webapp.getBaseUrl();
+            bitmap = ShortcutIconUtils.loadFavicon(requireContext(), webapp.getID());
+        }
+        if (savedInstanceState != null) {
+            restoredTitle = savedInstanceState.getString(STATE_TITLE);
+        }
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        if (uiTitle != null) {
+            outState.putString(STATE_TITLE, uiTitle.getText().toString());
+        }
+    }
+
+    private void stopFaviconFetching() {
+        if (faviconFetchTimer != null) {
+            faviconFetchTimer.cancel();
+            faviconFetchTimer = null;
+        }
+        if (faviconFetcherThread != null) {
             faviconFetcherThread.interrupt();
+            faviconFetcherThread = null;
             Log.d("CLEANUP", "Stopped running faviconfetcher");
         }
+    }
 
+    @Override
+    public void onDismiss(@NonNull DialogInterface dialog) {
+        stopFaviconFetching();
+        super.onDismiss(dialog);
+    }
+
+    @Override
+    public void onDestroyView() {
+        stopFaviconFetching();
+        uiTitle = null;
+        uiFavicon = null;
+        uiProgressBar = null;
+        super.onDestroyView();
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == CODE_OPEN_FILE && resultCode == RESULT_OK) {
+        if (requestCode == CODE_OPEN_FILE && resultCode == RESULT_OK
+                && data != null && data.getData() != null && isAdded() && uiFavicon != null) {
             Uri uri = data.getData();
             try {
                 bitmap = MediaStore.Images.Media.getBitmap(requireActivity().getContentResolver(), uri);
-                if (bitmap != null)
+                if (bitmap != null) {
+                    stopFaviconFetching();
                     applyNewBitmapToDialog();
+                }
 
             }
-            catch(IOException e) {
+            catch(IOException | SecurityException e) {
                 NotificationUtils.showToast(requireActivity(), getString(R.string.icon_not_found), Toast.LENGTH_SHORT);
                 e.printStackTrace();
             }
@@ -119,15 +184,19 @@ public class ShortcutDialogFragment extends DialogFragment  {
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
 
+        if (webapp == null) {
+            return new AlertDialog.Builder(requireActivity())
+                    .setMessage(R.string.webapp_not_found)
+                    .setPositiveButton(android.R.string.ok, null)
+                    .create();
+        }
+
         final View view = getLayoutInflater().inflate(R.layout.shortcut_dialog, null);
 
         final AlertDialog dialog = new AlertDialog.Builder(requireActivity())
                 .setView(view)
                 .setCancelable(false)
-                .setPositiveButton(android.R.string.ok, (dialog1, which) -> {
-                    addShortcutToHomeScreen(bitmap);
-                    dismiss();
-                })
+                .setPositiveButton(android.R.string.ok, null)
                 .setNegativeButton(android.R.string.cancel,  (dialog1, which) -> {
                     dismiss();
                 })
@@ -136,10 +205,12 @@ public class ShortcutDialogFragment extends DialogFragment  {
         uiTitle = view.findViewById(R.id.websiteTitle);
         uiFavicon = view.findViewById(R.id.favicon);
         uiProgressBar = view.findViewById(R.id.circularProgressBar);
+        uiTitle.setText(restoredTitle != null ? restoredTitle : webapp.getTitle());
 
         Button btnCustomIcon = view.findViewById(R.id.btnCustomIcon);
         btnCustomIcon.setOnClickListener(v -> {
 
+            stopFaviconFetching();
             uiProgressBar.setVisibility(View.GONE);
             uiFavicon.setVisibility(View.VISIBLE);
 
@@ -154,7 +225,14 @@ public class ShortcutDialogFragment extends DialogFragment  {
                 e.printStackTrace();
             }
         });
-        dialog.setOnShowListener(dialog12 -> startFaviconFetching());
+        dialog.setOnShowListener(dialog12 -> {
+            if (!isAdded() || uiTitle == null) return;
+            dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(v -> {
+                if (addShortcutToHomeScreen(bitmap)) dismiss();
+            });
+            if (bitmap != null) applyNewBitmapToDialog();
+            else startFaviconFetching();
+        });
 
         return dialog;
     }
@@ -308,71 +386,104 @@ public class ShortcutDialogFragment extends DialogFragment  {
 
     private void startFaviconFetching() {
 
+        stopFaviconFetching();
+        final FragmentActivity activity = requireActivity();
+        final String initialTitle = uiTitle.getText().toString();
         faviconFetcherThread = new Thread(() -> {
+            Thread worker = Thread.currentThread();
             String[] webappdata = fetchWebappData();
-            bitmap = loadBitmap(webappdata[IconFetchResult.FAVICON.index]);
-            if (isAdded()) {
-                requireActivity().runOnUiThread(() -> {
-
-                    applyNewBitmapToDialog();
+            if (worker.isInterrupted()) return;
+            Bitmap fetchedBitmap = loadBitmap(webappdata[IconFetchResult.FAVICON.index]);
+            activity.runOnUiThread(() -> {
+                // An interrupted request can still finish its network call after recreation.
+                if (faviconFetcherThread != worker || !isAdded() || uiTitle == null) return;
+                stopFaviconFetching();
+                bitmap = fetchedBitmap;
+                boolean titleUnchanged = restoredTitle == null
+                        && initialTitle.equals(uiTitle.getText().toString());
+                applyNewBitmapToDialog();
+                if (titleUnchanged) {
                     setShortcutTitle(webappdata[IconFetchResult.TITLE.index]);
-                    applyNewBaseUrl(webappdata[IconFetchResult.NEW_BASEURL.index]);
-
-                });
-            }
+                }
+                applyNewBaseUrl(webappdata[IconFetchResult.NEW_BASEURL.index]);
+            });
         });
         faviconFetcherThread.start();
 
-        new CountDownTimer(5000, 5000) {
+        faviconFetchTimer = new CountDownTimer(5000, 5000) {
             @Override
             public void onTick(long millisUntilFinished) { }
             public void onFinish() {
-                faviconFetcherThread.interrupt();
+                stopFaviconFetching();
+                if (isAdded() && uiTitle != null) prepareFailedUI();
             }
         }.start();
 
     }
 
 
-    private void addShortcutToHomeScreen(Bitmap bitmap) {
-        Intent intent = WebViewLauncher.createWebViewIntent(webapp, requireActivity());
-
-        IconCompat icon;
-        if (bitmap != null)
-            icon = IconCompat.createWithBitmap(bitmap);
-        else
-            icon = IconCompat.createWithResource(requireActivity(), R.mipmap.ic_shellalpha_fg);
-
-
-        String final_title = uiTitle.getText().toString();
-        if (final_title.equals(""))
-            final_title = webapp.getTitle();
-        if (webapp.getTitle().equals("")) {
-            final_title = "Unknown";
-        }
-
-        if (ShortcutManagerCompat.isRequestPinShortcutSupported(requireActivity())) {
-
-            ShortcutInfoCompat pinShortcutInfo = new ShortcutInfoCompat.Builder(requireActivity(), final_title)
-                    .setIcon(icon)
-                    .setShortLabel(final_title)
-                    .setLongLabel(final_title)
-                    .setIntent(intent)
-                    .build();
-            String newScId = pinShortcutInfo.getId();
-            ShortcutManager scManager = App.getAppContext().getSystemService(ShortcutManager.class);
-            if(!scManager.getPinnedShortcuts().stream().anyMatch(s -> s.getId().equals(newScId))) {
-                ShortcutManagerCompat.requestPinShortcut(requireActivity(), pinShortcutInfo, null);
-            } else {
-                NotificationUtils.showToast(requireActivity(), getString(R.string.shortcut_already_exists));
+    private boolean addShortcutToHomeScreen(Bitmap bitmap) {
+        try {
+            Intent intent = WebViewLauncher.createWebViewIntent(webapp, requireActivity());
+            if (intent == null) {
+                NotificationUtils.showToast(requireActivity(), getString(R.string.webview_activity_launch_failed));
+                return false;
             }
+            IconCompat icon = bitmap != null ? IconCompat.createWithBitmap(bitmap)
+                    : IconCompat.createWithResource(requireActivity(), R.mipmap.ic_shellalpha_fg);
+            ShortcutInfoCompat shortcut = buildShortcutInfo(requireContext(), webapp,
+                    uiTitle.getText().toString(), intent, icon);
+            if (shortcut != null && pinOrUpdateShortcut(requireContext(), shortcut)) return true;
+        } catch (RuntimeException e) {
+            Log.e("ShortcutDialog", "Could not save shortcut", e);
         }
+        NotificationUtils.showToast(requireActivity(), getString(R.string.shortcut_save_failed));
+        return false;
+    }
 
+    @Nullable
+    static ShortcutInfoCompat buildShortcutInfo(Context context, WebApp app,
+            @Nullable String enteredLabel, @Nullable Intent launchIntent, IconCompat icon) {
+        if (launchIntent == null) return null;
+        String label = enteredLabel == null ? "" : enteredLabel.trim();
+        if (label.isEmpty()) label = app.getTitle() == null ? "" : app.getTitle().trim();
+        if (label.isEmpty()) label = context.getString(R.string.app_name).trim();
+        if (label.isEmpty()) return null;
+
+        return new ShortcutInfoCompat.Builder(context, "lite-app-" + app.getID())
+                .setIcon(icon)
+                .setShortLabel(label)
+                .setLongLabel(label)
+                .setIntent(launchIntent)
+                .build();
+    }
+
+    static boolean pinOrUpdateShortcut(Context context, ShortcutInfoCompat shortcut) {
+        ShortcutManager manager = context.getSystemService(ShortcutManager.class);
+        if (manager == null) return false;
+        for (ShortcutInfo existing : manager.getPinnedShortcuts()) {
+            if (!existing.getId().equals(shortcut.getId())) continue;
+            Intent existingIntent = existing.getIntent();
+            // A legacy title can occupy the stable ID of a different app.
+            // Leave any shortcut without an unambiguous owner untouched.
+            if (existingIntent == null || !existingIntent.hasExtra(Const.INTENT_WEBAPPID)
+                    || !shortcut.getId().equals("lite-app-" +
+                            existingIntent.getIntExtra(Const.INTENT_WEBAPPID, -1))) {
+                return false;
+            }
+            if (!existing.isEnabled()) {
+                manager.enableShortcuts(Collections.singletonList(shortcut.getId()));
+            }
+            return ShortcutManagerCompat.updateShortcuts(context, Collections.singletonList(shortcut));
+        }
+        // Do not identify, delete, or migrate legacy shortcuts by their display title.
+        return ShortcutManagerCompat.isRequestPinShortcutSupported(context)
+                && ShortcutManagerCompat.requestPinShortcut(context, shortcut, null);
     }
 
     private void prepareFailedUI() {
         showFailedMessage();
-        if(webapp.getTitle() != null && !webapp.getTitle().equals("")) {
+        if(uiTitle.getText().toString().trim().isEmpty() && webapp.getTitle() != null) {
           uiTitle.setText(webapp.getTitle());
         }
 

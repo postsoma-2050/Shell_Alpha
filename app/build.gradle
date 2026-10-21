@@ -43,8 +43,8 @@ android {
         applicationId "com.cylonid.nativealpha"
         minSdkVersion 28
         targetSdkVersion 35
-        versionCode 1520
-        versionName "1.5.2"
+        versionCode 1530
+        versionName "1.5.3"
 
         resourceConfigurations += ['en', 'zh-rCN']
 
@@ -191,7 +191,7 @@ def generateWebViewActivities = tasks.register("extendAndroidManifest") {
                 "            android:configChanges=\"orientation|screenSize|smallestScreenSize|density|screenLayout|uiMode|keyboard|keyboardHidden|navigation\"\n" +
                 "            android:launchMode=\"standard\"\n" +
                 "            android:process=\":web_sandbox_" + String.valueOf(i) + "\"\n" +
-                "            android:documentLaunchMode=\"always\"\n" +
+                "            android:documentLaunchMode=\"intoExisting\"\n" +
                 "         />\n" +
                 "        <service\n" +
                 "            android:name=\"com.cylonid.nativealpha.media.BackgroundPlaybackService\$Sandbox" + String.valueOf(i) + "\"\n" +
@@ -212,21 +212,6 @@ def generateWebViewActivities = tasks.register("extendAndroidManifest") {
 preBuild.dependsOn generateWebViewActivities
 android.sourceSets.main.manifest.srcFile(generatedSandboxManifest)
 
-(0..<NUM_OF_CONTAINERS).each { int i ->
-    TaskProvider<Copy> trTask = tasks.register("createWebViewclass${i}", Copy) {
-        from 'src/main/java/com/cylonid/nativealpha/WebViewActivity.java'
-        into "src/main/java/com/cylonid/nativealpha/__WebViewActivity_${i}"
-        dependsOn(generateWebViewActivities)
-        mustRunAfter(i == 0 ? [] : tasks.getByName("createWebViewclass${i-1}"))
+// Sandboxed activities (__WebViewActivity_0 through 7) cleanly inherit from WebViewActivity
+// following Hermit's architectural pattern, eliminating 22,000+ lines of duplicate generated code.
 
-        filter { String line ->
-            line.replaceAll("WebViewActivity", "__WebViewActivity_${i}")
-        }
-
-        rename { String fileName ->
-            fileName.replace("WebViewActivity.java", "__WebViewActivity_${i}.java")
-        }
-    }
-
-    preBuild.dependsOn(trTask)
-}

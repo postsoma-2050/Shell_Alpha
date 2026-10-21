@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="browser_page_tools">Page tools</string>
+    <string name="browser_page_tools_swipe_hint">Swipe inward from the lower-right edge to open page tools. Change app settings from Lite Apps.</string>
+</resources>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="sandbox_default_count">默认：%1$d 个活跃轻应用</string>
-    <string name="sandbox_item_count">沙箱 #%1$d：%2$d 个活跃轻应用</string>
+    <string name="sandbox_item_count">沙盒 #%1$d：%2$d 个活跃轻应用</string>
     <string name="userscripts_empty_message">当前没有轻应用启用用户脚本。\n\n您可以在每个轻应用设置的“集成”中启用和编辑自定义 JavaScript。</string>
     <string name="userscripts_list_header">已启用自定义脚本的轻应用：\n</string>
     <string name="webmonitors_empty_message">当前未配置活跃网页监控。\n\n您可以在每个轻应用的快捷设置或“集成”菜单中开启 15 分钟后台监控。</string>

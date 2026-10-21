@@ -33,6 +33,11 @@
         android:resizeableActivity="true"
         android:fullBackupContent="true">
 
+        <provider
+            android:name="com.cylonid.nativealpha.model.ConfigurationProvider"
+            android:authorities="${applicationId}.configuration"
+            android:exported="false" />
+
         <activity
             android:name="com.cylonid.nativealpha.MainActivity"
             android:launchMode="singleTask"
@@ -61,7 +66,7 @@
             android:theme="@style/AppTheme.WebView"
             android:configChanges="orientation|screenSize|smallestScreenSize|density|screenLayout|uiMode|keyboard|keyboardHidden|navigation"
             android:launchMode="standard"
-            android:documentLaunchMode="always"
+            android:documentLaunchMode="intoExisting"
             />
  
         <!--Placeholder-->
@@ -87,6 +92,7 @@
             android:parentActivityName=".MainActivity"
             android:icon="@mipmap/native_alpha"
             android:roundIcon="@mipmap/native_alpha"
+            android:windowSoftInputMode="stateHidden|adjustResize"
             android:theme="@style/AppTheme">
         </activity>
 

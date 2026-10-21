@@ -10,11 +10,11 @@
     android:focusable="false"
     android:minHeight="72dp"
     app:cardBackgroundColor="?attr/colorSurfaceContainer"
-    app:cardCornerRadius="24dp"
+    app:cardCornerRadius="@dimen/card_corner_radius"
     app:cardElevation="0dp"
     app:rippleColor="?attr/colorPrimary"
     app:strokeColor="?attr/colorOutlineVariant"
-    app:strokeWidth="1dp">
+    app:strokeWidth="@dimen/hairline_stroke_width">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -65,7 +65,30 @@
                     android:layout_marginTop="2dp"
                     android:textAppearance="@style/TextAppearance.Material3.BodySmall"
                     android:textColor="?attr/colorOnSurfaceVariant" />
+
+                <TextView
+                    android:id="@+id/sandboxCurrent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="@string/sandbox_interaction_selected"
+                    android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
+                    android:textColor="?attr/colorPrimary"
+                    android:visibility="gone" />
             </LinearLayout>
+
+            <ImageView
+                android:id="@+id/btnSandboxEditName"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="@string/sandbox_action_rename"
+                android:clickable="true"
+                android:focusable="true"
+                android:padding="12dp"
+                android:src="@drawable/ic_edit_pencil_24"
+                android:visibility="gone"
+                app:tint="?attr/colorOnSurfaceVariant" />
 
             <ImageView
                 android:id="@+id/sandboxExpandIcon"
@@ -90,11 +113,20 @@
             android:paddingBottom="16dp"
             android:visibility="gone">
 
-            <View
+            <com.google.android.material.divider.MaterialDivider
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginBottom="8dp"
-                android:background="?attr/colorOutlineVariant" />
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                app:dividerColor="?attr/colorOutlineVariant" />
+
+            <TextView
+                android:id="@+id/sandboxAppsHeading"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="6dp"
+                android:text="@string/sandbox_apps_heading"
+                android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
+                android:textColor="?attr/colorOnSurfaceVariant" />
 
             <LinearLayout
                 android:id="@+id/sandboxAppList"
@@ -106,11 +138,158 @@
                 android:id="@+id/sandboxEmpty"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:minHeight="48dp"
+                android:minHeight="40dp"
                 android:gravity="center_vertical"
                 android:text="@string/sandbox_ui_empty"
-                android:textColor="?attr/colorOnSurfaceVariant"
-                android:textSize="14sp" />
+                android:textAppearance="?attr/textAppearanceBodyMedium"
+                android:textColor="?attr/colorOnSurfaceVariant" />
+
+            <com.google.android.material.divider.MaterialDivider
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:layout_marginBottom="12dp"
+                app:dividerColor="?attr/colorOutlineVariant" />
+
+            <LinearLayout
+                android:id="@+id/sandboxPolicyEditor"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/sandboxNameInputLayout"
+                    style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/sandbox_interaction_name"
+                    app:boxCornerRadiusBottomEnd="@dimen/input_corner_radius"
+                    app:boxCornerRadiusBottomStart="@dimen/input_corner_radius"
+                    app:boxCornerRadiusTopEnd="@dimen/input_corner_radius"
+                    app:boxCornerRadiusTopStart="@dimen/input_corner_radius"
+                    app:boxStrokeColor="?attr/colorPrimary"
+                    app:boxStrokeWidth="@dimen/hairline_stroke_width"
+                    app:boxStrokeWidthFocused="2dp"
+                    app:startIconDrawable="@drawable/ic_edit_pencil_24"
+                    app:startIconTint="?attr/colorOnSurfaceVariant">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/sandboxNameInput"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:autofillHints=""
+                        android:imeOptions="actionDone"
+                        android:inputType="textCapSentences"
+                        android:maxLength="60"
+                        android:maxLines="1"
+                        android:minHeight="48dp"
+                        android:selectAllOnFocus="true"
+                        android:textAppearance="?attr/textAppearanceBodyMedium"
+                        android:textColor="?attr/colorOnSurface" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnSandboxSaveName"
+                    style="@style/Widget.Material3.Button.TonalButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:layout_marginTop="8dp"
+                    android:minHeight="44dp"
+                    android:text="@string/sandbox_interaction_save_name"
+                    app:cornerRadius="@dimen/button_corner_radius" />
+
+                <com.google.android.material.materialswitch.MaterialSwitch
+                    android:id="@+id/switchSandboxCookies"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:minHeight="48dp"
+                    android:text="@string/sandbox_interaction_allow_cookies" />
+
+                <TextView
+                    android:id="@+id/sandboxPolicyImpact"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="12dp"
+                    android:text="@string/sandbox_interaction_cookie_scope"
+                    android:textAppearance="@style/TextAppearance.Material3.BodySmall"
+                    android:textColor="?attr/colorOnSurfaceVariant" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/sandboxActionsBar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:gravity="end"
+                android:orientation="horizontal">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnSandboxClearData"
+                    style="@style/Widget.Material3.Button.OutlinedButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:minHeight="48dp"
+                    android:text="@string/sandbox_action_clear_data"
+                    app:icon="@drawable/ic_delete_black_24dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/sandboxLegacyRecovery"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:labelFor="@id/spinnerSandboxLegacySession"
+                    android:text="@string/sandbox_interaction_recover_title"
+                    android:textAppearance="@style/TextAppearance.Material3.TitleSmall"
+                    android:textColor="?attr/colorOnSurface" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="@string/sandbox_interaction_recover_help"
+                    android:textAppearance="@style/TextAppearance.Material3.BodySmall"
+                    android:textColor="?attr/colorOnSurfaceVariant" />
+
+                <Spinner
+                    android:id="@+id/spinnerSandboxLegacySession"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:minHeight="48dp" />
+
+                <TextView
+                    android:id="@+id/txtSandboxRecoverySource"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:text="@string/sandbox_interaction_recover_unknown_source"
+                    android:textAppearance="@style/TextAppearance.Material3.BodySmall"
+                    android:textColor="?attr/colorOnSurfaceVariant"
+                    android:visibility="gone" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnSandboxRecoverSession"
+                    style="@style/Widget.Material3.Button.TonalButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:minHeight="48dp"
+                    android:text="@string/sandbox_interaction_recover_action" />
+
+                <TextView
+                    android:id="@+id/txtSandboxRecoveryStatus"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:accessibilityLiveRegion="polite"
+                    android:textAppearance="@style/TextAppearance.Material3.BodySmall"
+                    android:textColor="?attr/colorOnSurfaceVariant" />
+            </LinearLayout>
         </LinearLayout>
     </LinearLayout>
 

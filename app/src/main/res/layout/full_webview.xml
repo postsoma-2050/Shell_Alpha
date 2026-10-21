@@ -1,13 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/browser_drawer_container"
+    android:id="@+id/browserWindowRoot"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="?attr/colorSurface"
-    android:fitsSystemWindows="true"
+    android:fitsSystemWindows="false"
     tools:context=".WebViewActivity">
+
+    <com.cylonid.nativealpha.browser.BrowserDrawerLayout
+        android:id="@+id/browser_drawer_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="false">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/webviewActivity"
@@ -22,7 +28,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toBottomOf="@id/browser_toolbar_container">
 
             <WebView
                 android:id="@+id/webview"
@@ -67,6 +73,8 @@
             android:id="@+id/browser_toolbar_container"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:clickable="true"
+            android:focusable="true"
             android:layout_marginHorizontal="8dp"
             android:layout_marginVertical="6dp"
             android:background="@drawable/browser_toolbar_background"
@@ -166,6 +174,44 @@
                 app:iconTint="?attr/colorOnSurfaceVariant" />
         </LinearLayout>
 
+        <include
+            android:id="@+id/browserFindBar"
+            layout="@layout/browser_find_bar"
+            android:layout_width="0dp"
+            android:layout_height="56dp"
+            android:layout_marginHorizontal="8dp"
+            android:layout_marginVertical="6dp"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/browser_toolbar_container" />
+
+        <include
+            android:id="@+id/browserReaderControls"
+            layout="@layout/browser_reader_controls"
+            android:layout_width="0dp"
+            android:layout_height="56dp"
+            android:layout_marginHorizontal="8dp"
+            android:layout_marginVertical="6dp"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/browser_toolbar_container" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnBrowserRestoreControls"
+            style="@style/Widget.Material3.Button.TextButton"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:contentDescription="@string/browser_restore_controls_description"
+            android:text="@string/browser_restore_controls"
+            android:visibility="gone"
+            app:icon="@drawable/ic_quick_settings"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -175,10 +221,19 @@
         android:layout_height="match_parent"
         android:layout_gravity="end"
         android:background="@drawable/browser_drawer_background"
+        android:clickable="true"
+        android:focusable="true"
         android:clipToPadding="false"
         android:elevation="8dp"
-        android:fitsSystemWindows="true"
+        android:fitsSystemWindows="false"
         android:orientation="vertical">
+
+        <include
+            android:id="@+id/framelessPageTools"
+            layout="@layout/frameless_page_tools"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone" />
 
         <androidx.core.widget.NestedScrollView
             android:id="@+id/quickSettingsScroll"
@@ -256,15 +311,44 @@
                         android:textAppearance="@style/TextAppearance.Material3.BodySmall"
                         android:textColor="?attr/colorOnSurfaceVariant" />
 
-                    <TextView
-                        android:id="@+id/txtQuickSettingsSandbox"
+                    <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
-                        android:background="@drawable/sandbox_badge_background"
-                        android:paddingHorizontal="8dp"
-                        android:paddingVertical="2dp"
-                        android:textAppearance="@style/TextAppearance.Material3.LabelSmall" />
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/txtQuickSettingsSandbox"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/sandbox_badge_background"
+                            android:clickable="true"
+                            android:focusable="true"
+                            android:foreground="?attr/selectableItemBackground"
+                            android:gravity="center"
+                            android:minWidth="48dp"
+                            android:minHeight="48dp"
+                            android:paddingHorizontal="12dp"
+                            android:paddingVertical="4dp"
+                            android:maxLines="1"
+                            android:ellipsize="end"
+                            android:contentDescription="@string/change_sandbox"
+                            android:textAppearance="@style/TextAppearance.Material3.LabelSmall" />
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btnQuickSwitchSandbox"
+                            style="@style/Widget.Material3.Button.IconButton"
+                            android:layout_width="48dp"
+                            android:layout_height="48dp"
+                            android:minWidth="48dp"
+                            android:minHeight="48dp"
+                            android:layout_marginStart="4dp"
+                            android:contentDescription="@string/change_sandbox"
+                            app:icon="@drawable/ic_settings_gear_24"
+                            app:iconSize="20dp"
+                            app:iconTint="?attr/colorOnSurfaceVariant" />
+                    </LinearLayout>
                 </LinearLayout>
 
                 <com.google.android.material.button.MaterialButton
@@ -302,6 +386,77 @@
                 android:text="@string/browser_customize_this_app"
                 android:textAppearance="@style/TextAppearance.Material3.BodyMedium" />
 
+            <com.google.android.material.materialswitch.MaterialSwitch
+                android:id="@+id/switchQuickFullscreen"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="48dp"
+                android:text="@string/show_fullscreen"
+                android:textAppearance="@style/TextAppearance.Material3.BodyMedium" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardQuickTextZoom"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:layout_marginBottom="6dp"
+                app:cardBackgroundColor="?attr/colorSurfaceContainer"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="0dp"
+                app:strokeColor="?attr/colorOutlineVariant"
+                app:strokeWidth="1dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingHorizontal="12dp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/text_zoom"
+                        android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
+                        android:textColor="?attr/colorOnSurface" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnQuickZoomDecrease"
+                        style="@style/Widget.Material3.Button.IconButton"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:contentDescription="@string/decrease_text_size"
+                        app:icon="@drawable/ic_remove_24dp"
+                        app:iconSize="18dp"
+                        app:iconTint="?attr/colorOnSurface" />
+
+                    <TextView
+                        android:id="@+id/txtQuickZoomValue"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:minWidth="48dp"
+                        android:gravity="center"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:background="?attr/selectableItemBackground"
+                        android:text="100%"
+                        android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
+                        android:textStyle="bold"
+                        android:textColor="?attr/colorPrimary" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnQuickZoomIncrease"
+                        style="@style/Widget.Material3.Button.IconButton"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:contentDescription="@string/increase_text_size"
+                        app:icon="@drawable/ic_add_24dp"
+                        app:iconSize="18dp"
+                        app:iconTint="?attr/colorOnSurface" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -320,17 +475,17 @@
                 android:useDefaultMargins="false">
 
                 <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/cardQuickDesktop"
+                    android:id="@+id/cardCopyUrl"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_columnWeight="1"
                     android:layout_margin="4dp"
-                    android:accessibilityLiveRegion="polite"
                     android:clickable="true"
-                    android:contentDescription="@string/browser_action_desktop"
+                    android:contentDescription="@string/copy_url"
                     android:focusable="true"
+                    android:minHeight="64dp"
                     app:cardBackgroundColor="?attr/colorSurfaceContainer"
-                    app:cardCornerRadius="18dp"
+                    app:cardCornerRadius="14dp"
                     app:cardElevation="0dp"
                     app:rippleColor="?attr/colorControlHighlight"
                     app:strokeColor="?attr/colorOutlineVariant"
@@ -340,12 +495,148 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:minHeight="88dp"
+                        android:minHeight="64dp"
                         android:orientation="vertical">
 
                         <ImageView
-                            android:layout_width="26dp"
-                            android:layout_height="26dp"
+                            android:layout_width="22dp"
+                            android:layout_height="22dp"
+                            android:contentDescription="@null"
+                            android:src="@drawable/ic_baseline_content_copy_24"
+                            app:tint="?attr/colorOnSurface" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:gravity="center"
+                            android:maxLines="3"
+                            android:ellipsize="end"
+                            android:paddingHorizontal="4dp"
+                            android:paddingBottom="4dp"
+                            android:text="@string/copy_url"
+                            android:textAppearance="@style/TextAppearance.Material3.LabelMedium" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cardFindInPage"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_columnWeight="1"
+                    android:layout_margin="4dp"
+                    android:clickable="true"
+                    android:contentDescription="@string/browser_find_in_page"
+                    android:focusable="true"
+                    android:minHeight="64dp"
+                    app:cardBackgroundColor="?attr/colorSurfaceContainer"
+                    app:cardCornerRadius="14dp"
+                    app:cardElevation="0dp"
+                    app:rippleColor="?attr/colorControlHighlight"
+                    app:strokeColor="?attr/colorOutlineVariant"
+                    app:strokeWidth="1dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:minHeight="64dp"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:layout_width="22dp"
+                            android:layout_height="22dp"
+                            android:contentDescription="@null"
+                            android:src="@drawable/ic_baseline_search_24"
+                            app:tint="?attr/colorOnSurface" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:gravity="center"
+                            android:maxLines="3"
+                            android:ellipsize="end"
+                            android:paddingHorizontal="4dp"
+                            android:paddingBottom="4dp"
+                            android:text="@string/browser_find_in_page"
+                            android:textAppearance="@style/TextAppearance.Material3.LabelMedium" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cardReaderMode"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_columnWeight="1"
+                    android:layout_margin="4dp"
+                    android:clickable="true"
+                    android:contentDescription="@string/browser_reader_mode"
+                    android:focusable="true"
+                    android:minHeight="64dp"
+                    app:cardBackgroundColor="?attr/colorSurfaceContainer"
+                    app:cardCornerRadius="14dp"
+                    app:cardElevation="0dp"
+                    app:rippleColor="?attr/colorControlHighlight"
+                    app:strokeColor="?attr/colorOutlineVariant"
+                    app:strokeWidth="1dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:minHeight="64dp"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:layout_width="22dp"
+                            android:layout_height="22dp"
+                            android:contentDescription="@null"
+                            android:src="@drawable/ic_reader_mode"
+                            app:tint="?attr/colorOnSurface" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:gravity="center"
+                            android:maxLines="3"
+                            android:ellipsize="end"
+                            android:paddingHorizontal="4dp"
+                            android:paddingBottom="4dp"
+                            android:text="@string/browser_reader_mode"
+                            android:textAppearance="@style/TextAppearance.Material3.LabelMedium" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cardQuickDesktop"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_columnWeight="1"
+                    android:layout_margin="4dp"
+                    android:accessibilityLiveRegion="polite"
+                    android:clickable="true"
+                    android:contentDescription="@string/browser_action_desktop"
+                    android:focusable="true"
+                    android:minHeight="64dp"
+                    app:cardBackgroundColor="?attr/colorSurfaceContainer"
+                    app:cardCornerRadius="14dp"
+                    app:cardElevation="0dp"
+                    app:rippleColor="?attr/colorControlHighlight"
+                    app:strokeColor="?attr/colorOutlineVariant"
+                    app:strokeWidth="1dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:minHeight="64dp"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:layout_width="22dp"
+                            android:layout_height="22dp"
                             android:contentDescription="@null"
                             android:src="@drawable/ic_desktop"
                             app:tint="?attr/colorOnSurface" />
@@ -354,11 +645,12 @@
                             android:id="@+id/txtQuickDesktopState"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="6dp"
+                            android:layout_marginTop="4dp"
                             android:gravity="center"
                             android:maxLines="3"
-                            android:paddingHorizontal="8dp"
-                            android:paddingBottom="8dp"
+                            android:ellipsize="end"
+                            android:paddingHorizontal="4dp"
+                            android:paddingBottom="4dp"
                             android:text="@string/desktop"
                             android:textAppearance="@style/TextAppearance.Material3.LabelMedium" />
                     </LinearLayout>
@@ -374,8 +666,9 @@
                     android:clickable="true"
                     android:contentDescription="@string/browser_action_frameless"
                     android:focusable="true"
+                    android:minHeight="64dp"
                     app:cardBackgroundColor="?attr/colorSurfaceContainer"
-                    app:cardCornerRadius="18dp"
+                    app:cardCornerRadius="14dp"
                     app:cardElevation="0dp"
                     app:rippleColor="?attr/colorControlHighlight"
                     app:strokeColor="?attr/colorOutlineVariant"
@@ -385,12 +678,12 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:minHeight="88dp"
+                        android:minHeight="64dp"
                         android:orientation="vertical">
 
                         <ImageView
-                            android:layout_width="26dp"
-                            android:layout_height="26dp"
+                            android:layout_width="22dp"
+                            android:layout_height="22dp"
                             android:contentDescription="@null"
                             android:src="@drawable/ic_fullscreen"
                             app:tint="?attr/colorOnSurface" />
@@ -399,11 +692,12 @@
                             android:id="@+id/txtQuickFramelessState"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="6dp"
+                            android:layout_marginTop="4dp"
                             android:gravity="center"
                             android:maxLines="3"
-                            android:paddingHorizontal="8dp"
-                            android:paddingBottom="8dp"
+                            android:ellipsize="end"
+                            android:paddingHorizontal="4dp"
+                            android:paddingBottom="4dp"
                             android:text="@string/frameless"
                             android:textAppearance="@style/TextAppearance.Material3.LabelMedium" />
                     </LinearLayout>
@@ -419,8 +713,9 @@
                     android:clickable="true"
                     android:contentDescription="@string/browser_action_dark_mode"
                     android:focusable="true"
+                    android:minHeight="64dp"
                     app:cardBackgroundColor="?attr/colorSurfaceContainer"
-                    app:cardCornerRadius="18dp"
+                    app:cardCornerRadius="14dp"
                     app:cardElevation="0dp"
                     app:rippleColor="?attr/colorControlHighlight"
                     app:strokeColor="?attr/colorOutlineVariant"
@@ -430,12 +725,12 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:minHeight="88dp"
+                        android:minHeight="64dp"
                         android:orientation="vertical">
 
                         <ImageView
-                            android:layout_width="26dp"
-                            android:layout_height="26dp"
+                            android:layout_width="22dp"
+                            android:layout_height="22dp"
                             android:contentDescription="@null"
                             android:src="@drawable/ic_dark_mode"
                             app:tint="?attr/colorOnSurface" />
@@ -444,11 +739,12 @@
                             android:id="@+id/txtQuickDarkModeState"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="6dp"
+                            android:layout_marginTop="4dp"
                             android:gravity="center"
                             android:maxLines="3"
-                            android:paddingHorizontal="8dp"
-                            android:paddingBottom="8dp"
+                            android:ellipsize="end"
+                            android:paddingHorizontal="4dp"
+                            android:paddingBottom="4dp"
                             android:text="@string/dark_mode"
                             android:textAppearance="@style/TextAppearance.Material3.LabelMedium" />
                     </LinearLayout>
@@ -463,8 +759,9 @@
                     android:clickable="true"
                     android:contentDescription="@string/browser_action_share"
                     android:focusable="true"
+                    android:minHeight="64dp"
                     app:cardBackgroundColor="?attr/colorSurfaceContainer"
-                    app:cardCornerRadius="18dp"
+                    app:cardCornerRadius="14dp"
                     app:cardElevation="0dp"
                     app:rippleColor="?attr/colorControlHighlight"
                     app:strokeColor="?attr/colorOutlineVariant"
@@ -474,12 +771,12 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:minHeight="88dp"
+                        android:minHeight="64dp"
                         android:orientation="vertical">
 
                         <ImageView
-                            android:layout_width="26dp"
-                            android:layout_height="26dp"
+                            android:layout_width="22dp"
+                            android:layout_height="22dp"
                             android:contentDescription="@null"
                             android:src="@drawable/ic_baseline_share_24"
                             app:tint="?attr/colorOnSurface" />
@@ -487,11 +784,12 @@
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="6dp"
+                            android:layout_marginTop="4dp"
                             android:gravity="center"
-                            android:maxLines="2"
-                            android:paddingHorizontal="8dp"
-                            android:paddingBottom="8dp"
+                            android:maxLines="3"
+                            android:ellipsize="end"
+                            android:paddingHorizontal="4dp"
+                            android:paddingBottom="4dp"
                             android:text="@string/share"
                             android:textAppearance="@style/TextAppearance.Material3.LabelMedium" />
                     </LinearLayout>
@@ -506,8 +804,9 @@
                     android:clickable="true"
                     android:contentDescription="@string/browser_action_external"
                     android:focusable="true"
+                    android:minHeight="64dp"
                     app:cardBackgroundColor="?attr/colorSurfaceContainer"
-                    app:cardCornerRadius="18dp"
+                    app:cardCornerRadius="14dp"
                     app:cardElevation="0dp"
                     app:rippleColor="?attr/colorControlHighlight"
                     app:strokeColor="?attr/colorOutlineVariant"
@@ -517,12 +816,12 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:minHeight="88dp"
+                        android:minHeight="64dp"
                         android:orientation="vertical">
 
                         <ImageView
-                            android:layout_width="26dp"
-                            android:layout_height="26dp"
+                            android:layout_width="22dp"
+                            android:layout_height="22dp"
                             android:contentDescription="@null"
                             android:src="@drawable/ic_baseline_open_in_browser_24"
                             app:tint="?attr/colorOnSurface" />
@@ -530,11 +829,12 @@
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="6dp"
+                            android:layout_marginTop="4dp"
                             android:gravity="center"
-                            android:maxLines="2"
-                            android:paddingHorizontal="8dp"
-                            android:paddingBottom="8dp"
+                            android:maxLines="3"
+                            android:ellipsize="end"
+                            android:paddingHorizontal="4dp"
+                            android:paddingBottom="4dp"
                             android:text="@string/external"
                             android:textAppearance="@style/TextAppearance.Material3.LabelMedium" />
                     </LinearLayout>
@@ -549,8 +849,9 @@
                     android:clickable="true"
                     android:contentDescription="@string/browser_action_shortcut"
                     android:focusable="true"
+                    android:minHeight="64dp"
                     app:cardBackgroundColor="?attr/colorSurfaceContainer"
-                    app:cardCornerRadius="18dp"
+                    app:cardCornerRadius="14dp"
                     app:cardElevation="0dp"
                     app:rippleColor="?attr/colorControlHighlight"
                     app:strokeColor="?attr/colorOutlineVariant"
@@ -560,12 +861,12 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:minHeight="88dp"
+                        android:minHeight="64dp"
                         android:orientation="vertical">
 
                         <ImageView
-                            android:layout_width="26dp"
-                            android:layout_height="26dp"
+                            android:layout_width="22dp"
+                            android:layout_height="22dp"
                             android:contentDescription="@null"
                             android:src="@drawable/ic_shortcut"
                             app:tint="?attr/colorOnSurface" />
@@ -573,11 +874,12 @@
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="6dp"
+                            android:layout_marginTop="4dp"
                             android:gravity="center"
-                            android:maxLines="2"
-                            android:paddingHorizontal="8dp"
-                            android:paddingBottom="8dp"
+                            android:maxLines="3"
+                            android:ellipsize="end"
+                            android:paddingHorizontal="4dp"
+                            android:paddingBottom="4dp"
                             android:text="@string/shortcut"
                             android:textAppearance="@style/TextAppearance.Material3.LabelMedium" />
                     </LinearLayout>
@@ -664,6 +966,7 @@
         </androidx.core.widget.NestedScrollView>
 
         <View
+            android:id="@+id/quickSettingsDivider"
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="?attr/colorOutlineVariant" />
@@ -672,6 +975,8 @@
             android:id="@+id/quickSettingsNavigation"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:clickable="true"
+            android:focusable="true"
             android:gravity="center_vertical"
             android:minHeight="72dp"
             android:orientation="horizontal"
@@ -732,4 +1037,5 @@
                     app:backgroundTint="?attr/colorPrimaryContainer" />
         </LinearLayout>
     </LinearLayout>
-</androidx.drawerlayout.widget.DrawerLayout>
+</com.cylonid.nativealpha.browser.BrowserDrawerLayout>
+</FrameLayout>

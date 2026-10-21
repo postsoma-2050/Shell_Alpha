@@ -38,6 +38,7 @@ public class BackgroundPlaybackService extends Service {
 
     private static final String CHANNEL_ID = "background_media_playback";
     private static final String ACTION_STOP = "com.cylonid.nativealpha.STOP_BACKGROUND_MEDIA";
+    private static final long WAKELOCK_TIMEOUT_MS = 30 * 60 * 1000L;
     private static final List<WeakReference<Client>> clients = new ArrayList<>();
     private static volatile BackgroundPlaybackService runningService;
     private boolean foregroundStarted;
@@ -183,13 +184,14 @@ public class BackgroundPlaybackService extends Service {
                 wakeLock = power.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, getPackageName() + ":background-media");
                 wakeLock.setReferenceCounted(false);
             }
-            if (!wakeLock.isHeld()) wakeLock.acquire();
+            if (!wakeLock.isHeld()) wakeLock.acquire(WAKELOCK_TIMEOUT_MS);
         } catch (IllegalStateException | SecurityException exception) {
             Log.w("BackgroundMedia", "Unable to keep playback in the foreground", exception);
             stopAllPlayback();
         }
     }
 
+    @SuppressLint("ForegroundServiceType")
     private void enterForeground(Notification notification) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
             startForeground(notificationId(), notification, ServiceInfo.FOREGROUND_SERVICE_TYPE_MEDIA_PLAYBACK);

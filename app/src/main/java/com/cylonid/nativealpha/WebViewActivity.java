@@ -8,6 +8,8 @@ import android.app.DownloadManager;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Intent;
+import android.content.ActivityNotFoundException;
+import android.content.pm.PackageManager;
 import android.content.res.ColorStateList;
 import android.content.res.Configuration;
 import android.content.res.Resources;
@@ -23,6 +25,7 @@ import android.os.Handler;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Message;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.StyleSpan;
@@ -31,6 +34,7 @@ import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.MotionEvent;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.WindowInsets;
 import android.view.WindowInsetsController;
@@ -49,6 +53,11 @@ import android.webkit.WebResourceRequest;
 import android.webkit.WebResourceResponse;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.view.ViewGroup;
+import android.webkit.JsPromptResult;
+import android.webkit.JsResult;
+import android.webkit.WebSettings;
+import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.PopupMenu;
 import android.widget.ProgressBar;
@@ -63,6 +72,10 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.app.ShareCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
+import androidx.core.graphics.Insets;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.webkit.WebSettingsCompat;
 import androidx.webkit.WebViewFeature;
@@ -76,17 +89,34 @@ import com.cylonid.nativealpha.media.BackgroundPlaybackController;
 import com.cylonid.nativealpha.model.AdblockConfig;
 import com.cylonid.nativealpha.model.DataManager;
 import com.cylonid.nativealpha.model.SandboxManager;
+import com.cylonid.nativealpha.model.SandboxPreferences;
+import com.cylonid.nativealpha.browser.BrowserOriginPolicy;
+import com.cylonid.nativealpha.browser.PageFindController;
+import com.cylonid.nativealpha.browser.BrowserPageToolsController;
+import com.cylonid.nativealpha.browser.BrowserThemeController;
+import com.cylonid.nativealpha.browser.BrowserPrintController;
+import com.cylonid.nativealpha.browser.BrowserReaderController;
+import com.cylonid.nativealpha.browser.BrowserBarsController;
+import com.cylonid.nativealpha.browser.BrowserDrawerLayout;
+import com.cylonid.nativealpha.browser.BrowserDownloadController;
+import com.cylonid.nativealpha.browser.BrowserHeadersPolicy;
+import com.cylonid.nativealpha.browser.BrowserJsDialogHelper;
+import com.cylonid.nativealpha.browser.BrowserPermissionsController;
+import com.cylonid.nativealpha.browser.BrowserQuickSettingsController;
+import com.cylonid.nativealpha.browser.BrowserContextMenuController;
+import com.cylonid.nativealpha.browser.BrowserSandboxDialogHelper;
+import com.cylonid.nativealpha.browser.BrowserSecurityPolicy;
 import com.cylonid.nativealpha.model.WebApp;
 import com.cylonid.nativealpha.util.Const;
 import com.cylonid.nativealpha.util.ColorPalette;
 import com.cylonid.nativealpha.util.DateUtils;
 import com.cylonid.nativealpha.util.EntryPointUtils;
-import com.cylonid.nativealpha.util.LocaleUtils;
 import com.cylonid.nativealpha.util.NotificationUtils;
 import com.cylonid.nativealpha.util.ShortcutIconUtils;
 import com.cylonid.nativealpha.util.UrlSanitizer;
 import com.cylonid.nativealpha.util.Utility;
 import com.cylonid.nativealpha.util.WebViewLauncher;
+import com.cylonid.nativealpha.adapter.SandboxChoiceAdapter;
 import com.google.android.material.color.MaterialColors;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.button.MaterialButton;
@@ -94,23 +124,22 @@ import com.google.android.material.materialswitch.MaterialSwitch;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.gson.Gson;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Set;
 import java.util.stream.Stream;
 
 import io.github.edsuns.adfilter.AdFilter;
 import io.github.edsuns.adfilter.Filter;
+import io.github.edsuns.adfilter.FilterResult;
 import pub.devrel.easypermissions.EasyPermissions;
 
-import static com.cylonid.nativealpha.util.Const.CODE_OPEN_FILE;
 
 public class WebViewActivity extends AppCompatActivity implements EasyPermissions.PermissionCallbacks {
 
@@ -129,21 +158,29 @@ public class WebViewActivity extends AppCompatActivity implements EasyPermission
     private int appliedDrawerWidth;
     private TextView toolbarTitle;
     private TextView toolbarSubtitle;
-    private TextView quickSettingsTitle;
-    private TextView quickSettingsHost;
-    private TextView quickSettingsSandbox;
-    private ImageView quickSettingsFavicon;
-    private LinearLayout quickColorSwatches;
-    private MaterialSwitch quickOverrideSwitch;
-    private boolean updatingQuickSettings;
+    private BrowserQuickSettingsController quickSettingsController;
+    private String lastLongClickedUrl = null;
     private boolean pageLoading;
     private String defaultUserAgent;
     private boolean currently_reloading = true;
-    private GeolocationPermissions.Callback mGeoPermissionRequestCallback = null;
-    private String mGeoPermissionRequestOrigin = null;
+    private BrowserDownloadController downloadController;
+    private BrowserJsDialogHelper jsDialogHelper;
+    private BrowserPermissionsController permissionsController;
     private DownloadManager.Request dl_request = null;
     private Map<String, String> CUSTOM_HEADERS;
     protected ValueCallback<Uri[]> filePathCallback;
+    private int activeFileRequestCode = -1;
+    private BrowserPermissionsController.PendingMediaPermission pendingMediaPermission;
+    private final List<WebView> popupParents = new ArrayList<>();
+    private View mediaCustomView;
+    private WebChromeClient.CustomViewCallback mediaCustomViewCallback;
+    private BrowserBarsController barsController;
+    private WebView rootWebView;
+    private PageFindController pageFind;
+    private BrowserPageToolsController pageToolsController;
+    private BrowserThemeController themeController;
+    private BrowserReaderController readerController;
+    private BrowserPrintController printController;
 
     private boolean quitOnNextBackpress = false;
     private final Handler backExitHandler = new Handler();
@@ -151,11 +188,10 @@ public class WebViewActivity extends AppCompatActivity implements EasyPermission
     private Handler reload_handler = null;
     private volatile WebApp webapp = null;
     private BackgroundPlaybackController backgroundPlaybackController;
-    private WebApp settingsFromEditor;
-    private String lastLoadedSettingsJson;
     private String urlOnFirstPageload = "";
     private boolean fallbackToDefaultLongClickBehaviour = false;
-    private PopupMenu mPopupMenu = null;
+    private BrowserSandboxDialogHelper sandboxDialogHelper;
+    private BrowserContextMenuController contextMenuController;
     private float pullToRefreshStartY = 0f;
     private boolean pullToRefreshArmed = false;
 
@@ -169,21 +205,52 @@ public class WebViewActivity extends AppCompatActivity implements EasyPermission
         super.onCreate(savedInstanceState);
 
         adblockLifecycleHelper = new AdblockLifecycleHelper(this);
-        adblockLifecycleHelper.trySyncOperation(() -> adFilter = AdFilter.Companion.get(getApplicationContext()));
-
-        adblockProviderApiHelper = new AdblockProviderApiHelper(adFilter);
+        adblockLifecycleHelper.trySyncOperation(() -> {
+            try {
+                adFilter = AdFilter.Companion.get(getApplicationContext());
+            } catch (Exception e) {
+                try {
+                    adFilter = AdFilter.Companion.create(getApplicationContext());
+                } catch (Exception ex) {
+                    Log.w("WebViewActivity", "Unable to create AdFilter: " + ex.getMessage());
+                }
+            }
+        });
+        if (adFilter == null) {
+            try {
+                adFilter = AdFilter.Companion.get(getApplicationContext());
+            } catch (Exception e) {
+                try {
+                    adFilter = AdFilter.Companion.create(getApplicationContext());
+                } catch (Exception ex) {
+                    Log.w("WebViewActivity", "Unable to create AdFilter fallback: " + ex.getMessage());
+                }
+            }
+        }
+        if (adFilter != null) {
+            adblockProviderApiHelper = new AdblockProviderApiHelper(adFilter);
+        }
         webappID = getIntent().getIntExtra(Const.INTENT_WEBAPPID, -1);
         EntryPointUtils.entryPointReached(this);
         webapp = DataManager.getInstance().getWebApp(webappID);
         if (webapp == null) {
             // Toast is shown in getWebApp method
             finish();
+            return;
+        }
+
+        SandboxManager.getInstance().normalizeSandbox(webapp);
+        Class<?> targetClass = WebViewLauncher.getWebViewClass(webapp);
+        if (!this.getClass().equals(targetClass)) {
+            WebViewLauncher.startWebViewInNewProcess(webapp, this);
+            finish();
+            return;
+        }
+
+        if (webapp.isBiometricProtection()) {
+            new BiometricPromptHelper(WebViewActivity.this).showPrompt(this::setupWebView, this::finish, getString(R.string.bioprompt_restricted_webapp));
         } else {
-            if (webapp.isBiometricProtection()) {
-                new BiometricPromptHelper(WebViewActivity.this).showPrompt(this::setupWebView, this::finish, getString(R.string.bioprompt_restricted_webapp));
-            } else {
-                setupWebView();
-            }
+            setupWebView();
         }
     }
 
@@ -194,20 +261,7 @@ public class WebViewActivity extends AppCompatActivity implements EasyPermission
         if (isWebViewSetup) return;
         isWebViewSetup = true;
 
-        String processName = Application.getProcessName();
-        String packageName = this.getPackageName();
-
-        SandboxManager.getInstance().normalizeSandbox(webapp);
         boolean hasSandboxing = SandboxManager.isValidContainerId(webapp.getContainerId());
-        String expectedProcess = hasSandboxing
-                ? packageName + ":web_sandbox_" + webapp.getContainerId()
-                : packageName;
-        // Legacy shortcuts may point at the main process or the previous sandbox process.
-        if (!expectedProcess.equals(processName)) {
-            WebViewLauncher.startWebViewInNewProcess(webapp, this);
-            return;
-        }
-
         if (hasSandboxing) {
             try {
                 SandboxManager.getInstance().registerWebAppToSandbox(webapp);
@@ -222,7 +276,9 @@ public class WebViewActivity extends AppCompatActivity implements EasyPermission
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         }
 
-        String url = webapp.getBaseUrl();
+        String requestedUrl = getIntent().getStringExtra(WebViewLauncher.EXTRA_TARGET_URL);
+        String url = BrowserOriginPolicy.origin(requestedUrl) != null
+                ? requestedUrl : webapp.getBaseUrl();
 
         wv = findViewById(R.id.webview);
         progressBar = findViewById(R.id.progressBar);
@@ -230,7 +286,7 @@ public class WebViewActivity extends AppCompatActivity implements EasyPermission
         applyThemeIdentity();
 
         List<AdblockConfig> adblockConfigs = DataManager.getInstance().getSettings().getGlobalWebApp().getAdBlockSettings();
-        if (webapp.isUseAdblock() && !adblockConfigs.isEmpty()) {
+        if (webapp.isUseAdblock() && !adblockConfigs.isEmpty() && adFilter != null && adblockProviderApiHelper != null) {
             wv.setVisibility(View.GONE);
             wv = findViewById(R.id.adblockwebview);
             wv.setVisibility(View.VISIBLE);
@@ -258,58 +314,51 @@ public class WebViewActivity extends AppCompatActivity implements EasyPermission
             }
         }
 
-        if (webapp.isShowFullscreen()) {
-            this.hideSystemBars();
-        } else if(DataManager.getInstance().getSettings().getAlwaysShowSoftwareButtons()) {
-            this.showSystemBars();
-        }
-        if (webapp.isFrameless()) {
-            this.hideSystemBars();
-        }
+        applySystemBars();
         wv.setWebViewClient(new CustomBrowser());
         wv.getSettings().setSafeBrowsingEnabled(webapp.isSafeBrowsing());
         wv.getSettings().setDomStorageEnabled(true);
         wv.getSettings().setDatabaseEnabled(true);
         wv.getSettings().setAllowFileAccess(true);
+        wv.getSettings().setAllowContentAccess(true);
+        wv.getSettings().setMediaPlaybackRequiresUserGesture(false);
         wv.getSettings().setBlockNetworkLoads(false);
 //        wv.getSettings().setMixedContentMode(WebSettings.MIXED_CONTENT_COMPATIBILITY_MODE);
         this.setDarkModeIfNeeded();
 
         wv.getSettings().setJavaScriptEnabled(webapp.isAllowJs());
 
-        CookieManager.getInstance().setAcceptCookie(webapp.isAllowCookies());
+        applySandboxCookiePolicy();
         CookieManager.getInstance().setAcceptThirdPartyCookies(wv, webapp.isAllowThirdPartyCookies());
 
         if (webapp.isBlockImages())
             wv.getSettings().setBlockNetworkImage(true);
+        wv.getSettings().setTextZoom(webapp.getTextZoom() > 0 ? webapp.getTextZoom() : 100);
 
-        if (webapp.isRequestDesktop()) {
-            wv.getSettings().setUserAgentString(Const.DESKTOP_USER_AGENT);
-            wv.getSettings().setUseWideViewPort(true);
-            wv.getSettings().setLoadWithOverviewMode(true);
-
-            wv.getSettings().setSupportZoom(true);
-            wv.getSettings().setBuiltInZoomControls(true);
-            wv.getSettings().setDisplayZoomControls(false);
-
-            wv.setScrollBarStyle(WebView.SCROLLBARS_OUTSIDE_OVERLAY);
-            wv.setScrollbarFadingEnabled(false);
-
-        }
-        if(webapp.isEnableZooming()) {
-            wv.getSettings().setSupportZoom(true);
-            wv.getSettings().setBuiltInZoomControls(true);
-        }
+        applyDesktopMode(wv);
 
         CUSTOM_HEADERS = initCustomHeaders(webapp.isSendSavedataRequest());
+        downloadController = new BrowserDownloadController(this);
+        jsDialogHelper = new BrowserJsDialogHelper(this);
         backgroundPlaybackController = new BackgroundPlaybackController(this, wv, webapp);
+        rootWebView = wv;
+        wv.getSettings().setSupportMultipleWindows(true);
+        wv.getSettings().setJavaScriptCanOpenWindowsAutomatically(false);
+        wv.setWebChromeClient(new CustomWebChromeClient(wv));
         loadURL(wv, url);
-        wv.setWebChromeClient(new CustomWebChromeClient());
         wv.setOnLongClickListener(view -> {
+            if (webapp.isFrameless()) return false;
             if(webapp.getAlwaysUseFallbackContextMenu()) return false;
             if(fallbackToDefaultLongClickBehaviour) {
                 fallbackToDefaultLongClickBehaviour = false;
                 return false;
+            }
+            WebView.HitTestResult hr = wv.getHitTestResult();
+            if (hr != null && (hr.getType() == WebView.HitTestResult.SRC_ANCHOR_TYPE
+                    || hr.getType() == WebView.HitTestResult.SRC_IMAGE_ANCHOR_TYPE)) {
+                lastLongClickedUrl = hr.getExtra();
+            } else {
+                lastLongClickedUrl = null;
             }
             showWebViewPopupMenu();
             return true;
@@ -319,66 +368,7 @@ public class WebViewActivity extends AppCompatActivity implements EasyPermission
         refreshQuickSettingsState();
 
 
-        wv.setDownloadListener((dl_url, userAgent, contentDisposition, mimeType, contentLength) -> {
-
-            if (mimeType.equals("application/pdf")) {
-                Intent i = new Intent(Intent.ACTION_VIEW);
-                i.setData(Uri.parse(dl_url));
-                startActivity(i);
-            } else {
-                if(dl_url != null && !dl_url.equals("")) {
-                    if(dl_url.startsWith("blob:")) {
-                        dl_url = dl_url.replace("blob:", "");
-                        try {
-                            dl_url = URLDecoder.decode(dl_url, "UTF-8");
-                        } catch (UnsupportedEncodingException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                    DownloadManager.Request request = null;
-                    try {
-                        request = new DownloadManager.Request(
-                                Uri.parse(dl_url));
-                    }
-                    catch(Exception e) {
-                        NotificationUtils.showInfoSnackbar(this, getString(R.string.file_download), Snackbar.LENGTH_SHORT);
-                    }
-                  String file_name = Utility.getFileNameFromDownload(dl_url, contentDisposition, mimeType);
-
-                  request.setMimeType(mimeType);
-                  request.addRequestHeader("cookie", CookieManager.getInstance().getCookie(dl_url));
-                  request.addRequestHeader("User-Agent", userAgent);
-                  request.setTitle(file_name);
-                  request.allowScanningByMediaScanner();
-                  request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
-                  request.setDestinationInExternalPublicDir(
-                          Environment.DIRECTORY_DOWNLOADS, file_name);
-
-                  DownloadManager dm = (DownloadManager) getSystemService(DOWNLOAD_SERVICE);
-
-                  if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
-                      String[] perms = {Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE};
-                      if (!EasyPermissions.hasPermissions(WebViewActivity.this, perms)) {
-                          dl_request = request;
-                          EasyPermissions.requestPermissions(WebViewActivity.this, getString(R.string.permission_storage_rationale), Const.PERMISSION_RC_STORAGE, perms);
-                      } else {
-                          if (dm != null) {
-                              dm.enqueue(request);
-                              NotificationUtils.showInfoSnackbar(this, getString(R.string.file_download), Snackbar.LENGTH_SHORT);
-                          }
-                      }
-                  }
-                  //No storage permission needed for Android 10+
-                  if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-                      if (dm != null) {
-                          dm.enqueue(request);
-                          NotificationUtils.showInfoSnackbar(this, getString(R.string.file_download), Snackbar.LENGTH_SHORT);
-                      }
-                  }
-                }
-
-            }
-        });
+        wv.setDownloadListener(this::handleDownload);
         wv.setOnTouchListener(new View.OnTouchListener() {
             private int mode = NONE;
             private float startX;
@@ -463,22 +453,35 @@ public class WebViewActivity extends AppCompatActivity implements EasyPermission
 
     private void setupHermitShell() {
         drawerLayout = findViewById(R.id.browser_drawer_container);
+        View windowRoot = findViewById(R.id.browserWindowRoot);
+        androidx.core.view.WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
+        // DrawerLayout positions its children using margins, ignoring its own padding.
+        // Apply safe areas to the outer FrameLayout so content and drawer share them.
+        ViewCompat.setOnApplyWindowInsetsListener(windowRoot, (view, windowInsets) -> {
+            // Hermit's ho0/jo0 window helpers allow content into the camera area.
+            // Frameless is website-only: only the keyboard reserves space here.
+            Insets safe = webapp != null && webapp.isFrameless() ? Insets.NONE
+                    : windowInsets.getInsets(WindowInsetsCompat.Type.systemBars()
+                            | WindowInsetsCompat.Type.displayCutout());
+            Insets keyboard = windowInsets.getInsets(WindowInsetsCompat.Type.ime());
+            view.setPadding(safe.left, safe.top, safe.right, Math.max(safe.bottom, keyboard.bottom));
+            applyPageToolsInsets(windowInsets);
+            return WindowInsetsCompat.CONSUMED;
+        });
+        ViewCompat.requestApplyInsets(windowRoot);
         quickSettingsDrawer = findViewById(R.id.quick_settings_drawer);
         drawerLayout.addOnLayoutChangeListener(
-                (view, left, top, right, bottom, oldLeft, oldTop, oldRight, oldBottom) ->
-                        updateBrowserDrawerMetrics());
+                (view, left, top, right, bottom, oldLeft, oldTop, oldRight, oldBottom) -> {
+                    updateBrowserDrawerMetrics();
+                    updateImmersiveGestureAccess();
+                });
         findViewById(R.id.webviewActivity).addOnLayoutChangeListener(
                 (view, left, top, right, bottom, oldLeft, oldTop, oldRight, oldBottom) ->
                         updateImmersiveGestureAccess());
+        findViewById(R.id.webviewActivity).post(this::updateImmersiveGestureAccess);
         browserToolbarContainer = findViewById(R.id.browser_toolbar_container);
         toolbarTitle = findViewById(R.id.txtToolbarTitle);
         toolbarSubtitle = findViewById(R.id.txtToolbarSubtitle);
-        quickSettingsTitle = findViewById(R.id.txtQuickSettingsTitle);
-        quickSettingsHost = findViewById(R.id.txtQuickSettingsHost);
-        quickSettingsSandbox = findViewById(R.id.txtQuickSettingsSandbox);
-        quickSettingsFavicon = findViewById(R.id.imgQuickSettingsFavicon);
-        quickColorSwatches = findViewById(R.id.quickColorSwatches);
-        quickOverrideSwitch = findViewById(R.id.switchQuickOverrideGlobal);
 
         View homeButton = findViewById(R.id.btnToolbarHome);
         homeButton.setOnClickListener(view -> {
@@ -488,251 +491,135 @@ public class WebViewActivity extends AppCompatActivity implements EasyPermission
         findViewById(R.id.btnToolbarRefresh).setOnClickListener(view -> reloadCurrentPage());
         findViewById(R.id.btnToolbarQuickSettings).setOnClickListener(view ->
                 openQuickSettings());
+        View titleCapsule = findViewById(R.id.browserTitleCapsule);
+        if (titleCapsule != null) {
+            titleCapsule.setOnClickListener(view -> openQuickSettings());
+        }
+        findViewById(R.id.btnBrowserRestoreControls).setOnClickListener(view ->
+                openQuickSettings());
         findViewById(R.id.btnQuickClose).setOnClickListener(view ->
                 drawerLayout.closeDrawer(GravityCompat.END));
 
-        setupQuickActionCards();
-        setupQuickSettingsSwitches();
-        setupQuickColorSwatches();
-        setupQuickNavigation();
+        pageFind = new PageFindController(findViewById(R.id.browserFindBar), this::updateBrowserContentBounds);
+        readerController = new BrowserReaderController(this, new BrowserReaderController.Callback() {
+            @Nullable @Override public WebApp getWebApp() { return webapp; }
+            @Nullable @Override public WebView getActiveWebView() { return wv; }
+            @Override public boolean isMediaShowing() { return mediaCustomView != null; }
+            @Override public void onUpdateContentBounds() { updateBrowserContentBounds(); }
+            @Override public void onCloseFindBar() { closeFindBar(); }
+            @Override public void onNavigateUrl(@NonNull String url) { navigateReaderLink(url); }
+        });
+        readerController.init(findViewById(R.id.browserWebContent), findViewById(R.id.browserReaderControls));
+        pageToolsController = new BrowserPageToolsController(windowRoot, new BrowserPageToolsController.Callback() {
+            @Nullable @Override public WebApp getWebApp() { return webapp; }
+            @Nullable @Override public WebView getActiveWebView() { return wv; }
+            @Nullable @Override public WebView getReaderWebView() { return readerController != null ? readerController.getReaderWebView() : null; }
+            @Override public boolean isReaderOpen() { return readerController != null && readerController.isOpen(); }
+            @Override public boolean isMediaCustomViewShowing() { return mediaCustomView != null; }
+            @Nullable @Override public DrawerLayout getDrawerLayout() { return drawerLayout; }
+            @Override public void openReaderMode() { WebViewActivity.this.openReaderMode(); }
+            @Override public void copyCurrentUrl() { WebViewActivity.this.copyCurrentUrl(); }
+            @Override public void closeDrawer() { closeOpenDrawer(); }
+            @Override public void openQuickSettings() { WebViewActivity.this.openQuickSettings(); }
+            @Override public void onFindStateChanged() { updateBrowserContentBounds(); }
+        });
+        pageToolsController.setPageFindController(pageFind);
+
+        initSandboxAndContextMenuControllers();
+        initThemeController();
+        initPrintController();
+
+        quickSettingsController = new BrowserQuickSettingsController(
+                quickSettingsDrawer != null ? quickSettingsDrawer : findViewById(R.id.browserWindowRoot),
+                new BrowserQuickSettingsController.Callback() {
+                    @NonNull @Override public WebApp getWebApp() { return webapp; }
+                    @Nullable @Override public WebView getWebView() { return wv; }
+                    @Override public boolean isPageLoading() { return pageLoading; }
+                    @Override public void persistQuickSettings(boolean requireReload) { WebViewActivity.this.persistQuickSettings(requireReload); }
+                    @Override public void applySystemBars() { WebViewActivity.this.applySystemBars(); }
+                    @Override public void applyDynamicSettings() { WebViewActivity.this.applyDynamicSettings(); }
+                    @Override public void forceReloadCurrentPage() { WebViewActivity.this.forceReloadCurrentPage(); }
+                    @Override public void reloadCurrentPage() { WebViewActivity.this.reloadCurrentPage(); }
+                    @Override public void applyDesktopMode() { WebViewActivity.this.applyDesktopMode(); }
+                    @Override public void setDarkModeIfNeeded() { WebViewActivity.this.setDarkModeIfNeeded(); }
+                    @Override public void updateToolbarVisibility() { WebViewActivity.this.updateToolbarVisibility(); }
+                    @Override public void closeDrawer() { closeOpenDrawer(); }
+                    @Override public void shareCurrentUrl() { WebViewActivity.this.shareCurrentUrl(); }
+                    @Override public void openCurrentUrlExternally() { WebViewActivity.this.openCurrentUrlExternally(); }
+                    @Override public void copyCurrentUrl() { WebViewActivity.this.copyCurrentUrl(); }
+                    @Override public void openReaderMode() { WebViewActivity.this.openReaderMode(); }
+                    @Override public void openFindInPage() { WebViewActivity.this.openFindInPage(); }
+                    @Override public void showShortcutDialog() {
+                        ShortcutDialogFragment fragment = ShortcutDialogFragment.newInstance(webapp);
+                        fragment.show(getSupportFragmentManager(), "QuickShortcut-" + webapp.getID());
+                    }
+                    @Override public void showSandboxPickerDialog() { WebViewActivity.this.showSandboxPickerDialog(); }
+                    @Override public void loadUrl(String target) { loadURL(wv, target); }
+                    @Override public String getCurrentPageUrl() { return currentPageUrl(); }
+                    @Override public Map<String, String> initCustomHeaders(boolean sendSaveData) { return WebViewActivity.this.initCustomHeaders(sendSaveData); }
+                    @Override public void onHeadersUpdated(Map<String, String> headers) { CUSTOM_HEADERS = headers; }
+                    @Override public AdFilter getAdFilter() { return adFilter; }
+                    @Override public AdblockProviderApiHelper getAdblockProviderApiHelper() { return adblockProviderApiHelper; }
+                    @Override public AdblockLifecycleHelper getAdblockLifecycleHelper() { return adblockLifecycleHelper; }
+                    @Override public void applyThemeIdentity() { WebViewActivity.this.applyThemeIdentity(); }
+                    @Override public void onMoreSettingsClicked() {
+                        Intent intent = new Intent(WebViewActivity.this, WebAppSettingsActivity.class);
+                        intent.putExtra(Const.INTENT_WEBAPPID, webapp.getID());
+                        startActivityForResult(intent, REQUEST_WEBAPP_SETTINGS);
+                    }
+                });
+
         positionBrowserToolbar();
+        updateToolbarVisibility();
         updateBrowserDrawerMetrics();
         populateQuickSettingsHeader();
         updateLoadingControls();
     }
 
     private void openQuickSettings() {
+        if (webapp == null || webapp.isFrameless() || mediaCustomView != null) return;
         refreshQuickSettingsState();
         drawerLayout.openDrawer(GravityCompat.END);
     }
 
-    private void setupQuickActionCards() {
-        findViewById(R.id.cardQuickDesktop).setOnClickListener(view -> {
-            webapp.setRequestDesktop(!webapp.isRequestDesktop());
-            applyDesktopMode();
-            persistQuickSettings(true);
-        });
-        findViewById(R.id.cardQuickFrameless).setOnClickListener(view -> {
-            webapp.setFrameless(!webapp.isFrameless());
-            persistQuickSettings(false);
-            updateToolbarVisibility();
-            if (webapp.isFrameless() || webapp.isShowFullscreen()) {
-                hideSystemBars();
-            } else {
-                showSystemBars();
-            }
-            refreshQuickSettingsState();
-        });
-        findViewById(R.id.cardQuickDarkMode).setOnClickListener(view -> {
-            webapp.setForceDarkMode(!webapp.isForceDarkMode());
-            webapp.setUseTimespanDarkMode(false);
-            persistQuickSettings(false);
-            setDarkModeIfNeeded();
-            refreshQuickSettingsState();
-        });
-        findViewById(R.id.cardQuickShare).setOnClickListener(view -> shareCurrentUrl());
-        findViewById(R.id.cardQuickExternal).setOnClickListener(view -> openCurrentUrlExternally());
-        findViewById(R.id.cardQuickShortcut).setOnClickListener(view -> {
-            ShortcutDialogFragment fragment = ShortcutDialogFragment.newInstance(webapp);
-            fragment.show(getSupportFragmentManager(), "QuickShortcut-" + webapp.getID());
-        });
-    }
-
-    private void setupQuickSettingsSwitches() {
-        quickOverrideSwitch.setOnCheckedChangeListener((button, checked) -> {
-            if (updatingQuickSettings) return;
-            webapp.setOverrideGlobalSettings(checked);
-            if (!checked) {
-                int order = webapp.getOrder();
-                boolean active = webapp.isActiveEntry();
-                webapp.copySettings(DataManager.getInstance().getSettings().getGlobalWebApp());
-                webapp.setOrder(order);
-                webapp.setActiveEntry(active);
-            }
-            DataManager.getInstance().replaceWebApp(webapp);
-            applyDynamicSettings();
-            reloadCurrentPage();
-        });
-
-        MaterialSwitch adblock = findViewById(R.id.switchQuickAdblock);
-        adblock.setOnCheckedChangeListener((button, checked) -> {
-            if (updatingQuickSettings) return;
-            webapp.setUseAdblock(checked);
-            webapp.setSafeBrowsing(checked);
-            wv.getSettings().setSafeBrowsingEnabled(checked);
-            if (checked) {
-                adFilter.setupWebView(wv);
-                List<AdblockConfig> filters = DataManager.getInstance().getSettings()
-                        .getGlobalWebApp().getAdBlockSettings();
-                adblockLifecycleHelper.trySyncOperation(() ->
-                        adblockProviderApiHelper.synchronizeAdblockProviderWithSettings(filters));
-            }
-            persistQuickSettings(true);
-        });
-
-        MaterialSwitch tracking = findViewById(R.id.switchQuickTracking);
-        tracking.setOnCheckedChangeListener((button, checked) -> {
-            if (updatingQuickSettings) return;
-            webapp.setStripTrackingParams(checked);
-            persistQuickSettings(false);
-            if (checked) loadURL(wv, currentPageUrl());
-        });
-
-        MaterialSwitch dataSaver = findViewById(R.id.switchQuickDataSaver);
-        dataSaver.setOnCheckedChangeListener((button, checked) -> {
-            if (updatingQuickSettings) return;
-            webapp.setSendSavedataRequest(checked);
-            webapp.setBlockImages(checked);
-            CUSTOM_HEADERS = initCustomHeaders(checked);
-            wv.getSettings().setBlockNetworkImage(checked);
-            persistQuickSettings(true);
-        });
-
-        MaterialSwitch javaScript = findViewById(R.id.switchQuickJavaScript);
-        javaScript.setOnCheckedChangeListener((button, checked) -> {
-            if (updatingQuickSettings) return;
-            webapp.setAllowJs(checked);
-            wv.getSettings().setJavaScriptEnabled(checked);
-            persistQuickSettings(true);
-        });
-
-        MaterialSwitch pullToRefresh = findViewById(R.id.switchQuickPullToRefresh);
-        pullToRefresh.setOnCheckedChangeListener((button, checked) -> {
-            if (updatingQuickSettings) return;
-            webapp.setPullToRefresh(checked);
-            persistQuickSettings(false);
-        });
-
-        MaterialSwitch monitor = findViewById(R.id.switchQuickMonitor);
-        monitor.setOnCheckedChangeListener((button, checked) -> {
-            if (updatingQuickSettings) return;
-            webapp.setMonitorEnabled(checked);
-            persistQuickSettings(false);
-            com.cylonid.nativealpha.monitors.WebMonitorWorker.syncPeriodicWork(this);
-        });
-    }
-
-    private void setupQuickNavigation() {
-        findViewById(R.id.btnQuickHome).setOnClickListener(view -> {
-            quitOnNextBackpress = false;
-            loadURL(wv, webapp.getBaseUrl());
-        });
-        findViewById(R.id.btnQuickBack).setOnClickListener(view -> {
-            quitOnNextBackpress = false;
-            if (wv.canGoBack()) {
-                wv.goBack();
-            } else {
-                drawerLayout.closeDrawer(GravityCompat.END);
-            }
-        });
-        findViewById(R.id.btnQuickRefresh).setOnClickListener(view -> reloadCurrentPage());
-        findViewById(R.id.btnQuickForward).setOnClickListener(view -> {
-            quitOnNextBackpress = false;
-            if (wv.canGoForward()) wv.goForward();
-        });
-        findViewById(R.id.btnQuickMoreSettings).setOnClickListener(view -> {
-            drawerLayout.closeDrawer(GravityCompat.END);
-            Intent intent = new Intent(this, WebAppSettingsActivity.class);
-            intent.putExtra(Const.INTENT_WEBAPPID, webapp.getID());
-            startActivityForResult(intent, REQUEST_WEBAPP_SETTINGS);
-        });
+    private void applyTextZoom(int zoom) {
+        if (quickSettingsController != null) {
+            quickSettingsController.applyTextZoom(zoom);
+        }
     }
 
     private void updateQuickNavigationState() {
-        if (wv == null || drawerLayout == null) return;
-        setQuickNavigationEnabled(R.id.btnQuickHome, !webapp.getBaseUrl().isBlank());
-        setQuickNavigationEnabled(R.id.btnQuickBack, wv.canGoBack());
-        setQuickNavigationEnabled(R.id.btnQuickRefresh, wv.getUrl() != null);
-        setQuickNavigationEnabled(R.id.btnQuickForward, wv.canGoForward());
-    }
-
-    private void setQuickNavigationEnabled(int id, boolean enabled) {
-        View button = findViewById(id);
-        button.setEnabled(enabled);
-        button.setAlpha(enabled ? 1f : 0.38f);
+        if (quickSettingsController != null) {
+            quickSettingsController.updateNavigationState();
+        }
     }
 
     private void updateLoadingControls() {
-        if (drawerLayout == null) return;
-        MaterialButton toolbarButton = findViewById(R.id.btnToolbarRefresh);
-        MaterialButton quickButton = findViewById(R.id.btnQuickRefresh);
-        int icon = pageLoading ? R.drawable.ic_browser_stop_24 : R.drawable.ic_baseline_refresh_24;
-        int description = pageLoading ? R.string.browser_stop_loading : R.string.browser_refresh_page;
-        toolbarButton.setIconResource(icon);
-        toolbarButton.setContentDescription(getString(description));
-        toolbarButton.setEnabled(wv != null);
-        quickButton.setIconResource(icon);
-        quickButton.setContentDescription(getString(description));
-        quickButton.setEnabled(pageLoading || (wv != null && wv.getUrl() != null));
-        quickButton.setAlpha(quickButton.isEnabled() ? 1f : 0.38f);
+        if (quickSettingsController != null) {
+            quickSettingsController.updateLoadingControls(findViewById(R.id.btnToolbarRefresh));
+        }
     }
 
     private void setupQuickColorSwatches() {
-        quickColorSwatches.removeAllViews();
-        int swatchSize = dp(48);
-        int margin = dp(4);
-        for (Map.Entry<String, String> color : ColorPalette.INSTANCE.getHERMIT_COLORS().entrySet()) {
-            View swatch = new View(this);
-            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(swatchSize, swatchSize);
-            params.setMargins(margin, 0, margin, 0);
-            swatch.setLayoutParams(params);
-            swatch.setContentDescription(color.getKey());
-            swatch.setTag(color.getKey());
-            swatch.setClickable(true);
-            swatch.setFocusable(true);
-            swatch.setBackground(createSwatchDrawable(color.getValue()));
-            swatch.setForeground(selectableItemBackgroundBorderless());
-            swatch.setAlpha(webapp.getThemeColor().equalsIgnoreCase(color.getKey()) ? 1f : 0.72f);
-            swatch.setOnClickListener(view -> {
-                webapp.setThemeColor(color.getKey());
-                persistQuickSettings(false);
-                applyThemeIdentity();
-                refreshQuickSettingsState();
-            });
-            quickColorSwatches.addView(swatch);
+        if (quickSettingsController != null) {
+            quickSettingsController.setupColorSwatches();
         }
-    }
-
-    private GradientDrawable createSwatchDrawable(String colorValue) {
-        GradientDrawable drawable = new GradientDrawable();
-        drawable.setShape(GradientDrawable.OVAL);
-        drawable.setColor(Color.parseColor(colorValue));
-        drawable.setStroke(dp(2), MaterialColors.getColor(
-                quickColorSwatches, R.attr.colorOnSurfaceVariant, Color.GRAY));
-        return drawable;
-    }
-
-    @Nullable
-    private Drawable selectableItemBackgroundBorderless() {
-        TypedValue value = new TypedValue();
-        if (!getTheme().resolveAttribute(
-                android.R.attr.selectableItemBackgroundBorderless, value, true)
-                || value.resourceId == 0) {
-            return null;
-        }
-        return ContextCompat.getDrawable(this, value.resourceId);
     }
 
     private void populateQuickSettingsHeader() {
-        String title = webapp.getTitle();
-        quickSettingsTitle.setText(title == null || title.isBlank()
-                ? displayHost(webapp.getBaseUrl()) : title);
-        quickSettingsHost.setText(displayHost(webapp.getBaseUrl()));
-        quickSettingsFavicon.setContentDescription(
-                getString(R.string.browser_controls_title));
-        Bitmap favicon = ShortcutIconUtils.loadFavicon(this, webapp.getID());
-        if (favicon != null) {
-            quickSettingsFavicon.setImageBitmap(favicon);
-        } else {
-            quickSettingsFavicon.setImageResource(R.mipmap.native_alpha);
+        if (quickSettingsController != null) {
+            quickSettingsController.populateHeader();
         }
     }
 
     private void positionBrowserToolbar() {
+        if (browserToolbarContainer == null) return;
         androidx.constraintlayout.widget.ConstraintLayout.LayoutParams params =
                 (androidx.constraintlayout.widget.ConstraintLayout.LayoutParams)
                         browserToolbarContainer.getLayoutParams();
         params.topToTop = androidx.constraintlayout.widget.ConstraintLayout.LayoutParams.UNSET;
+        params.topToBottom = androidx.constraintlayout.widget.ConstraintLayout.LayoutParams.UNSET;
+        params.bottomToTop = androidx.constraintlayout.widget.ConstraintLayout.LayoutParams.UNSET;
         params.bottomToBottom = androidx.constraintlayout.widget.ConstraintLayout.LayoutParams.UNSET;
         if (DataManager.getInstance().getSettings().getToolbarPosition() == 1) {
             params.bottomToBottom =
@@ -742,13 +629,116 @@ public class WebViewActivity extends AppCompatActivity implements EasyPermission
                     androidx.constraintlayout.widget.ConstraintLayout.LayoutParams.PARENT_ID;
         }
         browserToolbarContainer.setLayoutParams(params);
+        updateBrowserContentBounds();
     }
 
     private void updateToolbarVisibility() {
         if (browserToolbarContainer == null) return;
-        boolean frameless = webapp.isFrameless() || webapp.isShowFullscreen();
+        boolean frameless = webapp.isFrameless() || mediaCustomView != null;
+        if (mediaCustomView != null) closeFindBar();
+        if (mediaCustomView != null && readerController != null) readerController.close();
         browserToolbarContainer.setVisibility(frameless ? View.GONE : View.VISIBLE);
+        if (drawerLayout != null) {
+            drawerLayout.setDrawerLockMode(mediaCustomView != null
+                    ? DrawerLayout.LOCK_MODE_LOCKED_CLOSED : DrawerLayout.LOCK_MODE_UNLOCKED, GravityCompat.END);
+            ((BrowserDrawerLayout) drawerLayout).setToolsOnly(webapp.isFrameless());
+        }
+        updatePageToolsVisibility();
+        View restore = findViewById(R.id.btnBrowserRestoreControls);
+        if (restore != null) {
+            restore.setVisibility(View.GONE);
+        }
+        updateBrowserContentBounds();
         updateImmersiveGestureAccess();
+    }
+
+    private void updatePageToolsVisibility() {
+        if (pageToolsController != null) {
+            pageToolsController.updatePageToolsVisibility();
+            return;
+        }
+        boolean toolsOnly = webapp != null && webapp.isFrameless();
+        View tools = findViewById(R.id.framelessPageTools);
+        if (tools != null) tools.setVisibility(toolsOnly ? View.VISIBLE : View.GONE);
+        View scroll = findViewById(R.id.quickSettingsScroll);
+        if (scroll != null) scroll.setVisibility(toolsOnly ? View.GONE : View.VISIBLE);
+        View nav = findViewById(R.id.quickSettingsNavigation);
+        if (nav != null) nav.setVisibility(toolsOnly ? View.GONE : View.VISIBLE);
+        View divider = findViewById(R.id.quickSettingsDivider);
+        if (divider != null) divider.setVisibility(toolsOnly ? View.GONE : View.VISIBLE);
+        applyPageToolsInsets(ViewCompat.getRootWindowInsets(findViewById(R.id.browserWindowRoot)));
+    }
+
+    private void applyPageToolsInsets(@Nullable WindowInsetsCompat insets) {
+        if (pageToolsController != null) {
+            pageToolsController.applyPageToolsInsets(insets);
+            return;
+        }
+        View tools = findViewById(R.id.framelessPageTools);
+        if (tools == null) return;
+        Insets safe = insets == null ? Insets.NONE : insets.getInsetsIgnoringVisibility(
+                WindowInsetsCompat.Type.systemBars() | WindowInsetsCompat.Type.displayCutout());
+        tools.setPadding(dp(16) + safe.left, dp(16) + safe.top,
+                dp(16) + safe.right, dp(16) + safe.bottom);
+    }
+
+    private void openPageTools() {
+        if (pageToolsController != null) {
+            pageToolsController.openPageTools();
+            return;
+        }
+        if (webapp == null || mediaCustomView != null || drawerLayout == null) return;
+        if (!webapp.isFrameless()) { openQuickSettings(); return; }
+        updatePageToolsVisibility();
+        drawerLayout.openDrawer(GravityCompat.END);
+    }
+
+    private void updateBrowserContentBounds() {
+        View content = findViewById(R.id.browserWebContent);
+        if (content == null || browserToolbarContainer == null) return;
+        ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) content.getLayoutParams();
+        params.topToTop = ConstraintLayout.LayoutParams.PARENT_ID;
+        params.topToBottom = ConstraintLayout.LayoutParams.UNSET;
+        params.bottomToBottom = ConstraintLayout.LayoutParams.PARENT_ID;
+        params.bottomToTop = ConstraintLayout.LayoutParams.UNSET;
+        if (browserToolbarContainer.getVisibility() == View.VISIBLE) {
+            ConstraintLayout.LayoutParams toolbarParams =
+                    (ConstraintLayout.LayoutParams) browserToolbarContainer.getLayoutParams();
+            boolean isBottom = (toolbarParams.bottomToBottom == ConstraintLayout.LayoutParams.PARENT_ID)
+                    || (toolbarParams.bottomToBottom == 0)
+                    || (toolbarParams.topToTop == ConstraintLayout.LayoutParams.UNSET
+                            && DataManager.getInstance().getSettings().getToolbarPosition() == 1);
+            if (isBottom) {
+                params.bottomToBottom = ConstraintLayout.LayoutParams.UNSET;
+                params.bottomToTop = R.id.browser_toolbar_container;
+            } else {
+                params.topToTop = ConstraintLayout.LayoutParams.UNSET;
+                params.topToBottom = R.id.browser_toolbar_container;
+            }
+        }
+        if (readerController != null) {
+            readerController.adjustReaderControlsBounds(params, findViewById(R.id.browserReaderControls));
+        }
+        View findBar = findViewById(R.id.browserFindBar);
+        if (findBar != null && findBar.getVisibility() == View.VISIBLE) {
+            ConstraintLayout.LayoutParams findParams = (ConstraintLayout.LayoutParams) findBar.getLayoutParams();
+            findParams.topToTop = params.topToTop;
+            findParams.topToBottom = params.topToBottom;
+            findBar.setLayoutParams(findParams);
+            params.topToTop = ConstraintLayout.LayoutParams.UNSET;
+            params.topToBottom = R.id.browserFindBar;
+        }
+        content.setLayoutParams(params);
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_MENU && drawerLayout != null && mediaCustomView == null
+                && webapp != null) {
+            openPageTools();
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 
     // Reserve a limited right-edge region for DrawerLayout, like Hermit's lower-edge access.
@@ -757,8 +747,7 @@ public class WebViewActivity extends AppCompatActivity implements EasyPermission
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q || webapp == null) return;
         View content = findViewById(R.id.webviewActivity);
         if (content == null) return;
-        if ((!webapp.isFrameless() && !webapp.isShowFullscreen())
-                || content.getWidth() == 0 || content.getHeight() == 0) {
+        if (mediaCustomView != null || content.getWidth() <= 0 || content.getHeight() <= 0) {
             content.setSystemGestureExclusionRects(Collections.emptyList());
             return;
         }
@@ -772,10 +761,10 @@ public class WebViewActivity extends AppCompatActivity implements EasyPermission
     private void updateToolbarContent(@Nullable String url) {
         if (toolbarTitle == null) return;
         String title = webapp.getTitle();
-        toolbarTitle.setText(title == null || title.isBlank() ? displayHost(url) : title);
+        toolbarTitle.setText(title == null || title.trim().isEmpty() ? displayHost(url) : title);
         String host = displayHost(url);
         toolbarSubtitle.setText(host);
-        toolbarSubtitle.setVisibility(host.isBlank() ? View.GONE : View.VISIBLE);
+        toolbarSubtitle.setVisibility(host.trim().isEmpty() ? View.GONE : View.VISIBLE);
         View titleCapsule = findViewById(R.id.browserTitleCapsule);
         if (titleCapsule != null) {
             titleCapsule.setContentDescription(
@@ -784,134 +773,116 @@ public class WebViewActivity extends AppCompatActivity implements EasyPermission
     }
 
     private String displayHost(@Nullable String url) {
-        if (url == null || url.isBlank()) return "";
-        Uri uri = Uri.parse(url);
-        String host = uri.getHost();
-        if (host == null || host.isBlank()) return "";
-        return host.startsWith("www.") ? host.substring(4) : host;
+        return BrowserQuickSettingsController.displayHost(url);
     }
 
     private void refreshQuickSettingsState() {
-        if (quickOverrideSwitch == null) return;
-        updatingQuickSettings = true;
-        quickOverrideSwitch.setChecked(webapp.isOverrideGlobalSettings());
-        setSwitchState(R.id.switchQuickAdblock, webapp.isUseAdblock());
-        setSwitchState(R.id.switchQuickTracking, webapp.isStripTrackingParams());
-        setSwitchState(R.id.switchQuickDataSaver, webapp.isBlockImages());
-        setSwitchState(R.id.switchQuickJavaScript, webapp.isAllowJs());
-        setSwitchState(R.id.switchQuickPullToRefresh, webapp.isPullToRefresh());
-        setSwitchState(R.id.switchQuickMonitor, webapp.isMonitorEnabled());
-        updateQuickActionState(R.id.cardQuickDesktop, R.id.txtQuickDesktopState,
-                getString(webapp.isRequestDesktop()
-                        ? R.string.browser_action_desktop_on : R.string.browser_action_desktop));
-        updateQuickActionState(R.id.cardQuickFrameless, R.id.txtQuickFramelessState,
-                getString(webapp.isFrameless()
-                        ? R.string.browser_action_frameless_on : R.string.browser_action_frameless));
-        updateQuickActionState(R.id.cardQuickDarkMode, R.id.txtQuickDarkModeState,
-                getString(webapp.isForceDarkMode()
-                        ? R.string.browser_action_dark_mode_on : R.string.browser_action_dark_mode));
-        int accent = ColorPalette.webAppColor(webapp.getThemeColor(), webapp.getContainerId());
-        int tint = ColorPalette.contrastingTextColor(accent);
-        styleActiveCard(R.id.cardQuickDesktop, webapp.isRequestDesktop(), accent, tint);
-        styleActiveCard(R.id.cardQuickFrameless, webapp.isFrameless(), accent, tint);
-        styleActiveCard(R.id.cardQuickDarkMode, webapp.isForceDarkMode(), accent, tint);
-        updateSandboxBadge();
-        updateColorSwatchSelection();
-        updateQuickNavigationState();
-        updatingQuickSettings = false;
-    }
-
-    private void setSwitchState(int id, boolean checked) {
-        MaterialSwitch button = findViewById(id);
-        button.setChecked(checked);
-    }
-
-    private void updateQuickActionState(int cardId, int textId, String label) {
-        TextView text = findViewById(textId);
-        text.setText(label);
-        View card = findViewById(cardId);
-        card.setContentDescription(label);
-    }
-
-    private void styleActiveCard(int cardId, boolean active, int accent, int contentColor) {
-        com.google.android.material.card.MaterialCardView card = findViewById(cardId);
-        card.setCardBackgroundColor(active ? accent : MaterialColors.getColor(
-                card, R.attr.colorSurfaceContainer, Color.TRANSPARENT));
-        int childCount = card.getChildCount();
-        for (int i = 0; i < childCount; i++) {
-            View child = card.getChildAt(i);
-            if (child instanceof android.view.ViewGroup) {
-                android.view.ViewGroup group = (android.view.ViewGroup) child;
-                for (int j = 0; j < group.getChildCount(); j++) {
-                    View content = group.getChildAt(j);
-                    if (content instanceof ImageView) {
-                        ((ImageView) content).setImageTintList(
-                                ColorStateList.valueOf(active ? contentColor :
-                                        MaterialColors.getColor(content, R.attr.colorOnSurface, Color.BLACK)));
-                    } else if (content instanceof TextView) {
-                        ((TextView) content).setTextColor(active ? contentColor :
-                                MaterialColors.getColor(content, R.attr.colorOnSurface, Color.BLACK));
-                    }
-                }
-            }
+        if (quickSettingsController != null) {
+            quickSettingsController.refreshState();
         }
     }
 
     private void updateSandboxBadge() {
-        int containerId = webapp.getContainerId();
-        boolean sandboxed = SandboxManager.isValidContainerId(containerId);
-        quickSettingsSandbox.setText(sandboxed
-                ? getString(R.string.sandbox_badge, containerId + 1)
-                : getString(R.string.no_sandbox_badge));
-        int color = ColorPalette.colorForContainer(containerId);
-        GradientDrawable badge = new GradientDrawable();
-        badge.setCornerRadius(dp(12));
-        badge.setColor(color);
-        quickSettingsSandbox.setBackground(badge);
-        quickSettingsSandbox.setTextColor(ColorPalette.contrastingTextColor(color));
-    }
-
-    private void updateColorSwatchSelection() {
-        for (int i = 0; i < quickColorSwatches.getChildCount(); i++) {
-            View swatch = quickColorSwatches.getChildAt(i);
-            String colorName = swatch.getTag() == null ? "" : swatch.getTag().toString();
-            boolean selected = colorName.equalsIgnoreCase(webapp.getThemeColor());
-            swatch.setAlpha(selected ? 1f : 0.72f);
-            swatch.setScaleX(selected ? 1.12f : 1f);
-            swatch.setScaleY(selected ? 1.12f : 1f);
-            swatch.setContentDescription(getString(selected
-                    ? R.string.browser_theme_color_selected
-                    : R.string.browser_theme_color_named, colorName));
+        if (quickSettingsController != null) {
+            quickSettingsController.updateSandboxBadge();
         }
     }
+
+    private void initSandboxAndContextMenuControllers() {
+        if (sandboxDialogHelper == null) {
+            sandboxDialogHelper = new BrowserSandboxDialogHelper(this, new BrowserSandboxDialogHelper.Callback() {
+                @Nullable @Override public WebApp getWebApp() { return webapp; }
+                @Override public void loadUrl(@NonNull String url) { loadURL(wv, url); }
+                @Override public void onContainerSwitched(@NonNull WebApp updatedApp) {
+                    rememberCurrentPageForRelaunch();
+                    if (drawerLayout != null) {
+                        drawerLayout.closeDrawer(GravityCompat.END);
+                    }
+                    WebViewLauncher.startWebViewInNewProcess(updatedApp, WebViewActivity.this);
+                    finish();
+                }
+                @Override public void closeDrawer() { closeOpenDrawer(); }
+            });
+        }
+        if (contextMenuController == null) {
+            contextMenuController = new BrowserContextMenuController(this, new BrowserContextMenuController.Callback() {
+                @Nullable @Override public WebApp getWebApp() { return webapp; }
+                @Nullable @Override public WebView getWebView() { return wv; }
+                @Nullable @Override public AdFilter getAdFilter() { return adFilter; }
+                @Override public void goBack() { onBackPressed(); }
+                @Override public void reload() { if (wv != null) wv.reload(); }
+                @Override public void openFindInPage() { WebViewActivity.this.openFindInPage(); }
+                @Override public void openQuickSettings() { WebViewActivity.this.openQuickSettings(); }
+                @Override public void finishAndRemoveTask() { WebViewActivity.this.finishAndRemoveTask(); }
+                @Override public void setFallbackLongClick(boolean fallback) { fallbackToDefaultLongClickBehaviour = fallback; }
+                @Override public void showSandboxDialog(@Nullable String linkUrl) { showOpenInSandboxDialog(linkUrl); }
+                @Override public void closeDrawer() { closeOpenDrawer(); }
+                @Override public void printPage() { WebViewActivity.this.printPage(); }
+            });
+        }
+    }
+
+    private void initPrintController() {
+        if (printController == null) {
+            printController = new BrowserPrintController(this, new BrowserPrintController.Callback() {
+                @Nullable @Override public WebApp getWebApp() { return webapp; }
+                @Nullable @Override public WebView getActiveWebView() { return wv; }
+            });
+        }
+    }
+
+    private void printPage() {
+        initPrintController();
+        if (printController != null) {
+            printController.print();
+        }
+    }
+
+    void showSandboxPickerDialog() {
+        initSandboxAndContextMenuControllers();
+        sandboxDialogHelper.showSandboxPickerDialog();
+    }
+
+    private void showOpenInSandboxDialog(String linkUrl) {
+        initSandboxAndContextMenuControllers();
+        sandboxDialogHelper.showOpenInSandboxDialog(linkUrl);
+    }
+
+    private void openLinkInSandbox(String targetUrl, int targetContainerId) {
+        initSandboxAndContextMenuControllers();
+        sandboxDialogHelper.openLinkInSandbox(targetUrl, targetContainerId);
+    }
+
 
     private void persistQuickSettings(boolean requirePageReload) {
         webapp.setOverrideGlobalSettings(true);
         DataManager.getInstance().replaceWebApp(webapp);
         refreshQuickSettingsState();
         if (requirePageReload && wv != null) {
-            reloadCurrentPage();
+            forceReloadCurrentPage();
         }
     }
 
     private void applyDesktopMode() {
+        applyDesktopMode(wv);
+    }
+
+    private void applyDesktopMode(WebView target) {
         if (webapp.isRequestDesktop()) {
-            wv.getSettings().setUserAgentString(Const.DESKTOP_USER_AGENT);
-            wv.getSettings().setUseWideViewPort(true);
-            wv.getSettings().setLoadWithOverviewMode(true);
+            target.getSettings().setUserAgentString(Const.DESKTOP_USER_AGENT);
         } else {
             String userAgent = webapp.isUseCustomUserAgent() && webapp.getUserAgent() != null
-                    && !webapp.getUserAgent().isBlank()
-                    ? webapp.getUserAgent() : defaultUserAgent;
-            wv.getSettings().setUserAgentString(
+                    && !webapp.getUserAgent().trim().isEmpty()
+                    ? webapp.getUserAgent() : (defaultUserAgent != null ? defaultUserAgent : "");
+            target.getSettings().setUserAgentString(
                     userAgent.replace("\0", "").replace("\n", "").replace("\r", ""));
-            wv.getSettings().setUseWideViewPort(false);
-            wv.getSettings().setLoadWithOverviewMode(false);
         }
+        target.getSettings().setUseWideViewPort(true);
+        target.getSettings().setLoadWithOverviewMode(true);
         boolean zoomEnabled = webapp.isRequestDesktop() || webapp.isEnableZooming();
-        wv.getSettings().setSupportZoom(zoomEnabled);
-        wv.getSettings().setBuiltInZoomControls(zoomEnabled);
-        wv.getSettings().setDisplayZoomControls(false);
+        target.getSettings().setSupportZoom(zoomEnabled);
+        target.getSettings().setBuiltInZoomControls(zoomEnabled);
+        target.getSettings().setDisplayZoomControls(false);
     }
 
     private void applyDynamicSettings() {
@@ -919,8 +890,15 @@ public class WebViewActivity extends AppCompatActivity implements EasyPermission
         wv.getSettings().setJavaScriptEnabled(webapp.isAllowJs());
         wv.getSettings().setBlockNetworkImage(webapp.isBlockImages());
         wv.getSettings().setSafeBrowsingEnabled(webapp.isSafeBrowsing());
-        CookieManager.getInstance().setAcceptCookie(webapp.isAllowCookies());
+        applySandboxCookiePolicy();
         CookieManager.getInstance().setAcceptThirdPartyCookies(wv, webapp.isAllowThirdPartyCookies());
+        for (WebView parent : popupParents) {
+            applyDesktopMode(parent);
+            parent.getSettings().setJavaScriptEnabled(webapp.isAllowJs());
+            parent.getSettings().setBlockNetworkImage(webapp.isBlockImages());
+            parent.getSettings().setSafeBrowsingEnabled(webapp.isSafeBrowsing());
+            CookieManager.getInstance().setAcceptThirdPartyCookies(parent, webapp.isAllowThirdPartyCookies());
+        }
         CUSTOM_HEADERS = initCustomHeaders(webapp.isSendSavedataRequest());
         if (webapp.isKeepAwake()) {
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
@@ -934,11 +912,7 @@ public class WebViewActivity extends AppCompatActivity implements EasyPermission
             adblockLifecycleHelper.trySyncOperation(() ->
                     adblockProviderApiHelper.synchronizeAdblockProviderWithSettings(filters));
         }
-        if (webapp.isFrameless() || webapp.isShowFullscreen()) {
-            hideSystemBars();
-        } else {
-            showSystemBars();
-        }
+        applySystemBars();
         setDarkModeIfNeeded();
         positionBrowserToolbar();
         updateToolbarVisibility();
@@ -948,13 +922,27 @@ public class WebViewActivity extends AppCompatActivity implements EasyPermission
         refreshQuickSettingsState();
     }
 
+    private void applySandboxCookiePolicy() {
+        if (webapp != null) {
+            CookieManager.getInstance().setAcceptCookie(
+                    SandboxPreferences.isCookiesAllowed(webapp.getContainerId()));
+        }
+    }
+
     private void reloadCurrentPage() {
+        if (readerController != null) readerController.close();
         if (pageLoading) {
             wv.stopLoading();
             setPageLoading(false);
             Toast.makeText(this, R.string.browser_loading_stopped, Toast.LENGTH_SHORT).show();
             return;
         }
+        forceReloadCurrentPage();
+    }
+
+    private void forceReloadCurrentPage() {
+        if (wv == null) return;
+        wv.stopLoading();
         currently_reloading = true;
         setPageLoading(true);
         wv.reload();
@@ -964,7 +952,7 @@ public class WebViewActivity extends AppCompatActivity implements EasyPermission
         pageLoading = loading;
         if (!loading) {
             currently_reloading = false;
-            progressBar.setVisibility(View.GONE);
+            if (progressBar != null) progressBar.setVisibility(View.GONE);
         }
         updateLoadingControls();
     }
@@ -1000,182 +988,105 @@ public class WebViewActivity extends AppCompatActivity implements EasyPermission
         return false;
     }
 
-    private void shareCurrentUrl() {
-        String url = currentPageUrl();
-        new ShareCompat.IntentBuilder(this)
-                .setType("text/plain")
-                .setChooserTitle(getString(R.string.share))
-                .setText(url)
-                .startChooser();
+    private void openReaderMode() {
+        if (webapp == null || mediaCustomView != null || wv == null || readerController == null) return;
+        closeOpenDrawer();
+        closeFindBar();
+        readerController.open(wv);
     }
 
-    private void openCurrentUrlExternally() {
-        try {
-            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(currentPageUrl())));
-        } catch (Exception e) {
-            Toast.makeText(this, R.string.external_app_not_available, Toast.LENGTH_SHORT).show();
+    private void navigateReaderLink(String url) {
+        if (wv == null || webapp == null || BrowserOriginPolicy.origin(url) == null) return;
+        if (webapp.isOpenUrlExternal() && webapp.isAllowAppLaunch() && popupParents.isEmpty()
+                && !BrowserOriginPolicy.belongsToSite(url, webapp.getBaseUrl())) {
+            try {
+                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
+                return;
+            } catch (ActivityNotFoundException | SecurityException ignored) {
+                Toast.makeText(this, R.string.browser_external_internal_fallback, Toast.LENGTH_SHORT).show();
+            }
+        }
+        loadURL(wv, url);
+    }
+
+    private void openFindInPage() {
+        if (pageToolsController != null) {
+            pageToolsController.openFindInPage();
+            return;
+        }
+        if (webapp == null || mediaCustomView != null || wv == null || pageFind == null) return;
+        closeOpenDrawer();
+        pageFind.open(readerController != null && readerController.isOpen() ? readerController.getReaderWebView() : wv);
+    }
+
+    private void closeFindBar() {
+        if (pageToolsController != null) {
+            pageToolsController.closeFind();
+        } else if (pageFind != null) {
+            pageFind.close();
         }
     }
 
+    private void copyCurrentUrl() {
+        initSandboxAndContextMenuControllers();
+        contextMenuController.copyCurrentUrl();
+    }
+
+    private void copyUrlToClipboard(String url) {
+        initSandboxAndContextMenuControllers();
+        contextMenuController.copyUrlToClipboard(url);
+    }
+
+    private void shareCurrentUrl() {
+        initSandboxAndContextMenuControllers();
+        contextMenuController.shareCurrentUrl();
+    }
+
+    private void openCurrentUrlExternally() {
+        initSandboxAndContextMenuControllers();
+        contextMenuController.openCurrentUrlExternally();
+    }
+
     private String currentPageUrl() {
-        String url = wv.getUrl();
-        return url == null || url.isBlank() ? webapp.getBaseUrl() : url;
+        initSandboxAndContextMenuControllers();
+        return contextMenuController.currentPageUrl();
     }
 
     private int dp(int value) {
         return Math.round(value * Resources.getSystem().getDisplayMetrics().density);
     }
 
-    private void applyThemeIdentity() {
-        int accentColor = ColorPalette.colorForTheme(webapp.getThemeColor());
-        getWindow().setStatusBarColor(accentColor);
-        progressBar.setProgressTintList(ColorStateList.valueOf(accentColor));
-        View titleCapsule = findViewById(R.id.browserTitleCapsule);
-        if (titleCapsule instanceof com.google.android.material.card.MaterialCardView) {
-            ((com.google.android.material.card.MaterialCardView) titleCapsule)
-                    .setStrokeColor(accentColor);
-            ((com.google.android.material.card.MaterialCardView) titleCapsule)
-                    .setStrokeWidth(dp(1));
+    private void initThemeController() {
+        if (themeController == null) {
+            themeController = new BrowserThemeController(this, new BrowserThemeController.Callback() {
+                @Nullable @Override public WebApp getWebApp() { return webapp; }
+                @Nullable @Override public WebView getActiveWebView() { return wv; }
+                @Nullable @Override public ProgressBar getProgressBar() { return progressBar; }
+                @Nullable @Override public View getTitleCapsule() { return findViewById(R.id.browserTitleCapsule); }
+                @Nullable @Override public View getContainerDot() { return findViewById(R.id.toolbarContainerDot); }
+                @Override public void setLocalNightMode(int mode) { getDelegate().setLocalNightMode(mode); }
+            });
         }
-        View containerDot = findViewById(R.id.toolbarContainerDot);
-        if (containerDot != null) {
-            containerDot.setBackgroundTintList(ColorStateList.valueOf(
-                    ColorPalette.colorForContainer(webapp.getContainerId())));
-        }
+    }
 
-        Bitmap favicon = ShortcutIconUtils.loadFavicon(this, webapp.getID());
-        ActivityManager.TaskDescription description = favicon == null
-                ? new ActivityManager.TaskDescription(webapp.getTitle(), null, accentColor)
-                : new ActivityManager.TaskDescription(webapp.getTitle(), favicon, accentColor);
-        setTaskDescription(description);
+    private void applyThemeIdentity() {
+        initThemeController();
+        themeController.applyThemeIdentity();
     }
 
     @SuppressLint("RequiresFeature")
     private void setDarkModeIfNeeded() {
-        if (!BuildConfig.FLAVOR.contains("extended")) {
-            return;
-        }
-
-        boolean needsForcedDarkMode = webapp.isUseTimespanDarkMode() &&
-                DateUtils.isInInterval(DateUtils.convertStringToCalendar(webapp.getTimespanDarkModeBegin()), Calendar.getInstance(), DateUtils.convertStringToCalendar(webapp.getTimespanDarkModeEnd()))
-                || (!webapp.isUseTimespanDarkMode() && webapp.isForceDarkMode());
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-            boolean isForceDarkSupported = WebViewFeature.isFeatureSupported(WebViewFeature.FORCE_DARK);
-            boolean isForceDarkStrategySupported = WebViewFeature.isFeatureSupported(WebViewFeature.FORCE_DARK_STRATEGY);
-            boolean isAlgorithmicDarkeningSupported = WebViewFeature.isFeatureSupported(WebViewFeature.ALGORITHMIC_DARKENING);
-
-            if (needsForcedDarkMode) {
-                wv.setBackgroundColor(Color.BLACK);
-                wv.setForceDarkAllowed(true);
-                getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-                if (isForceDarkSupported) {
-                    WebSettingsCompat.setForceDark(wv.getSettings(), WebSettingsCompat.FORCE_DARK_ON);
-                }
-                if (isForceDarkStrategySupported) {
-                    WebSettingsCompat.setForceDarkStrategy(wv.getSettings(), WebSettingsCompat.DARK_STRATEGY_PREFER_WEB_THEME_OVER_USER_AGENT_DARKENING);
-                }
-                if (isAlgorithmicDarkeningSupported) {
-                    WebSettingsCompat.setAlgorithmicDarkeningAllowed(wv.getSettings(), true);
-                }
-            } else {
-                getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
-                wv.setBackgroundColor(Color.WHITE);
-
-                if (isForceDarkSupported) {
-                    WebSettingsCompat.setForceDark(wv.getSettings(), WebSettingsCompat.FORCE_DARK_OFF);
-                }
-                if (isForceDarkStrategySupported) {
-                    WebSettingsCompat.setForceDarkStrategy(wv.getSettings(), WebSettingsCompat.DARK_STRATEGY_WEB_THEME_DARKENING_ONLY);
-                }
-                if (isAlgorithmicDarkeningSupported) {
-                    WebSettingsCompat.setAlgorithmicDarkeningAllowed(wv.getSettings(), false);
-                }
-            }
-        }
-
+        initThemeController();
+        themeController.setDarkModeIfNeeded();
     }
 
-    @SuppressLint("NonConstantResourceId")
     private void showWebViewPopupMenu() {
+        if (webapp == null || webapp.isFrameless()) return;
+        initSandboxAndContextMenuControllers();
         View center = findViewById(R.id.anchorCenterScreen);
-        mPopupMenu = IconPopupMenuHelper.getMenu(center, R.menu.wv_context_menu, WebViewActivity.this);
-
-        String currentUrl = wv.getUrl();
-        String title = "";
-        if (currentUrl != null) {
-            title = currentUrl.length() < 32 ? currentUrl : currentUrl.substring(0, 32) + "…";
+        if (center != null) {
+            contextMenuController.showContextMenu(center, lastLongClickedUrl);
         }
-        SpannableString spanStringWebAppTitle = new SpannableString(title);
-
-        // The item is disabled because it has no click action, but we want to override the disabled style (text color)
-        int colorOnSurface = MaterialColors.getColor(center, R.attr.colorOnSurface, Color.BLACK);
-        ForegroundColorSpan foregroundColorSpan = new ForegroundColorSpan(colorOnSurface);
-        spanStringWebAppTitle.setSpan(foregroundColorSpan, 0,     spanStringWebAppTitle.length(), 0);
-
-        spanStringWebAppTitle.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, spanStringWebAppTitle.length(), 0);
-        mPopupMenu.getMenu().getItem(0).setTitle(spanStringWebAppTitle);
-
-        for (int i = 0; i < mPopupMenu.getMenu().size(); i++) {
-            MenuItem item = mPopupMenu.getMenu().getItem(i);
-            SpannableString spanString = new SpannableString(item.getTitle());
-            spanString.setSpan(foregroundColorSpan, 0, spanString.length(),0);
-            item.setTitle(spanString);
-        }
-        if(wv.canGoForward()) mPopupMenu.getMenu().getItem(2).setVisible(true);
-        if(BuildConfig.DEBUG) {
-            mPopupMenu.getMenu().getItem(6).setVisible(true);
-        }
-        mPopupMenu.setOnMenuItemClickListener(menuItem -> {
-            switch(menuItem.getItemId()) {
-                case R.id.cmItemForward:
-                    wv.goForward();
-                    return true;
-                case R.id.cmItemBack:
-                    onBackPressed();
-                    return true;
-                case R.id.cmItemReload:
-                    wv.reload();
-                    return true;
-                case R.id.cmItemCopyUrl:
-                    ClipboardManager clipboard =  getSystemService(ClipboardManager.class);
-                    ClipData clip = ClipData.newPlainText("URL", wv.getUrl());
-                    clipboard.setPrimaryClip(clip);
-                    return true;
-                case R.id.cmItemShareUrl:
-                    new ShareCompat.IntentBuilder(WebViewActivity.this)
-                            .setType("text/plain")
-                            .setChooserTitle("Share URL")
-                            .setText(wv.getUrl())
-                            .startChooser();
-                    return true;
-                case R.id.cmItemCloseWebApp:
-                    finishAndRemoveTask();
-                    return true;
-                case R.id.cmFallbackContextmenuTemp:
-                    fallbackToDefaultLongClickBehaviour = true;
-                    return true;
-                case R.id.cmMainMenu:
-                    Intent intent = new Intent(this, MainActivity.class);
-                    startActivity(intent);
-                    return true;
-                case R.id.cmItemQuickSettings:
-                    drawerLayout.openDrawer(GravityCompat.END);
-                    return true;
-                case R.id.cmShowAdblockProviders:
-                    StringBuilder message = new StringBuilder();
-                    for(Map.Entry<String, Filter> entry :  Objects.requireNonNull(AdFilter.Companion.get().getViewModel().getFilters().getValue()).entrySet()) {
-                        Filter filter = entry.getValue();
-                        message.append(filter.getUrl()).append(" has downloaded: ").append(filter.hasDownloaded()).append("\n\n");
-                }
-                    NotificationUtils.showToast(this, message.toString());
-                    return true;
-
-            }
-            return false;
-        });
-
-        mPopupMenu.show();
     }
 
     @Override
@@ -1187,16 +1098,39 @@ public class WebViewActivity extends AppCompatActivity implements EasyPermission
     }
 
     @Override
-    @SuppressLint("MissingSuperCall") // Custom back navigation hierarchy: drawer -> webview history -> base url -> exit
+    @SuppressLint("MissingSuperCall") // Media, drawer, page history, popup parent, then exit.
     public void onBackPressed() {
-        if (closeOpenDrawer()) return;
-        if (webapp.isFrameless()) {
-            hideSystemBars();
+        initBarsController();
+        if (barsController.handleBackPressed()) {
+            return;
         }
+        if (closeOpenDrawer()) return;
+        if (pageToolsController != null && pageToolsController.handleBackPressed()) {
+            return;
+        }
+        if (pageFind != null && pageFind.isOpen()) {
+            pageFind.close();
+            return;
+        }
+        if (wv == null || webapp == null) {
+            finish();
+            return;
+        }
+        if (readerController != null && readerController.handleBackPressed()) return;
         if(wv.canGoBack()) {
             quitOnNextBackpress = false;
             backExitHandler.removeCallbacks(resetBackExitHint);
             wv.goBack();
+            return;
+        }
+        if (!popupParents.isEmpty()) {
+            closePopup(wv);
+            return;
+        }
+
+        if (webapp.isFrameless()) {
+            startActivity(new Intent(this, MainActivity.class));
+            finish();
             return;
         }
 
@@ -1207,7 +1141,6 @@ public class WebViewActivity extends AppCompatActivity implements EasyPermission
             return;
         }
 
-        loadURL(wv, webapp.getBaseUrl());
         quitOnNextBackpress = true;
         backExitHandler.removeCallbacks(resetBackExitHint);
         backExitHandler.postDelayed(resetBackExitHint, BACK_EXIT_HINT_TIMEOUT_MS);
@@ -1222,7 +1155,9 @@ public class WebViewActivity extends AppCompatActivity implements EasyPermission
 
         if (new_id != webappID) {
             WebApp new_webapp = DataManager.getInstance().getWebApp(new_id);
-            if (new_webapp != null) WebViewLauncher.startWebViewInNewProcess(new_webapp, this);
+            if (new_webapp != null) {
+                WebViewLauncher.startWebViewInNewProcess(new_webapp, this);
+            }
             finish();
             return;
         }
@@ -1234,28 +1169,13 @@ public class WebViewActivity extends AppCompatActivity implements EasyPermission
             return;
         }
         Gson gson = new Gson();
-        String loadedSettingsJson = gson.toJson(latestSettings);
-        // Sandboxed activities may still have the old SharedPreferences snapshot after editing.
-        if (settingsFromEditor != null) {
-            latestSettings = settingsFromEditor;
-            settingsFromEditor = null;
-            if (!latestSettings.isOverrideGlobalSettings()) {
-                int order = latestSettings.getOrder();
-                boolean active = latestSettings.isActiveEntry();
-                latestSettings.copySettings(DataManager.getInstance().getSettings().getGlobalWebApp());
-                latestSettings.setOrder(order);
-                latestSettings.setActiveEntry(active);
-            }
-        } else if (loadedSettingsJson.equals(lastLoadedSettingsJson)) {
-            latestSettings = webapp;
-        }
         SandboxManager.getInstance().normalizeSandbox(latestSettings);
         if (webapp.getContainerId() != latestSettings.getContainerId()) {
+            rememberCurrentPageForRelaunch();
             WebViewLauncher.startWebViewInNewProcess(latestSettings, this);
             finish();
             return;
         }
-        lastLoadedSettingsJson = loadedSettingsJson;
         boolean settingsChanged = !gson.toJsonTree(webapp).equals(gson.toJsonTree(latestSettings));
         boolean requiresReload = webapp.isRequestDesktop() != latestSettings.isRequestDesktop()
                 || webapp.isAllowJs() != latestSettings.isAllowJs()
@@ -1268,6 +1188,7 @@ public class WebViewActivity extends AppCompatActivity implements EasyPermission
                 || webapp.isUserscriptEnabled() != latestSettings.isUserscriptEnabled()
                 || !Objects.equals(webapp.getUserscriptCode(), latestSettings.getUserscriptCode());
         webapp = latestSettings;
+        applySandboxCookiePolicy();
         wv.onResume();
         wv.resumeTimers();
         if (backgroundPlaybackController != null) {
@@ -1275,9 +1196,11 @@ public class WebViewActivity extends AppCompatActivity implements EasyPermission
         }
         if (settingsChanged) {
             applyDynamicSettings();
-            if (requiresReload) reloadCurrentPage();
+            if (requiresReload) forceReloadCurrentPage();
         } else {
             setDarkModeIfNeeded();
+            applySystemBars();
+            positionBrowserToolbar();
             updateToolbarVisibility();
             updateToolbarContent(wv.getUrl());
             refreshQuickSettingsState();
@@ -1304,7 +1227,7 @@ public class WebViewActivity extends AppCompatActivity implements EasyPermission
         backExitHandler.removeCallbacks(resetBackExitHint);
         quitOnNextBackpress = false;
         if (wv == null || webapp == null) return;
-        if(mPopupMenu != null) mPopupMenu.dismiss();
+        if (contextMenuController != null) contextMenuController.dismissMenu();
 
         boolean keepPlaying = backgroundPlaybackController != null
                 && backgroundPlaybackController.onPause();
@@ -1338,9 +1261,17 @@ public class WebViewActivity extends AppCompatActivity implements EasyPermission
 
     @Override
     protected void onDestroy() {
+        closeFindBar();
+        if (readerController != null) readerController.destroy();
         backExitHandler.removeCallbacksAndMessages(null);
         if (reload_handler != null) reload_handler.removeCallbacksAndMessages(null);
-        if (mPopupMenu != null) mPopupMenu.dismiss();
+        if (contextMenuController != null) contextMenuController.dismissMenu();
+        hideMediaCustomView();
+        cancelMediaPermission(false);
+        handleGeoPermissionCallback(false);
+        completeFileChooser(null);
+        if (jsDialogHelper != null) jsDialogHelper.dismissActiveDialog();
+        dl_request = null;
         if (backgroundPlaybackController != null) {
             backgroundPlaybackController.destroy();
             backgroundPlaybackController = null;
@@ -1352,10 +1283,27 @@ public class WebViewActivity extends AppCompatActivity implements EasyPermission
             wv.destroy();
             wv = null;
         }
-        if (DataManager.getInstance().getSettings().getClear_cookies()) {
-            CookieManager.getInstance().removeAllCookies(null);
-            CookieManager.getInstance().flush();
+        WebView normalWv = findViewById(R.id.webview);
+        if (normalWv != null && normalWv != wv) {
+            normalWv.stopLoading();
+            normalWv.setWebChromeClient(null);
+            normalWv.setWebViewClient(null);
+            normalWv.destroy();
         }
+        WebView adblockWv = findViewById(R.id.adblockwebview);
+        if (adblockWv != null && adblockWv != wv) {
+            adblockWv.stopLoading();
+            adblockWv.setWebChromeClient(null);
+            adblockWv.setWebViewClient(null);
+            adblockWv.destroy();
+        }
+        for (WebView parent : popupParents) {
+            parent.stopLoading();
+            parent.setWebChromeClient(null);
+            parent.setWebViewClient(null);
+            parent.destroy();
+        }
+        popupParents.clear();
         super.onDestroy();
     }
 
@@ -1374,13 +1322,136 @@ public class WebViewActivity extends AppCompatActivity implements EasyPermission
         return wv;
     }
 
+    private void rememberCurrentPageForRelaunch() {
+        if (wv != null && BrowserOriginPolicy.origin(wv.getUrl()) != null) {
+            getIntent().putExtra(WebViewLauncher.EXTRA_TARGET_URL, wv.getUrl());
+        }
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        setIntent(intent);
+        int id = intent.getIntExtra(Const.INTENT_WEBAPPID, -1);
+        WebApp latest = DataManager.getInstance().getWebApp(id);
+        if (latest == null) {
+            finish();
+            return;
+        }
+        if (webapp == null || id != webappID
+                || latest.getContainerId() != webapp.getContainerId()) {
+            if (id == webappID
+                    && BrowserOriginPolicy.origin(intent.getStringExtra(WebViewLauncher.EXTRA_TARGET_URL)) == null) {
+                rememberCurrentPageForRelaunch();
+            }
+            WebViewLauncher.startWebViewInNewProcess(latest, this);
+            finish();
+            return;
+        }
+        String target = intent.getStringExtra(WebViewLauncher.EXTRA_TARGET_URL);
+        if (wv != null && BrowserOriginPolicy.origin(target) != null
+                && !target.equals(wv.getUrl())) {
+            hideMediaCustomView();
+            loadURL(wv, target);
+        }
+    }
+
+    private boolean createPopup(WebView parent, boolean userGesture, Message resultMsg) {
+        if (!userGesture || parent != wv || popupParents.size() >= 4
+                || resultMsg == null || !(resultMsg.obj instanceof WebView.WebViewTransport)
+                || isFinishing() || isDestroyed()) {
+            Toast.makeText(this, R.string.browser_popup_blocked, Toast.LENGTH_LONG).show();
+            return false;
+        }
+        hideMediaCustomView();
+        cancelMediaPermission(false);
+        handleGeoPermissionCallback(false);
+        completeFileChooser(null);
+        WebView child = new WebView(this);
+        WebSettings source = parent.getSettings();
+        WebSettings settings = child.getSettings();
+        settings.setJavaScriptEnabled(source.getJavaScriptEnabled());
+        settings.setDomStorageEnabled(source.getDomStorageEnabled());
+        settings.setDatabaseEnabled(source.getDatabaseEnabled());
+        settings.setUserAgentString(source.getUserAgentString());
+        settings.setSafeBrowsingEnabled(source.getSafeBrowsingEnabled());
+        settings.setBlockNetworkImage(source.getBlockNetworkImage());
+        settings.setUseWideViewPort(source.getUseWideViewPort());
+        settings.setLoadWithOverviewMode(source.getLoadWithOverviewMode());
+        settings.setSupportZoom(source.supportZoom());
+        settings.setBuiltInZoomControls(source.getBuiltInZoomControls());
+        settings.setDisplayZoomControls(false);
+        settings.setSupportMultipleWindows(true);
+        settings.setJavaScriptCanOpenWindowsAutomatically(false);
+        CookieManager.getInstance().setAcceptThirdPartyCookies(child, webapp.isAllowThirdPartyCookies());
+        child.setWebViewClient(new CustomBrowser());
+        child.setWebChromeClient(new CustomWebChromeClient(child));
+        child.setDownloadListener(this::handleDownload);
+        if (webapp.isUseAdblock() && adFilter != null) adFilter.setupWebView(child);
+        closeFindBar();
+        if (readerController != null) readerController.close();
+        popupParents.add(parent);
+        parent.setVisibility(View.GONE);
+        FrameLayout content = findViewById(R.id.browserWebContent);
+        // Keep the page below the progress indicator and preserve the native opener relation.
+        content.addView(child, 0, new FrameLayout.LayoutParams(-1, -1));
+        wv = child;
+        setDarkModeIfNeeded();
+        child.requestFocus();
+        WebView.WebViewTransport transport = (WebView.WebViewTransport) resultMsg.obj;
+        transport.setWebView(child);
+        resultMsg.sendToTarget();
+        Toast.makeText(this, R.string.browser_popup_opened, Toast.LENGTH_SHORT).show();
+        updateQuickNavigationState();
+        return true;
+    }
+
+    private void closePopup(WebView window) {
+        if (popupParents.isEmpty()) return;
+        closeFindBar();
+        if (readerController != null) readerController.close();
+        // A parent may call close while its own child is still open.
+        int index = popupParents.indexOf(window);
+        if (window != wv && index < 1) return;
+        do {
+            hideMediaCustomView();
+            cancelMediaPermission(false);
+            handleGeoPermissionCallback(false);
+            completeFileChooser(null);
+            WebView child = wv;
+            wv = popupParents.remove(popupParents.size() - 1);
+            ((FrameLayout) findViewById(R.id.browserWebContent)).removeView(child);
+            child.stopLoading();
+            child.setWebChromeClient(null);
+            child.setWebViewClient(null);
+            child.destroy();
+            if (child == window) break;
+        } while (!popupParents.isEmpty());
+        wv.setVisibility(View.VISIBLE);
+        wv.requestFocus();
+        setPageLoading(wv.getProgress() < 100);
+        updateToolbarContent(wv.getUrl());
+        updateQuickNavigationState();
+    }
+
+    private void handleDownload(String url, String userAgent, String contentDisposition,
+                                String mimeType, long contentLength) {
+        if (downloadController == null) {
+            downloadController = new BrowserDownloadController(this);
+        }
+        downloadController.handleDownload(url, userAgent, contentDisposition, mimeType, contentLength, webapp);
+        dl_request = downloadController.getPendingRequest();
+    }
+
+    private void enqueueDownload(DownloadManager.Request request) {
+        if (downloadController == null) {
+            downloadController = new BrowserDownloadController(this);
+        }
+        downloadController.enqueueDownload(request);
+    }
+
     private Map<String, String> initCustomHeaders(boolean save_data) {
-        Map<String, String> extraHeaders = new HashMap<>();
-        extraHeaders.put("DNT", "1");
-        extraHeaders.put("X-REQUESTED-WITH", "");
-        if (save_data)
-            extraHeaders.put("Save-Data", "on");
-        return Collections.unmodifiableMap(extraHeaders);
+        return BrowserHeadersPolicy.getCustomHeaders(save_data);
     }
 
     private void loadURL(final WebView view, final String url) {
@@ -1409,101 +1480,127 @@ public class WebViewActivity extends AppCompatActivity implements EasyPermission
             view.loadUrl(targetUrl, CUSTOM_HEADERS);
 
     }
-    private void hideSystemBars() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            getWindow().setDecorFitsSystemWindows(false);
-            WindowInsetsController controller = getWindow().getInsetsController();
-            if(controller != null) {
-                controller.hide(WindowInsets.Type.statusBars() | WindowInsets.Type.navigationBars());
-
-                controller.setSystemBarsBehavior(WindowInsetsController.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE);
-            }
-        }
-        else {
-            getWindow().getDecorView().setSystemUiVisibility(
-                    View.SYSTEM_UI_FLAG_FULLSCREEN
-                            | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-                            | View.SYSTEM_UI_FLAG_IMMERSIVE
-                            | View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                            | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                            | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION);
+    private void initBarsController() {
+        if (barsController == null) {
+            barsController = new BrowserBarsController(this, new BrowserBarsController.Callback() {
+                @Nullable @Override public WebApp getWebApp() { return webapp; }
+                @Nullable @Override public WebView getActiveWebView() { return wv; }
+                @Override
+                public void onCustomViewStateChanged(@Nullable View view, @Nullable WebChromeClient.CustomViewCallback callback) {
+                    mediaCustomView = view;
+                    mediaCustomViewCallback = callback;
+                }
+                @Override public void closeOpenDrawer() { WebViewActivity.this.closeOpenDrawer(); }
+                @Override public void updateToolbarVisibility() { WebViewActivity.this.updateToolbarVisibility(); }
+                @Override
+                public void requestApplyInsetsOnDrawer() {
+                    if (drawerLayout != null) ViewCompat.requestApplyInsets(drawerLayout);
+                }
+                @Nullable @Override public View getMediaCustomView() { return mediaCustomView; }
+            });
         }
     }
 
-    private void showSystemBars() {
-
-        if(webapp.isShowFullscreen()) return;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-
-            getWindow().setDecorFitsSystemWindows(true);
-            WindowInsetsController controller = getWindow().getInsetsController();
-            if (controller != null) {
-                controller.show(WindowInsets.Type.statusBars() | WindowInsets.Type.navigationBars());
-                controller.setSystemBarsBehavior(WindowInsetsController.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE);
-            }
-        } else {
-            getWindow().getDecorView().setSystemUiVisibility(
-                    View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                            | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-                            | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
-
-        }
+    private void applySystemBars() {
+        initBarsController();
+        barsController.applySystemBars();
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+        initBarsController();
+        barsController.onWindowFocusChanged(hasFocus);
+    }
+
+    private void hideSystemBars() {
+        initBarsController();
+        barsController.hideSystemBars();
+    }
+
+    private void showSystemBars() {
+        initBarsController();
+        barsController.showSystemBars();
+    }
+
+    private void hideMediaCustomView() {
+        initBarsController();
+        barsController.hideMediaCustomView();
+    }
+
+    private void initPermissionsController() {
+        if (permissionsController == null) {
+            permissionsController = new BrowserPermissionsController(this, new BrowserPermissionsController.Callback() {
+                @Nullable @Override public WebApp getWebApp() { return webapp; }
+                @Nullable @Override public WebView getActiveWebView() { return wv; }
+                @Override public boolean isFinishingOrDestroyed() { return isFinishing() || isDestroyed(); }
+                @Override public void onStateChanged(
+                        @Nullable BrowserPermissionsController.PendingMediaPermission pendingMedia,
+                        @Nullable ValueCallback<Uri[]> fileCallback,
+                        int activeFileCode) {
+                    pendingMediaPermission = pendingMedia;
+                    filePathCallback = fileCallback;
+                    activeFileRequestCode = activeFileCode;
+                }
+            });
+        }
+    }
+
+    private void cancelMediaPermission(boolean canceledByWebView) {
+        initPermissionsController();
+        permissionsController.cancelMediaPermission(canceledByWebView);
+    }
+
+    private void handleGeoPermissionCallback(boolean allow) {
+        initPermissionsController();
+        permissionsController.handleGeoPermissionCallback(allow);
+    }
+
+    private void completeFileChooser(@Nullable Uri[] result) {
+        initPermissionsController();
+        permissionsController.completeFileChooser(result);
+    }
+
+    private int allocateBrowserRequestCode() {
+        initPermissionsController();
+        return permissionsController.allocateBrowserRequestCode();
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+                                          @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-
-        // Forward results to EasyPermissions
+        initPermissionsController();
+        if (permissionsController.handleRequestPermissionsResult(requestCode, permissions, grantResults)) {
+            return;
+        }
         EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this);
-    }
-    @FunctionalInterface
-    interface PermissionGrantedCallback {
-        void execute();
-    }
-
-    private void enablePermissionBoolOnWebApp(PermissionGrantedCallback successCallback) {
-        webapp.setOverrideGlobalSettings(true);
-        successCallback.execute();
-        DataManager.getInstance().replaceWebApp(webapp);
-        wv.reload();
     }
 
     @Override
     public void onPermissionsGranted(int requestCode, @NonNull List<String> list) {
-        if (requestCode == Const.PERMISSION_RC_LOCATION) {
-            enablePermissionBoolOnWebApp(() -> webapp.setAllowLocationAccess(true));
-            this.handleGeoPermissionCallback(true);
-        }
-        if (requestCode == Const.PERMISSION_CAMERA) {
-            enablePermissionBoolOnWebApp(() -> webapp.setCameraPermission(true));
-        }
         if (requestCode == Const.PERMISSION_RC_STORAGE) {
-            if (dl_request != null) {
-                DownloadManager dm = (DownloadManager) getSystemService(DOWNLOAD_SERVICE);
-                if (dm != null) {
-                    dm.enqueue(dl_request);
-                    NotificationUtils.showInfoSnackbar(this, getString(R.string.file_download), Snackbar.LENGTH_SHORT);
-                }
-                dl_request = null;
-
+            if (downloadController == null) {
+                downloadController = new BrowserDownloadController(this);
             }
+            downloadController.setPendingRequest(dl_request);
+            downloadController.onPermissionsGranted(requestCode, list);
+            dl_request = null;
         }
     }
 
     @Override
     public void onPermissionsDenied(int requestCode, List<String> list) {
-        if (requestCode == Const.PERMISSION_RC_LOCATION) {
-            this.handleGeoPermissionCallback(false);
+        if (requestCode == Const.PERMISSION_RC_STORAGE) {
+            if (downloadController == null) {
+                downloadController = new BrowserDownloadController(this);
+            }
+            downloadController.onPermissionsDenied(requestCode, list);
+            dl_request = null;
         }
     }
 
-    private void handleGeoPermissionCallback(boolean allow) {
-        if (mGeoPermissionRequestCallback != null) {
-            mGeoPermissionRequestCallback.invoke(mGeoPermissionRequestOrigin, allow, false);
-            mGeoPermissionRequestCallback = null;
-        }
-    }
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode,
@@ -1516,7 +1613,10 @@ public class WebViewActivity extends AppCompatActivity implements EasyPermission
                 if (json != null) {
                     try {
                         WebApp updated = new Gson().fromJson(json, WebApp.class);
-                        if (updated != null && updated.getID() == webappID) settingsFromEditor = updated;
+                        if (updated != null && updated.getID() == webappID) {
+                            // The provider snapshot (including its baseline) remains authoritative.
+                            Log.d("SETTINGS", "Settings editor saved this Lite App");
+                        }
                     } catch (com.google.gson.JsonParseException e) {
                         Log.w("SETTINGS", "Unable to read updated WebApp settings", e);
                     }
@@ -1524,21 +1624,67 @@ public class WebViewActivity extends AppCompatActivity implements EasyPermission
             }
             return;
         }
-        if (resultCode == RESULT_CANCELED && requestCode == CODE_OPEN_FILE) {
-            this.filePathCallback.onReceiveValue(null);
-        } else if (resultCode == RESULT_OK && requestCode == CODE_OPEN_FILE) {
-            filePathCallback.onReceiveValue(WebChromeClient.FileChooserParams.parseResult(resultCode, intent));
-            filePathCallback = null;
+        initPermissionsController();
+        if (permissionsController.handleActivityResult(requestCode, resultCode, intent)) {
+            return;
         }
     }
 
 
+    public BrowserJsDialogHelper getJsDialogHelper() {
+        if (jsDialogHelper == null) {
+            jsDialogHelper = new BrowserJsDialogHelper(this);
+        }
+        return jsDialogHelper;
+    }
+
     private class CustomWebChromeClient extends android.webkit.WebChromeClient {
+        private final WebView owner;
+
+        CustomWebChromeClient(WebView owner) {
+            this.owner = owner;
+        }
+
+        @Override
+        public boolean onJsAlert(WebView view, String url, String message, JsResult result) {
+            return getJsDialogHelper().handleJsAlert(view, url, message, result);
+        }
+
+        @Override
+        public boolean onJsConfirm(WebView view, String url, String message, JsResult result) {
+            return getJsDialogHelper().handleJsConfirm(view, url, message, result);
+        }
+
+        @Override
+        public boolean onJsPrompt(WebView view, String url, String message, String defaultValue, JsPromptResult result) {
+            return getJsDialogHelper().handleJsPrompt(view, url, message, defaultValue, result);
+        }
+
+        @Override
+        public boolean onJsBeforeUnload(WebView view, String url, String message, JsResult result) {
+            return getJsDialogHelper().handleJsBeforeUnload(view, url, message, result);
+        }
+
+        @Override
+        public boolean onCreateWindow(WebView view, boolean isDialog, boolean isUserGesture, Message resultMsg) {
+            return createPopup(view, isUserGesture, resultMsg);
+        }
+
+        @Override
+        public void onCloseWindow(WebView window) {
+            closePopup(window);
+        }
+
+        @Override
+        public void onGeolocationPermissionsHidePrompt() {
+            initPermissionsController();
+            permissionsController.onGeolocationPermissionsHidePrompt(owner);
+        }
 
         @Override
         public void onReceivedIcon(WebView view, Bitmap icon) {
             super.onReceivedIcon(view, icon);
-            if (icon != null && webapp != null) {
+            if (view == rootWebView && icon != null && webapp != null) {
                 Bitmap existing = ShortcutIconUtils.loadFavicon(WebViewActivity.this, webapp.getID());
                 if (existing == null || (existing.getWidth() < 64 && icon.getWidth() >= existing.getWidth())) {
                     ShortcutIconUtils.saveFavicon(WebViewActivity.this, webapp.getID(), icon);
@@ -1550,7 +1696,7 @@ public class WebViewActivity extends AppCompatActivity implements EasyPermission
         @Override
         public void onReceivedTitle(WebView view, String title) {
             super.onReceivedTitle(view, title);
-            if (title != null && !title.trim().isEmpty() && webapp != null) {
+            if (view == rootWebView && title != null && !title.trim().isEmpty() && webapp != null) {
                 String storedTitle = trimTrailingSlashes(webapp.getTitle());
                 String cleanBase = trimTrailingSlashes(
                         webapp.getBaseUrl()
@@ -1564,7 +1710,6 @@ public class WebViewActivity extends AppCompatActivity implements EasyPermission
                     storedTitle.equalsIgnoreCase(cleanUrl)) {
                     webapp.setTitle(title.trim());
                     DataManager.getInstance().replaceWebApp(webapp);
-                    DataManager.getInstance().saveWebAppData();
                     updateToolbarContent(view.getUrl());
                     populateQuickSettingsHeader();
                 }
@@ -1580,58 +1725,12 @@ public class WebViewActivity extends AppCompatActivity implements EasyPermission
             return value.substring(0, end).trim();
         }
 
-        private View mCustomView;
-        private WebChromeClient.CustomViewCallback mCustomViewCallback;
-        private int mOriginalOrientation;
-        private int mOriginalSystemUiVisibility;
-
-        private void handlePermissionRequest(String resId,
-                                             boolean currentState,
-                                             String[] androidPermissions,
-                                             int requestCode,
-                                             List<String> permissionsToGrant,
-                                             String[] webkitPermission,
-                                             PermissionGrantedCallback successCallback) {
-            boolean androidPermissionsMissing = !EasyPermissions.hasPermissions(WebViewActivity.this, androidPermissions);
-            if (currentState && androidPermissionsMissing) {
-                ActivityCompat.requestPermissions(WebViewActivity.this, androidPermissions, requestCode);
-                return;
-            }
-            if (currentState && !androidPermissionsMissing) {
-                permissionsToGrant.addAll(Arrays.asList(webkitPermission));
-                handleGeoPermissionCallback(true);
-                return;
-            }
-
-            new MaterialAlertDialogBuilder(WebViewActivity.this).setTitle(getPermissionRequestStringResource("dialog_permission_", resId, "_title"))
-                    .setMessage(getPermissionRequestStringResource("dialog_permission_", resId, "_txt"))
-                    .setPositiveButton(android.R.string.yes, (dialog, id) -> {
-                        enablePermissionBoolOnWebApp(successCallback);
-                        handleGeoPermissionCallback(true);
-                        permissionsToGrant.addAll(Arrays.asList(webkitPermission));
-                        if (androidPermissionsMissing) {
-                            ActivityCompat.requestPermissions(WebViewActivity.this, androidPermissions, requestCode);
-                        }
-                    }).setNegativeButton(android.R.string.no, (dialog, id) -> handleGeoPermissionCallback(false)).create().show();
-        }
-
-        private String getPermissionRequestStringResource(String prefix, String variable, String suffix) {
-            return getString(WebViewActivity.this.getResources().getIdentifier(prefix + variable + suffix, "string", WebViewActivity.this.getPackageName()));
-        }
-
         @Override
         public boolean onShowFileChooser(
                 WebView webView, ValueCallback<Uri[]> pFilePathCallback,
                 WebChromeClient.FileChooserParams fileChooserParams) {
-            filePathCallback = pFilePathCallback;
-            try {
-                Intent intent = fileChooserParams.createIntent();
-                startActivityForResult(intent, CODE_OPEN_FILE);
-            } catch (Exception e) {
-                NotificationUtils.showInfoSnackbar(WebViewActivity.this, getString(R.string.no_filemanager), Snackbar.LENGTH_LONG);
-                e.printStackTrace();
-            }
-            return true;
+            initPermissionsController();
+            return permissionsController.onShowFileChooser(webView, pFilePathCallback, fileChooserParams);
         }
 
         @Override
@@ -1642,53 +1741,31 @@ public class WebViewActivity extends AppCompatActivity implements EasyPermission
             return bitmap;
         }
 
+        @Override
         public void onHideCustomView() {
-            ((FrameLayout) getWindow().getDecorView()).removeView(this.mCustomView);
-            this.mCustomView = null;
-            getWindow().getDecorView().setSystemUiVisibility(this.mOriginalSystemUiVisibility);
-            setRequestedOrientation(this.mOriginalOrientation);
-            this.mCustomViewCallback.onCustomViewHidden();
-            this.mCustomViewCallback = null;
-            showSystemBars();
+            hideMediaCustomView();
         }
 
-        public void onShowCustomView(View pView, WebChromeClient.CustomViewCallback pViewCallback) {
-            if (this.mCustomView != null) {
-                onHideCustomView();
-                return;
-            }
-            this.mCustomView = pView;
-            this.mOriginalSystemUiVisibility = getWindow().getDecorView().getSystemUiVisibility();
-            this.mOriginalOrientation = getRequestedOrientation();
-            this.mCustomViewCallback = pViewCallback;
-            ((FrameLayout) getWindow().getDecorView()).addView(this.mCustomView, new FrameLayout.LayoutParams(-1, -1));
-            hideSystemBars();
+        @Override
+        public void onShowCustomView(View view, WebChromeClient.CustomViewCallback callback) {
+            initBarsController();
+            barsController.onShowCustomView(view, callback, owner);
         }
 
         @Override
         public void onPermissionRequest(PermissionRequest request) {
-            List<String> permissionsToGrant = new ArrayList<>();
-
-            boolean containsDrmRequest = Arrays.asList(request.getResources()).contains(PermissionRequest.RESOURCE_PROTECTED_MEDIA_ID);
-            boolean containsCameraRequest = Arrays.asList(request.getResources()).contains(PermissionRequest.RESOURCE_VIDEO_CAPTURE);
-            boolean containsMicrophoneRequest = Arrays.asList(request.getResources()).contains(PermissionRequest.RESOURCE_AUDIO_CAPTURE);
-
-            if (containsDrmRequest) {
-                this.handlePermissionRequest("drm", webapp.isDrmAllowed(), new String[]{}, -1, permissionsToGrant, new String[]{PermissionRequest.RESOURCE_PROTECTED_MEDIA_ID}, () -> webapp.setDrmAllowed(true));
-            }
-            if (containsCameraRequest) {
-                this.handlePermissionRequest("camera", webapp.isCameraPermission(), new String[]{Manifest.permission.CAMERA}, Const.PERMISSION_CAMERA, permissionsToGrant, new String[]{PermissionRequest.RESOURCE_VIDEO_CAPTURE}, () -> webapp.setCameraPermission(true));
-            }
-
-            if (containsMicrophoneRequest) {
-                this.handlePermissionRequest("microphone", webapp.isMicrophonePermission(), new String[]{Manifest.permission.RECORD_AUDIO, Manifest.permission.MODIFY_AUDIO_SETTINGS}, Const.PERMISSION_AUDIO, permissionsToGrant, new String[]{PermissionRequest.RESOURCE_AUDIO_CAPTURE}, () -> webapp.setMicrophonePermission(true));
-            }
-
-            request.grant(permissionsToGrant.toArray(new String[0]));
+            initPermissionsController();
+            permissionsController.onPermissionRequest(request, owner);
         }
 
+        @Override
+        public void onPermissionRequestCanceled(PermissionRequest request) {
+            initPermissionsController();
+            permissionsController.onPermissionRequestCanceled(request);
+        }
 
         public void onProgressChanged(WebView view, int progress) {
+            if (view != wv) return;
             if (progress == 100) updateQuickNavigationState();
 
             if (DataManager.getInstance().getSettings().isShowProgressbar() || currently_reloading) {
@@ -1709,10 +1786,8 @@ public class WebViewActivity extends AppCompatActivity implements EasyPermission
         @Override
         public void onGeolocationPermissionsShowPrompt(final String origin,
                                                        final GeolocationPermissions.Callback callback) {
-            mGeoPermissionRequestCallback = callback;
-            mGeoPermissionRequestOrigin = origin;
-            this.handlePermissionRequest("location", webapp.isAllowLocationAccess(), new String[]{Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION}, Const.PERMISSION_RC_LOCATION, Arrays.asList(new String[]{}), new String[]{}, () -> webapp.setAllowLocationAccess(true));
-
+            initPermissionsController();
+            permissionsController.onGeolocationPermissionsShowPrompt(origin, callback, owner);
         }
     }
 
@@ -1735,7 +1810,7 @@ public class WebViewActivity extends AppCompatActivity implements EasyPermission
 
     private class CustomBrowser extends WebViewClient {
 
-        private AdFilter adFilter = AdFilter.Companion.get();
+        private final AdFilter adFilter = WebViewActivity.this.adFilter;
 
         @Override
         public void onReceivedHttpAuthRequest(WebView view, HttpAuthHandler handler, String host, String realm) {
@@ -1744,30 +1819,44 @@ public class WebViewActivity extends AppCompatActivity implements EasyPermission
 
         @Override
         public void onPageFinished(WebView view, String url) {
-            setPageLoading(false);
-            if(url.equals("about:blank")) {
-                String langExtension = LocaleUtils.getFileEnding();
-                wv.loadUrl("file:///android_asset/errorSite/error_" + langExtension + ".html");
+            if (webapp.isUseAdblock() && webapp.isAllowJs()
+                    && com.cylonid.nativealpha.browser.YouTubeAdBlock.supports(url)) {
+                view.evaluateJavascript(com.cylonid.nativealpha.browser.YouTubeAdBlock.SCRIPT, null);
             }
             injectPageSettings(view);
             injectUserscriptIfAllowed(view);
-            if (backgroundPlaybackController != null) {
+            if (backgroundPlaybackController != null && view == rootWebView) {
                 backgroundPlaybackController.onPageFinished(url);
             }
-            updateToolbarContent(url);
-            updateQuickNavigationState();
+            if (view == wv) {
+                setPageLoading(false);
+                updateToolbarContent(url);
+                updateQuickNavigationState();
+            }
             super.onPageFinished(view, url);
         }
 
         @Override
         public void onPageStarted(WebView view, String url, Bitmap favicon) {
-            setPageLoading(true);
-            if (backgroundPlaybackController != null) {
+            if (view == wv) {
+                closeFindBar();
+                if (readerController != null) readerController.close();
+                cancelMediaPermission(false);
+                handleGeoPermissionCallback(false);
+                completeFileChooser(null);
+                if (jsDialogHelper != null) jsDialogHelper.dismissActiveDialog();
+                setPageLoading(true);
+                updateToolbarContent(url);
+                updateQuickNavigationState();
+            }
+            if (backgroundPlaybackController != null && view == rootWebView) {
                 backgroundPlaybackController.onPageStarted(url);
             }
-            updateToolbarContent(url);
-            updateQuickNavigationState();
-            if (webapp.isUseAdblock()) adFilter.performScript(view, url);
+            if (webapp.isUseAdblock() && webapp.isAllowJs()
+                    && com.cylonid.nativealpha.browser.YouTubeAdBlock.supports(url)) {
+                view.evaluateJavascript(com.cylonid.nativealpha.browser.YouTubeAdBlock.SCRIPT, null);
+            }
+            if (webapp.isUseAdblock() && adFilter != null) adFilter.performScript(view, url);
             super.onPageStarted(view, url, favicon);
         }
 
@@ -1776,62 +1865,35 @@ public class WebViewActivity extends AppCompatActivity implements EasyPermission
         public WebResourceResponse shouldInterceptRequest(WebView view, WebResourceRequest request) {
             if(urlOnFirstPageload.equals("")) urlOnFirstPageload = request.getUrl().toString();
 
-            if(webapp.isUseAdblock()) {
-                return (adFilter.shouldIntercept(view, request)).getResourceResponse();
+            if (webapp.isBlockThirdPartyRequests() && !request.isForMainFrame()
+                    && !BrowserOriginPolicy.belongsToSite(request.getUrl().toString(), webapp.getBaseUrl())) {
+                return new WebResourceResponse("text/plain", "utf-8", null);
             }
-            if (webapp.isBlockThirdPartyRequests()) {
-                Uri uri = request.getUrl();
-                Uri webapp_uri = Uri.parse(webapp.getBaseUrl());
 
-                if(uri.getHost() != null) {
-                    if (!uri.getHost().endsWith(webapp_uri.getHost())) {
-                        return new WebResourceResponse("text/plain", "utf-8", null);
+            if (webapp.isUseAdblock()) {
+                String reqUrl = request.getUrl().toString();
+                if (com.cylonid.nativealpha.browser.YouTubeAdBlock.shouldIntercept(reqUrl)) {
+                    return com.cylonid.nativealpha.browser.YouTubeAdBlock.createEmptyResponse();
+                }
+                if (adFilter != null) {
+                    FilterResult filterResult = adFilter.shouldIntercept(view, request);
+                    if (filterResult != null && filterResult.getResourceResponse() != null) {
+                        return filterResult.getResourceResponse();
                     }
                 }
             }
+
             return super.shouldInterceptRequest(view, request);
         }
 
         @Override
         public void onReceivedSslError(WebView view, final SslErrorHandler handler, SslError error) {
-
-            //This option is hidden in "expert settings"
+            // This option is hidden in "expert settings"
             if (webapp.isIgnoreSslErrors()) {
                 handler.proceed();
                 return;
             }
-
-            final MaterialAlertDialogBuilder builder =
-                    new MaterialAlertDialogBuilder(WebViewActivity.this);
-
-            String message = getString(R.string.ssl_error_msg_line1) + " ";
-            switch (error.getPrimaryError()) {
-                case SslError.SSL_UNTRUSTED:
-                    message += getString(R.string.ssl_error_unknown_authority) + "\n";
-                    break;
-                case SslError.SSL_EXPIRED:
-                    message += getString(R.string.ssl_error_expired) + "\n";
-                    break;
-                case SslError.SSL_IDMISMATCH:
-                    message += getString(R.string.ssl_error_id_mismatch) + "\n";
-                    break;
-                case SslError.SSL_NOTYETVALID:
-                    message += getString(R.string.ssl_error_notyetvalid) + "\n";
-                    break;
-            }
-            message += getString(R.string.ssl_error_msg_line2) + "\n";
-
-            builder.setTitle(getString(R.string.ssl_error_title));
-            builder.setMessage(message);
-            builder.setIcon(android.R.drawable.ic_dialog_alert);
-            builder.setPositiveButton(getString(android.R.string.cancel), (dialog, id) -> handler.cancel());
-            builder.setNegativeButton(getString(R.string.load_anyway), (dialog, id) -> handler.proceed());
-            final AlertDialog dialog = builder.create();
-            dialog.show();
-//            dialog.getButton(AlertDialog.BUTTON_NEGATIVE).setPadding(5, 5, 5, 5);
-//            dialog.getButton(AlertDialog.BUTTON_NEGATIVE).setBackgroundColor(ContextCompat.getColor(WebViewActivity.this, android.R.color.holo_orange_light));
-            dialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(ContextCompat.getColor(WebViewActivity.this, android.R.color.holo_red_dark));
-            dialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(ContextCompat.getColor(WebViewActivity.this, android.R.color.holo_green_dark));
+            BrowserSecurityPolicy.showSslErrorDialog(WebViewActivity.this, handler, error);
         }
 
         @Override
@@ -1847,10 +1909,9 @@ public class WebViewActivity extends AppCompatActivity implements EasyPermission
 
             Uri targetUri = Uri.parse(url);
             String scheme = targetUri.getScheme();
-            boolean isWebUrl = "http".equalsIgnoreCase(scheme)
-                    || "https".equalsIgnoreCase(scheme);
-            if (!isWebUrl) {
-                if (!webapp.isAllowAppLaunch()) {
+            if (!BrowserSecurityPolicy.isWebScheme(scheme)) {
+                if (!request.isForMainFrame()) return true;
+                if (!webapp.isAllowAppLaunch() || !BrowserSecurityPolicy.isExternalSchemeDispatchable(scheme)) {
                     Toast.makeText(
                             WebViewActivity.this,
                             R.string.external_app_launch_blocked,
@@ -1870,23 +1931,24 @@ public class WebViewActivity extends AppCompatActivity implements EasyPermission
                 return true;
             }
 
-            if (webapp.isOpenUrlExternal()) {
-                String requestHost = normalizeHost(Uri.parse(url).getHost());
-                String baseHost = normalizeHost(Uri.parse(webapp.getBaseUrl()).getHost());
-                boolean belongsToWebApp = baseHost == null
-                        || requestHost == null
-                        || requestHost.equals(baseHost)
-                        || requestHost.endsWith("." + baseHost);
-                if (!belongsToWebApp) {
-                    if (webapp.isAllowAppLaunch()) {
-                        view.getContext().startActivity(
-                                new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
-                    }
+            if (!request.isForMainFrame()) return false;
+            if (BrowserSecurityPolicy.shouldOpenExternally(webapp, url, !popupParents.isEmpty())) {
+                try {
+                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
                     return true;
+                } catch (ActivityNotFoundException | SecurityException e) {
+                    Toast.makeText(WebViewActivity.this, R.string.browser_external_internal_fallback,
+                            Toast.LENGTH_SHORT).show();
                 }
             }
-            loadURL(view, url);
-            return true;
+            // Let WebView retain POST, redirects and history unless the URL really changes.
+            if ("GET".equalsIgnoreCase(request.getMethod())
+                    && (!url.equals(request.getUrl().toString())
+                    || ("http".equalsIgnoreCase(scheme) && !webapp.isAllowHttp()))) {
+                loadURL(view, url);
+                return true;
+            }
+            return false;
         }
 
         private void injectPageSettings(WebView view) {
@@ -1905,24 +1967,31 @@ public class WebViewActivity extends AppCompatActivity implements EasyPermission
                         }
                     }
                     """ : "";
+            String backgroundPlaybackScript = webapp.isAllowMediaPlaybackInBackground() ?
+                    "document.addEventListener('visibilitychange',function(event){event.stopImmediatePropagation();},true);" : "";
             view.evaluateJavascript("(function(){"
                     + "if(window.__nativeAlphaPageSettingsApplied)return;"
                     + "window.__nativeAlphaPageSettingsApplied=true;"
-                    + "document.addEventListener('visibilitychange',function(event){"
-                    + "event.stopImmediatePropagation();},true);"
+                    + backgroundPlaybackScript
                     + desktopScript + "})();", null);
         }
 
         private void injectUserscriptIfAllowed(WebView view) {
-            if (!webapp.isUserscriptEnabled() || webapp.getUserscriptCode().isBlank()) {
+            String script = webapp.getUserscriptCode();
+            if (!webapp.isUserscriptEnabled() || script == null || script.trim().isEmpty()) {
                 return;
             }
-            String script = webapp.getUserscriptCode();
             String lower = script.toLowerCase(java.util.Locale.ROOT);
-            if (lower.contains("@grant")
-                    || lower.contains("@require")
-                    || lower.contains("@resource")) {
+            if (lower.contains("@require") || lower.contains("@resource")) {
                 return;
+            }
+            java.util.regex.Matcher grantMatcher =
+                    java.util.regex.Pattern.compile("@grant\\s+(\\S+)").matcher(lower);
+            while (grantMatcher.find()) {
+                String grantVal = grantMatcher.group(1);
+                if (!"none".equals(grantVal)) {
+                    return;
+                }
             }
             String wrappedScript = "(function(){ 'use strict'; "
                     + "if(window.__nativeAlphaUserscriptApplied)return;"
@@ -1930,17 +1999,7 @@ public class WebViewActivity extends AppCompatActivity implements EasyPermission
             view.evaluateJavascript(wrappedScript, null);
         }
 
-        @Nullable
-        private String normalizeHost(@Nullable String host) {
-            if (host == null) {
-                return null;
-            }
-            String normalized = host.toLowerCase(java.util.Locale.ROOT);
-            while (normalized.startsWith("www.")) {
-                normalized = normalized.substring(4);
-            }
-            return normalized.isEmpty() ? null : normalized;
-        }
+
     }
 }
 

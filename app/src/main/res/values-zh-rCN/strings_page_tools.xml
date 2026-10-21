@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="browser_find_in_page">在页面中查找</string>
+    <string name="browser_find_previous">上一个匹配项</string>
+    <string name="browser_find_next">下一个匹配项</string>
+    <string name="browser_find_close">关闭页内查找</string>
+    <string name="browser_find_count">%1$d/%2$d</string>
+    <string name="browser_find_no_matches">0/0</string>
+    <string name="browser_find_no_matches_description">无匹配结果</string>
+    <string name="browser_url_copied">URL 已复制到剪贴板</string>
+</resources>

@@ -2,7 +2,11 @@ package com.cylonid.nativealpha;
 
 import android.content.Intent;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.os.Looper;
 import android.view.View;
+import android.widget.CompoundButton;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -10,10 +14,12 @@ import com.cylonid.nativealpha.model.DataManager;
 import com.cylonid.nativealpha.model.GlobalSettings;
 import com.cylonid.nativealpha.model.Sandbox;
 import com.cylonid.nativealpha.model.SandboxManager;
+import com.cylonid.nativealpha.model.SandboxPreferences;
 import com.cylonid.nativealpha.model.WebApp;
 import com.cylonid.nativealpha.util.App;
 import com.cylonid.nativealpha.util.Const;
 import com.cylonid.nativealpha.util.WebViewLauncher;
+import com.cylonid.nativealpha.adapter.SandboxChoiceAdapter;
 
 import org.junit.After;
 import org.junit.Before;
@@ -47,7 +53,10 @@ public class SandboxUiTest {
                 .edit().clear().commit();
         context.getSharedPreferences(GENERAL_INFO_PREFERENCES, Context.MODE_PRIVATE)
                 .edit().clear().commit();
+        com.cylonid.nativealpha.util.EntryPointUtils.markOnboardingCompleted(context);
+        DataManager.getInstance().setEulaData(true);
         resetDataManager();
+        resetSandboxPreferences();
     }
 
     @After
@@ -58,6 +67,7 @@ public class SandboxUiTest {
         context.getSharedPreferences(GENERAL_INFO_PREFERENCES, Context.MODE_PRIVATE)
                 .edit().clear().commit();
         resetDataManager();
+        resetSandboxPreferences();
     }
 
     @Test
@@ -114,7 +124,7 @@ public class SandboxUiTest {
         try (ActivityController<SandboxActivity> controller =
                      Robolectric.buildActivity(SandboxActivity.class).setup()) {
             SandboxActivity activity = controller.get();
-            assertEquals("沙箱", ((TextView) activity.findViewById(R.id.txtSandboxTitle)).getText().toString());
+            assertEquals("管理沙盒", ((TextView) activity.findViewById(R.id.txtSandboxTitle)).getText().toString());
             android.view.ViewGroup cardList = activity.findViewById(R.id.sandboxCardList);
             assertEquals("默认", ((TextView) cardList.getChildAt(0).findViewById(R.id.sandboxName)).getText().toString());
             assertEquals("绿色", ((TextView) cardList.getChildAt(2).findViewById(R.id.sandboxName)).getText().toString());
@@ -141,7 +151,7 @@ public class SandboxUiTest {
     }
 
     @Test
-    public void selectionSavesContainerAndSynchronizesFlag() {
+    public void selectionOnlySavesAfterApplyAndSynchronizesFlag() {
         WebApp app = addApp("https://example.org", Const.NO_CONTAINER);
         app.setOrder(7);
         app.setActiveEntry(true);
@@ -155,6 +165,12 @@ public class SandboxUiTest {
                     .getChildAt(4)
                     .findViewById(R.id.sandboxCardHeader)
                     .performClick();
+            assertFalse(activity.isFinishing());
+            assertEquals(Const.NO_CONTAINER,
+                    DataManager.getInstance().getWebAppIgnoringGlobalOverride(app.getID(), true).getContainerId());
+            assertTrue(((android.view.ViewGroup) activity.findViewById(R.id.sandboxCardList))
+                    .getChildAt(4).isSelected());
+            activity.findViewById(R.id.btnSandboxApply).performClick();
             WebApp saved = DataManager.getInstance().getWebAppIgnoringGlobalOverride(app.getID(), true);
             assertEquals(3, saved.getContainerId());
             assertTrue(saved.isUseContainer());
@@ -180,6 +196,7 @@ public class SandboxUiTest {
                     .getChildAt(0)
                     .findViewById(R.id.sandboxCardHeader)
                     .performClick();
+            activity.findViewById(R.id.btnSandboxApply).performClick();
             WebApp saved = DataManager.getInstance().getWebAppIgnoringGlobalOverride(app.getID(), true);
             assertEquals(Const.NO_CONTAINER, saved.getContainerId());
             assertFalse(saved.isUseContainer());
@@ -205,12 +222,181 @@ public class SandboxUiTest {
                 .putExtra(Const.INTENT_WEBAPPID, app.getID());
         try (ActivityController<SandboxActivity> controller =
                      Robolectric.buildActivity(SandboxActivity.class, intent).setup()) {
+            ((android.view.ViewGroup) controller.get().findViewById(R.id.sandboxCardList))
+                    .getChildAt(2).findViewById(R.id.sandboxCardHeader).performClick();
             controller.get().findViewById(R.id.btnSandboxBack).performClick();
             WebApp saved = DataManager.getInstance().getWebAppIgnoringGlobalOverride(app.getID(), true);
             assertEquals(5, saved.getContainerId());
             assertTrue(saved.isUseContainer());
             assertEquals(SandboxActivity.RESULT_CANCELED,
                     org.robolectric.Shadows.shadowOf(controller.get()).getResultCode());
+        }
+    }
+
+    @Test
+    public void pickOnlyUsesDraftAndReturnsIdWithoutSavingAnyConfiguration() {
+        WebApp app = addApp("https://example.org", 5);
+        Intent intent = new Intent(RuntimeEnvironment.getApplication(), SandboxActivity.class)
+                .putExtra(Const.INTENT_WEBAPPID, app.getID())
+                .putExtra(SandboxActivity.EXTRA_PICK_ONLY, true)
+                .putExtra(SandboxActivity.EXTRA_SELECTED_CONTAINER_ID, 2);
+        String originalName = SandboxPreferences.getName(1);
+        try (ActivityController<SandboxActivity> controller =
+                     Robolectric.buildActivity(SandboxActivity.class, intent).setup()) {
+            SandboxActivity activity = controller.get();
+            android.view.ViewGroup cards = activity.findViewById(R.id.sandboxCardList);
+            assertTrue(cards.getChildAt(3).isSelected());
+            assertEquals(View.GONE, activity.findViewById(R.id.btnSandboxApply).getVisibility());
+            assertEquals(View.GONE, cards.getChildAt(2)
+                    .findViewById(R.id.sandboxPolicyEditor).getVisibility());
+            cards.getChildAt(2).findViewById(R.id.sandboxCardHeader).performClick();
+
+            assertEquals(5, DataManager.getInstance()
+                    .getWebAppIgnoringGlobalOverride(app.getID(), true).getContainerId());
+            assertEquals(originalName, SandboxPreferences.getName(1));
+            assertTrue(SandboxPreferences.isCookiesAllowed(1));
+            assertEquals(SandboxActivity.RESULT_OK, org.robolectric.Shadows.shadowOf(activity).getResultCode());
+            assertEquals(1, org.robolectric.Shadows.shadowOf(activity).getResultIntent()
+                    .getIntExtra(SandboxActivity.EXTRA_SELECTED_CONTAINER_ID, -99));
+            assertEquals(1, org.robolectric.Shadows.shadowOf(activity).getResultIntent().getExtras().size());
+        }
+    }
+
+    @Test
+    public void pickOnlyCanChooseDefaultWithoutAnApp() {
+        Intent intent = new Intent(RuntimeEnvironment.getApplication(), SandboxActivity.class)
+                .putExtra(SandboxActivity.EXTRA_PICK_ONLY, true)
+                .putExtra(SandboxActivity.EXTRA_SELECTED_CONTAINER_ID, 3);
+        try (ActivityController<SandboxActivity> controller =
+                     Robolectric.buildActivity(SandboxActivity.class, intent).setup()) {
+            SandboxActivity activity = controller.get();
+            ((android.view.ViewGroup) activity.findViewById(R.id.sandboxCardList))
+                    .getChildAt(0).findViewById(R.id.sandboxCardHeader).performClick();
+            assertEquals(Const.NO_CONTAINER, org.robolectric.Shadows.shadowOf(activity)
+                    .getResultIntent().getIntExtra(SandboxActivity.EXTRA_SELECTED_CONTAINER_ID, -99));
+        }
+    }
+
+    @Test
+    public void pendingSelectionSurvivesRecreationWithoutWriting() {
+        WebApp app = addApp("https://example.org", 5);
+        Intent intent = new Intent(RuntimeEnvironment.getApplication(), SandboxActivity.class)
+                .putExtra(Const.INTENT_WEBAPPID, app.getID());
+        try (ActivityController<SandboxActivity> controller =
+                     Robolectric.buildActivity(SandboxActivity.class, intent).setup()) {
+            ((android.view.ViewGroup) controller.get().findViewById(R.id.sandboxCardList))
+                    .getChildAt(2).findViewById(R.id.sandboxCardHeader).performClick();
+            controller.recreate();
+            assertTrue(((android.view.ViewGroup) controller.get().findViewById(R.id.sandboxCardList))
+                    .getChildAt(2).isSelected());
+            assertEquals(5, DataManager.getInstance()
+                    .getWebAppIgnoringGlobalOverride(app.getID(), true).getContainerId());
+        }
+    }
+
+    @Test
+    public void managementSavesNameAndCookiePolicyWithoutMovingApps() {
+        WebApp first = addApp("https://example.org/one", 0);
+        WebApp second = addApp("https://example.org/two", 0);
+        try (ActivityController<SandboxActivity> controller =
+                     Robolectric.buildActivity(SandboxActivity.class).setup()) {
+            SandboxActivity activity = controller.get();
+            android.view.ViewGroup cards = activity.findViewById(R.id.sandboxCardList);
+            cards.getChildAt(1).findViewById(R.id.sandboxCardHeader).performClick();
+            ((EditText) cards.getChildAt(1).findViewById(R.id.sandboxNameInput)).setText("Work");
+            cards.getChildAt(1).findViewById(R.id.btnSandboxSaveName).performClick();
+            assertEquals("Work", SandboxPreferences.getName(0));
+            assertCardLabel(cards.getChildAt(1), "Work");
+            ((CompoundButton) cards.getChildAt(1).findViewById(R.id.switchSandboxCookies))
+                    .setChecked(false);
+            assertFalse(SandboxPreferences.isCookiesAllowed(0));
+            assertTrue(SandboxPreferences.isCookiesAllowed(1));
+            assertEquals(0, DataManager.getInstance()
+                    .getWebAppIgnoringGlobalOverride(first.getID(), true).getContainerId());
+            assertEquals(0, DataManager.getInstance()
+                    .getWebAppIgnoringGlobalOverride(second.getID(), true).getContainerId());
+            assertEquals(View.GONE, cards.getChildAt(0).findViewById(R.id.sandboxLegacyRecovery).getVisibility());
+        }
+    }
+
+    @Test
+    public void settingsPickerEditsDraftAndDiscardKeepsOriginal() {
+        WebApp app = addApp("https://example.org", 5);
+        try (ActivityController<WebAppSettingsActivity> controller = settingsController(app)) {
+            WebAppSettingsActivity activity = controller.get();
+            returnSandboxChoice(activity, R.id.txtSettingsSandbox, 2);
+            Intent secondPicker = openPicker(activity, R.id.cardSettingsSandbox);
+            assertEquals(2, secondPicker.getIntExtra(SandboxActivity.EXTRA_SELECTED_CONTAINER_ID, -99));
+            assertEquals(5, DataManager.getInstance()
+                    .getWebAppIgnoringGlobalOverride(app.getID(), true).getContainerId());
+            activity.findViewById(R.id.btnCancel).performClick();
+            assertFalse(activity.isFinishing());
+            latestExitDialog().getButton(DialogInterface.BUTTON_NEGATIVE).performClick();
+            org.robolectric.Shadows.shadowOf(Looper.getMainLooper()).idle();
+            assertTrue(activity.isFinishing());
+            assertEquals(WebAppSettingsActivity.RESULT_CANCELED,
+                    org.robolectric.Shadows.shadowOf(activity).getResultCode());
+            assertEquals(5, DataManager.getInstance()
+                    .getWebAppIgnoringGlobalOverride(app.getID(), true).getContainerId());
+        }
+    }
+
+    @Test
+    public void settingsBackPromptsAndCanSaveDraft() {
+        WebApp app = addApp("https://example.org", 5);
+        try (ActivityController<WebAppSettingsActivity> controller = settingsController(app)) {
+            WebAppSettingsActivity activity = controller.get();
+            returnSandboxChoice(activity, R.id.txtSettingsSandbox, Const.NO_CONTAINER);
+            activity.getOnBackPressedDispatcher().onBackPressed();
+            assertFalse(activity.isFinishing());
+            latestExitDialog().getButton(DialogInterface.BUTTON_POSITIVE).performClick();
+            org.robolectric.Shadows.shadowOf(Looper.getMainLooper()).idle();
+            WebApp saved = DataManager.getInstance().getWebAppIgnoringGlobalOverride(app.getID(), true);
+            assertEquals(Const.NO_CONTAINER, saved.getContainerId());
+            assertFalse(saved.isUseContainer());
+            assertEquals(WebAppSettingsActivity.RESULT_OK,
+                    org.robolectric.Shadows.shadowOf(activity).getResultCode());
+        }
+    }
+
+    @Test
+    public void unchangedSettingsBackExitsAndDraftListenersNeverChangeLiveApp() {
+        WebApp app = addApp("https://example.org", 1);
+        try (ActivityController<WebAppSettingsActivity> controller = settingsController(app)) {
+            controller.get().getOnBackPressedDispatcher().onBackPressed();
+            assertTrue(controller.get().isFinishing());
+            assertEquals(WebAppSettingsActivity.RESULT_CANCELED,
+                    org.robolectric.Shadows.shadowOf(controller.get()).getResultCode());
+        }
+        try (ActivityController<WebAppSettingsActivity> controller = settingsController(app)) {
+            WebAppSettingsActivity activity = controller.get();
+            ((CompoundButton) activity.findViewById(R.id.switchExpertSettings)).setChecked(true);
+            ((CompoundButton) activity.findViewById(R.id.switchOverrideGlobal)).setChecked(false);
+            assertFalse(app.isShowExpertSettings());
+            assertTrue(app.isOverrideGlobalSettings());
+            assertTrue(activity.findViewById(R.id.cardSettingsSandbox).isClickable());
+            assertTrue(activity.findViewById(R.id.switchCookies).isClickable());
+        }
+    }
+
+    @Test
+    public void recreatedDraftSavesWithoutOverwritingConcurrentFields() {
+        WebApp app = addApp("https://example.org", 1);
+        try (ActivityController<WebAppSettingsActivity> controller = settingsController(app)) {
+            returnSandboxChoice(controller.get(), R.id.txtSettingsSandbox, 4);
+            controller.get().findViewById(R.id.btnTabTools).performClick();
+            ((EditText) controller.get().findViewById(R.id.txtWebAppName)).setText("Draft name");
+            controller.recreate();
+            assertTrue(controller.get().findViewById(R.id.btnTabTools).isSelected());
+            WebApp concurrent = new WebApp(DataManager.getInstance()
+                    .getWebAppIgnoringGlobalOverride(app.getID(), true));
+            concurrent.setOrder(27);
+            DataManager.getInstance().replaceWebApp(concurrent);
+            controller.get().findViewById(R.id.btnSave).performClick();
+            WebApp saved = DataManager.getInstance().getWebAppIgnoringGlobalOverride(app.getID(), true);
+            assertEquals("Draft name", saved.getTitle());
+            assertEquals(4, saved.getContainerId());
+            assertEquals(27, saved.getOrder());
         }
     }
 
@@ -269,6 +455,115 @@ public class SandboxUiTest {
         app.setUseContainer(SandboxManager.isValidContainerId(containerId));
         DataManager.getInstance().addWebsite(app);
         return app;
+    }
+
+    private ActivityController<WebAppSettingsActivity> settingsController(WebApp app) {
+        Intent intent = new Intent(RuntimeEnvironment.getApplication(), WebAppSettingsActivity.class)
+                .putExtra(Const.INTENT_WEBAPPID, app.getID());
+        return Robolectric.buildActivity(WebAppSettingsActivity.class, intent).setup();
+    }
+
+    private Intent openPicker(WebAppSettingsActivity activity, int entryId) {
+        activity.findViewById(entryId).performClick();
+        androidx.appcompat.app.AlertDialog dialog = (androidx.appcompat.app.AlertDialog)
+                org.robolectric.shadows.ShadowDialog.getLatestDialog();
+        if (dialog != null && dialog.isShowing()) {
+            android.widget.Button btn = dialog.getButton(DialogInterface.BUTTON_NEUTRAL);
+            if (btn != null) btn.performClick();
+            org.robolectric.Shadows.shadowOf(android.os.Looper.getMainLooper()).idle();
+        }
+        Intent intent = org.robolectric.Shadows.shadowOf(activity).getNextStartedActivity();
+        if (intent == null) {
+            org.robolectric.shadows.ShadowActivity.IntentForResult ifr =
+                    org.robolectric.Shadows.shadowOf(activity).getNextStartedActivityForResult();
+            if (ifr != null) intent = ifr.intent;
+        }
+        assertNotNull("Expected started activity from neutral button", intent);
+        assertEquals(SandboxActivity.class.getName(), intent.getComponent().getClassName());
+        assertTrue(intent.getBooleanExtra(SandboxActivity.EXTRA_PICK_ONLY, false));
+        return intent;
+    }
+
+    private void returnSandboxChoice(WebAppSettingsActivity activity, int entryId, int containerId) {
+        activity.findViewById(entryId).performClick();
+        androidx.appcompat.app.AlertDialog dialog = (androidx.appcompat.app.AlertDialog)
+                org.robolectric.shadows.ShadowDialog.getLatestDialog();
+        assertNotNull(dialog);
+        android.widget.ListView listView = dialog.getListView();
+        assertNotNull(listView);
+        for (int i = 0; i < listView.getAdapter().getCount(); i++) {
+            SandboxChoiceAdapter.Item item = (SandboxChoiceAdapter.Item) listView.getAdapter().getItem(i);
+            if (item.getContainerId() == containerId) {
+                listView.performItemClick(listView.getChildAt(i), i, listView.getAdapter().getItemId(i));
+                return;
+            }
+        }
+        org.junit.Assert.fail("Container ID " + containerId + " not found in dialog");
+    }
+
+    @Test
+    public void webAppSettingsSandboxChoiceDialogUpdatesDraftImmediately() {
+        WebApp app = addApp("https://example.org", 1);
+        try (ActivityController<WebAppSettingsActivity> controller = settingsController(app)) {
+            WebAppSettingsActivity activity = controller.get();
+            activity.findViewById(R.id.txtSettingsSandbox).performClick();
+            androidx.appcompat.app.AlertDialog dialog = (androidx.appcompat.app.AlertDialog)
+                    org.robolectric.shadows.ShadowDialog.getLatestDialog();
+            assertNotNull(dialog);
+            android.widget.ListView listView = dialog.getListView();
+            assertNotNull(listView);
+            assertEquals(9, listView.getAdapter().getCount());
+            listView.performItemClick(null, 4, listView.getAdapter().getItemId(4));
+            assertFalse(dialog.isShowing());
+            String expectedName = SandboxPreferences.getName(3);
+            assertTrue(((TextView) activity.findViewById(R.id.txtSettingsSandbox)).getText().toString().contains(expectedName));
+        }
+    }
+
+    @Test
+    public void quickSettingsShowsEightSandboxesAndSwitchesProcess() {
+        WebApp app = addApp("https://example.org", Const.NO_CONTAINER);
+        Intent intent = new Intent(RuntimeEnvironment.getApplication(), WebViewActivity.class)
+                .putExtra(Const.INTENT_WEBAPPID, app.getID());
+        try (ActivityController<WebViewActivity> controller =
+                     Robolectric.buildActivity(WebViewActivity.class, intent).setup()) {
+            WebViewActivity activity = controller.get();
+            activity.showSandboxPickerDialog();
+            androidx.appcompat.app.AlertDialog dialog = (androidx.appcompat.app.AlertDialog)
+                    org.robolectric.shadows.ShadowDialog.getLatestDialog();
+            assertNotNull(dialog);
+            android.widget.ListView listView = dialog.getListView();
+            assertNotNull(listView);
+            assertEquals(9, listView.getAdapter().getCount());
+            listView.performItemClick(null, 4, listView.getAdapter().getItemId(4));
+            WebApp updated = DataManager.getInstance().getWebAppIgnoringGlobalOverride(app.getID(), true);
+            assertEquals(3, updated.getContainerId());
+            assertTrue(updated.isUseContainer());
+            assertTrue(activity.isFinishing());
+        }
+    }
+
+    @Test
+    public void launchSandbox0Activity() {
+        WebApp app = addApp("https://example.org", 0);
+        Intent intent = WebViewLauncher.createWebViewIntent(app, RuntimeEnvironment.getApplication());
+        try (ActivityController<__WebViewActivity_0> controller =
+                     Robolectric.buildActivity(__WebViewActivity_0.class, intent).setup()) {
+            assertNotNull(controller.get());
+        }
+    }
+
+    private androidx.appcompat.app.AlertDialog latestExitDialog() {
+        return (androidx.appcompat.app.AlertDialog) org.robolectric.shadows.ShadowDialog.getLatestDialog();
+    }
+
+    private void resetSandboxPreferences() {
+        SandboxPreferences.setName(Const.NO_CONTAINER, "");
+        SandboxPreferences.setCookiesAllowed(Const.NO_CONTAINER, true);
+        for (int id = 0; id < SandboxManager.getSandboxCount(); id++) {
+            SandboxPreferences.setName(id, "");
+            SandboxPreferences.setCookiesAllowed(id, true);
+        }
     }
 
     private void assertCardLabel(View card, String expected) {

@@ -4,4 +4,5 @@
     <string name="navigation_section_browse">Browse</string>
     <string name="navigation_section_app">App</string>
     <string name="navigation_current_lite_apps">Lite Apps, current page</string>
+    <string name="navigation_brand_subtitle">Lite Apps &amp; Multi-Sandbox Browser</string>
 </resources>

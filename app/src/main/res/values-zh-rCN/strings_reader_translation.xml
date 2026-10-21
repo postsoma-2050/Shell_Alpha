@@ -1,0 +1,25 @@
+<resources>
+    <string name="reader_translation_heading">划词翻译</string>
+    <string name="reader_translation_show_original">展开原文</string>
+    <string name="reader_translation_hide_original">收起原文</string>
+    <string name="reader_translation_attribution">Google 翻译</string>
+    <string name="reader_translation_copy_short">复制</string>
+    <string name="reader_translate_selection">翻译所选文字</string>
+    <string name="reader_translation_enabled">划词翻译：已开启</string>
+    <string name="reader_translation_disabled">划词翻译：已关闭</string>
+    <string name="reader_translation_selection_hint">在阅读正文中选中文字，再点「翻译所选文字」。</string>
+    <string name="reader_translation_title">Google 翻译</string>
+    <string name="reader_translation_language">译为</string>
+    <string name="reader_translation_copy">复制译文</string>
+    <string name="reader_translation_close">关闭</string>
+    <string name="reader_translation_retry">重试</string>
+    <string name="reader_translation_copied">已复制译文</string>
+    <string name="reader_translation_invalid">请选择 1 至 2,000 个字符进行翻译。</string>
+    <string name="reader_translation_loading">正在翻译…</string>
+    <string name="reader_translation_failed">翻译暂时不可用，请检查网络后重试。</string>
+    <string name="reader_translation_provider_rejected">Google 拒绝了内嵌翻译请求或需要验证，可打开 Google 翻译继续。</string>
+    <string name="reader_translation_timeout">翻译请求超时，可重试或打开 Google 翻译。</string>
+    <string name="reader_translation_bad_response">Google 返回了无法解析的内容，可打开 Google 翻译继续。</string>
+    <string name="reader_translation_open_google">打开 Google 翻译</string>
+    <string name="reader_translation_disclosure">仅将选中文字发送到 Google 翻译。</string>
+</resources>

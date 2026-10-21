@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="storage_recovery_title">Sandbox Storage Recovery</string>
+    <string name="storage_recovery_subtitle">Historical data detected for Sandbox %1$d</string>
+    <string name="storage_recovery_conflict_desc">Multiple legacy storage directories were found for Sandbox %1$d. To protect your data, none were deleted or merged. Please select which data you want to use for this sandbox on next launch.</string>
+    <string name="storage_recovery_current_suffix">Active storage: %1$s</string>
+    <string name="storage_recovery_default_option">Use fresh container storage (%1$s)</string>
+    <string name="storage_recovery_apply_button">Apply Selection</string>
+    <string name="storage_recovery_success">Storage directory updated. It will take effect on next launch.</string>
+    <string name="storage_recovery_no_legacy_found">No legacy storage directories found for this sandbox.</string>
+</resources>

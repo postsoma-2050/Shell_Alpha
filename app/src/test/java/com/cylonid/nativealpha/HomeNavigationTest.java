@@ -104,7 +104,7 @@ public class HomeNavigationTest {
 
             TextView sandboxLabel = findFirstTextView(activity.findViewById(R.id.navSandboxes));
             assertNotNull(sandboxLabel);
-            assertEquals("沙箱", sandboxLabel.getText().toString());
+            assertEquals("沙盒", sandboxLabel.getText().toString());
         }
     }
 
@@ -127,7 +127,7 @@ public class HomeNavigationTest {
 
             TextView sandboxLabel = findFirstTextView(activity.findViewById(R.id.navSandboxes));
             assertNotNull(sandboxLabel);
-            assertEquals("沙箱", sandboxLabel.getText().toString());
+            assertEquals("沙盒", sandboxLabel.getText().toString());
         }
     }
 

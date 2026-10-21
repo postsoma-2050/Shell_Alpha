@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="browser_reader_mode">Reader mode</string>
+    <string name="browser_reader_close">Close reader mode</string>
+    <string name="browser_reader_smaller">Smaller text</string>
+    <string name="browser_reader_larger">Larger text</string>
+    <string name="browser_reader_theme">Reader theme</string>
+    <string name="browser_reader_loading">Loading reader mode…</string>
+    <string name="browser_reader_unavailable">Reader mode is unavailable. Works best on text articles.</string>
+    <string name="browser_reader_requires_js">Reader mode requires JavaScript</string>
+    <string name="browser_reader_theme_light">Light</string>
+    <string name="browser_reader_theme_sepia">Sepia</string>
+    <string name="browser_reader_theme_dark">Dark</string>
+    <string name="browser_reader_theme_black">Black</string>
+</resources>

@@ -1,0 +1,11 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <application>
+        <activity android:name="com.cylonid.nativealpha.testing.ReaderSelectionProbeActivity"
+            android:exported="false" android:theme="@style/AppTheme" />
+        <!-- Debug-only IPC probes let instrumentation exercise real sandbox WebView processes. -->
+        <service android:name="com.cylonid.nativealpha.testing.SandboxProbeService$Sandbox0"
+            android:exported="false" android:process=":web_sandbox_0" />
+        <service android:name="com.cylonid.nativealpha.testing.SandboxProbeService$Sandbox1"
+            android:exported="false" android:process=":web_sandbox_1" />
+    </application>
+</manifest>

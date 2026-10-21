@@ -20,6 +20,7 @@ import com.cylonid.nativealpha.model.DataManager;
 import com.cylonid.nativealpha.model.WebApp;
 import com.cylonid.nativealpha.util.EntryPointUtils;
 import com.cylonid.nativealpha.util.ShortcutIconUtils;
+import com.ernestoyaquello.dragdropswiperecyclerview.DragDropSwipeRecyclerView;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -169,6 +170,24 @@ public class HomeViewModeTest {
                     activity.getString(R.string.home_no_search_results_title),
                     emptyTitle.getText().toString()
             );
+        }
+    }
+
+    @Test
+    public void gridModeDoesNotAttachAsymmetricDividerDecoration() {
+        try (ActivityController<MainActivity> controller =
+                     Robolectric.buildActivity(MainActivity.class).setup()) {
+            MainActivity activity = controller.get();
+            DragDropSwipeRecyclerView list = activity.findViewById(R.id.web_app_list);
+            assertNotNull(list);
+            assertTrue(list.getLayoutManager() instanceof GridLayoutManager);
+            assertEquals(null, list.getDividerDrawableId());
+            for (int i = 0; i < list.getItemDecorationCount(); i++) {
+                assertTrue(
+                        "Must not attach DragDropSwipeItemDecoration divider",
+                        !list.getItemDecorationAt(i).getClass().getName().contains("DragDropSwipeItemDecoration")
+                );
+            }
         }
     }
 

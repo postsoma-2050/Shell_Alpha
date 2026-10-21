@@ -23,6 +23,7 @@ object ShortcutIconUtils {
             val id = info.intent!!
                 .getIntExtra(Const.INTENT_WEBAPPID, -1)
             if (removableWebAppIds.contains(id)) {
+                println("CALLING disableShortcuts for: " + info.id);
                 manager.disableShortcuts(
                     listOf(info.id),
                     context.getString(R.string.webapp_already_deleted)

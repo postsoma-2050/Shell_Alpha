@@ -294,7 +294,11 @@
     <string name="update_available_msg">Version %1$s is available (current: %2$s).\n\nWhat\'s New:\n%3$s</string>
     <string name="update_now">Update Now</string>
     <string name="update_later">Later</string>
+    <string name="update_later_7d">Remind in 7 days</string>
     <string name="update_ignore_version">Ignore this version</string>
+    <string name="update_version_ignored">This version will be ignored</string>
     <string name="update_up_to_date">You are using the latest version (%1$s)</string>
     <string name="update_check_failed">Unable to check for updates. Please check your network connection.</string>
+    <string name="setting_auto_update_title">Auto-check for updates</string>
+    <string name="setting_auto_update_subtitle">Automatically check for new versions on startup</string>
 </resources>

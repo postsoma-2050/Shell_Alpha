@@ -25,11 +25,54 @@ object AppUpdateChecker {
     const val RELEASES_WEB_URL = "https://github.com/$GITHUB_OWNER/$GITHUB_REPO/releases"
 
     const val PREFS_NAME = "app_update_prefs"
+    const val KEY_AUTO_CHECK_ENABLED = "auto_check_enabled"
     const val KEY_LAST_CHECK_TIME = "last_check_timestamp"
     const val KEY_IGNORED_VERSION = "ignored_version"
+    const val KEY_SNOOZE_UNTIL_TIMESTAMP = "snooze_until_timestamp"
 
     // 24 hours between silent background checks
     const val SILENT_CHECK_INTERVAL_MS = 24 * 60 * 60 * 1000L
+
+    // 7 days snooze duration when user delays or dismisses update
+    const val SNOOZE_INTERVAL_MS = 7 * 24 * 60 * 60 * 1000L
+
+    fun isAutoCheckEnabled(context: Context): Boolean {
+        return context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
+            .getBoolean(KEY_AUTO_CHECK_ENABLED, true)
+    }
+
+    fun setAutoCheckEnabled(context: Context, enabled: Boolean) {
+        context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
+            .edit()
+            .putBoolean(KEY_AUTO_CHECK_ENABLED, enabled)
+            .apply()
+    }
+
+    fun snooze(context: Context, durationMs: Long = SNOOZE_INTERVAL_MS) {
+        val snoozeUntil = System.currentTimeMillis() + durationMs
+        context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
+            .edit()
+            .putLong(KEY_SNOOZE_UNTIL_TIMESTAMP, snoozeUntil)
+            .apply()
+    }
+
+    fun isSnoozed(context: Context, now: Long = System.currentTimeMillis()): Boolean {
+        val snoozeUntil = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
+            .getLong(KEY_SNOOZE_UNTIL_TIMESTAMP, 0L)
+        return now < snoozeUntil
+    }
+
+    fun getIgnoredVersion(context: Context): String? {
+        return context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
+            .getString(KEY_IGNORED_VERSION, null)
+    }
+
+    fun clearIgnoredVersion(context: Context) {
+        context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
+            .edit()
+            .remove(KEY_IGNORED_VERSION)
+            .apply()
+    }
 
     private val executor = Executors.newSingleThreadExecutor()
     private val mainHandler by lazy { Handler(Looper.getMainLooper()) }
@@ -163,10 +206,18 @@ object AppUpdateChecker {
      * Only displays dialog if an unignored update is available.
      */
     fun checkSilentlyOnStartup(activity: Activity) {
+        if (!isAutoCheckEnabled(activity)) {
+            return
+        }
+
         val prefs = activity.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
-        val lastCheck = prefs.getLong(KEY_LAST_CHECK_TIME, 0L)
         val now = System.currentTimeMillis()
 
+        if (isSnoozed(activity, now)) {
+            return
+        }
+
+        val lastCheck = prefs.getLong(KEY_LAST_CHECK_TIME, 0L)
         if (now - lastCheck < SILENT_CHECK_INTERVAL_MS) {
             return
         }
@@ -242,11 +293,19 @@ object AppUpdateChecker {
                 val targetUrl = releaseInfo.downloadUrl?.takeIf { it.isNotBlank() } ?: releaseInfo.htmlUrl
                 openUrlInBrowser(activity, targetUrl)
             }
-            .setNegativeButton(R.string.update_later, null)
+            .setNegativeButton(if (isManual) R.string.update_later else R.string.update_later_7d) { _, _ ->
+                if (!isManual) {
+                    snooze(activity)
+                }
+            }
 
         if (!isManual) {
+            builder.setOnCancelListener {
+                snooze(activity)
+            }
             builder.setNeutralButton(R.string.update_ignore_version) { _, _ ->
                 prefs.edit().putString(KEY_IGNORED_VERSION, releaseInfo.tagName).apply()
+                Toast.makeText(activity, R.string.update_version_ignored, Toast.LENGTH_SHORT).show()
             }
         }
 

@@ -295,7 +295,11 @@
     <string name="update_available_msg">新版本 %1$s 已发布（当前版本：%2$s）。\n\n更新说明：\n%3$s</string>
     <string name="update_now">立即更新</string>
     <string name="update_later">稍后提醒</string>
+    <string name="update_later_7d">7 天后再提醒</string>
     <string name="update_ignore_version">忽略此版本</string>
+    <string name="update_version_ignored">已忽略此版本，可在设置中开启</string>
     <string name="update_up_to_date">当前已是最新版本 (%1$s)</string>
     <string name="update_check_failed">检查更新失败，请检查网络连接</string>
+    <string name="setting_auto_update_title">自动检查更新</string>
+    <string name="setting_auto_update_subtitle">应用启动时自动检测新版本，可在“关于”中手动检查</string>
 </resources>

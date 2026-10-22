@@ -43,8 +43,8 @@ android {
         applicationId "com.cylonid.nativealpha"
         minSdkVersion 28
         targetSdkVersion 35
-        versionCode 1600
-        versionName "1.6.0"
+        versionCode 1610
+        versionName "1.6.1"
 
         resourceConfigurations += ['en', 'zh-rCN']
 

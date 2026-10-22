@@ -25,6 +25,7 @@ import com.cylonid.nativealpha.activities.ToolbarBaseActivity
 import com.cylonid.nativealpha.databinding.GlobalSettingsBinding
 import com.cylonid.nativealpha.model.DataManager
 import com.cylonid.nativealpha.monitors.WebMonitorWorker
+import com.cylonid.nativealpha.util.AppUpdateChecker
 import com.cylonid.nativealpha.util.Const
 import com.cylonid.nativealpha.util.NotificationUtils
 import com.cylonid.nativealpha.util.SearchEngineUrl
@@ -121,6 +122,14 @@ class SettingsActivity : ToolbarBaseActivity<GlobalSettingsBinding>() {
             DataManager.getInstance().saveWebAppData()
         }
 
+        // 9. Auto-check for updates
+        binding.switchAutoUpdate.isChecked = AppUpdateChecker.isAutoCheckEnabled(this)
+        binding.switchAutoUpdate.setOnCheckedChangeListener { _, isChecked ->
+            AppUpdateChecker.setAutoCheckEnabled(this, isChecked)
+        }
+        binding.itemAutoUpdate.setOnClickListener {
+            binding.switchAutoUpdate.toggle()
+        }
     }
 
     private fun updateRowSummary(row: View, @StringRes text: Int) {
